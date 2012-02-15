@@ -1,0 +1,336 @@
+﻿Build started 2012/2/9 21:26:08.
+     1>Project "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\superraytracer\superraytracer\superraytracer.vcxproj" on node 2 (build target(s)).
+     1>PrepareForBuild:
+         Creating directory "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\superraytracer\x64\Debug\".
+       InitializeBuildStatus:
+         Creating "x64\Debug\superraytracer.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       AddCudaCompileDeps:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\cl.exe /E /nologo /showIncludes /TP /D__CUDACC__ /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\bin" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /I. /FIcuda_runtime.h /c "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\superraytracer\superraytracer\kernel.cu" 
+       AddCudaCompilePropsDeps:
+         Found "CudaToolkitCustomDir".
+         Found "AdditionalDeps".
+         Found "CompileOut".
+         Found "Include".
+         Found "Keep".
+         Found "KeepDir".
+         Found "NvccCompilation".
+         Found "NvccPath".
+         Found "RequiredIncludes".
+         Found "TargetMachinePlatform".
+         Found "CInterleavedPTX".
+         Found "CodeGeneration".
+         Found "GPUDebugInfo".
+         Found "MaxRegCount".
+         Found "PtxAsOptionV".
+         Found "Defines".
+         Found "Emulation".
+         Found "HostDebugInfo".
+         Found "FastMath".
+         Found "Optimization".
+         Found "Runtime".
+         Found "RuntimeChecks".
+         Found "TypeInfo".
+         Found "Warning".
+         Found "AdditionalOptions".
+         Found "CommandLineTemplate".
+       CudaBuild:
+         Compiling CUDA source file kernel.cu...
+         cmd.exe /C "C:\Users\STARBLUE\AppData\Local\Temp\ba716234bfa243848932175a301862d4.cmd"
+         "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\bin\nvcc.exe" -gencode=arch=compute_10,code=\"sm_10,compute_10\" --use-local-env --cl-version 2010 -ccbin "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include"  -G0  --keep-dir "x64\Debug" -maxrregcount=0  --machine 64 --compile  -g    -Xcompiler "/EHsc /nologo /Od /Zi  /MDd " -o "x64\Debug\kernel.cu.obj" "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\superraytracer\superraytracer\kernel.cu"
+         
+         C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\superraytracer\superraytracer>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\bin\nvcc.exe" -gencode=arch=compute_10,code=\"sm_10,compute_10\" --use-local-env --cl-version 2010 -ccbin "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include"  -G0  --keep-dir "x64\Debug" -maxrregcount=0  --machine 64 --compile  -g    -Xcompiler "/EHsc /nologo /Od /Zi  /MDd " -o "x64\Debug\kernel.cu.obj" "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\superraytracer\superraytracer\kernel.cu" 
+         kernel.cu
+         tmpxft_0000014c_00000000-0_kernel.cudafe1.gpu
+         tmpxft_0000014c_00000000-5_kernel.cudafe2.gpu
+         kernel.cu
+         tmpxft_0000014c_00000000-0_kernel.cudafe1.cpp
+         tmpxft_0000014c_00000000-11_kernel.ii
+         Deleting file "tmpxft_0000014c_00000000-6_kernel.cpp3.o".
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /Zi /nologo /W3 /WX- /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt main.cpp
+         main.cpp
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(285): error C2146: syntax error : missing ';' before identifier 'ptPosition'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(285): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(285): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(286): error C2146: syntax error : missing ';' before identifier 'ptSize'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(286): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(286): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(287): error C2146: syntax error : missing ';' before identifier 'wStyle'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(287): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(287): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(288): error C2146: syntax error : missing ';' before identifier 'wPattern'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(288): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(288): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(411): error C2146: syntax error : missing ';' before identifier 'DataBytes'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(411): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(411): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(412): error C2146: syntax error : missing ';' before identifier 'InjectionPoint'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(412): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(412): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(413): error C2146: syntax error : missing ';' before identifier 'PageNumber'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(413): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(413): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(493): error C2146: syntax error : missing ';' before identifier 'bPageIndependent'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(493): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(493): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(494): error C2146: syntax error : missing ';' before identifier 'bSetPageDevice'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(494): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(494): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(504): error C2146: syntax error : missing ';' before identifier 'lOrientation'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(504): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(504): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(505): error C2146: syntax error : missing ';' before identifier 'lWidth'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(505): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(505): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(506): error C2146: syntax error : missing ';' before identifier 'lHeight'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(506): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(506): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(507): error C2146: syntax error : missing ';' before identifier 'lWidthOffset'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(507): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(507): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(508): error C2146: syntax error : missing ';' before identifier 'lHeightOffset'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(508): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(508): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(563): error C2146: syntax error : missing ';' before identifier 'eM11'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(563): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(563): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(564): error C2146: syntax error : missing ';' before identifier 'eM12'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(564): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(564): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(565): error C2146: syntax error : missing ';' before identifier 'eM21'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(565): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(565): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(566): error C2146: syntax error : missing ';' before identifier 'eM22'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(566): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(566): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(567): error C2146: syntax error : missing ';' before identifier 'eDx'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(567): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(567): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(568): error C2146: syntax error : missing ';' before identifier 'eDy'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(568): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(568): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(569): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(569): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(574): error C2146: syntax error : missing ';' before identifier 'bmType'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(574): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(574): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(575): error C2146: syntax error : missing ';' before identifier 'bmWidth'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(575): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(575): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(576): error C2146: syntax error : missing ';' before identifier 'bmHeight'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(576): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(576): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(577): error C2146: syntax error : missing ';' before identifier 'bmWidthBytes'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(577): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(577): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(578): error C2146: syntax error : missing ';' before identifier 'bmPlanes'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(578): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(578): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(579): error C2146: syntax error : missing ';' before identifier 'bmBitsPixel'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(579): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(579): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(580): error C2146: syntax error : missing ';' before identifier 'bmBits'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(580): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(580): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581): error C2377: 'FAR' : redefinition; typedef cannot be overloaded with any other symbol
+                 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(569) : see declaration of 'FAR'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(585): error C2146: syntax error : missing ';' before identifier 'rgbtBlue'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(585): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(585): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(586): error C2146: syntax error : missing ';' before identifier 'rgbtGreen'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(586): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(586): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(587): error C2146: syntax error : missing ';' before identifier 'rgbtRed'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(587): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(587): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(588): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(588): error C2371: 'NEAR' : redefinition; different basic types
+                 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581) : see declaration of 'NEAR'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(588): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(588): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(588): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(588): error C2086: 'int FAR' : redefinition
+                 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581) : see declaration of 'FAR'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(588): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(592): error C2146: syntax error : missing ';' before identifier 'rgbBlue'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(592): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(592): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(593): error C2146: syntax error : missing ';' before identifier 'rgbGreen'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(593): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(593): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(594): error C2146: syntax error : missing ';' before identifier 'rgbRed'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(594): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(594): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(595): error C2146: syntax error : missing ';' before identifier 'rgbReserved'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(595): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(595): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(597): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(597): error C2371: 'FAR' : redefinition; different basic types
+                 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581) : see declaration of 'FAR'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(597): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(616): error C2146: syntax error : missing ';' before identifier 'LCSCSTYPE'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(616): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(616): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(646): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(646): error C2371: 'FAR' : redefinition; different basic types
+                 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581) : see declaration of 'FAR'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(646): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(647): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(647): error C2371: 'FAR' : redefinition; different basic types
+                 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581) : see declaration of 'FAR'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(647): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(658): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(658): error C2371: 'FAR' : redefinition; different basic types
+                 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581) : see declaration of 'FAR'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(658): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(666): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(666): error C2371: 'FAR' : redefinition; different basic types
+                 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581) : see declaration of 'FAR'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(666): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(674): error C2146: syntax error : missing ';' before identifier 'lcsSignature'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(674): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(674): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(675): error C2146: syntax error : missing ';' before identifier 'lcsVersion'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(675): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(675): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(676): error C2146: syntax error : missing ';' before identifier 'lcsSize'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(676): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(676): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(677): error C2146: syntax error : missing ';' before identifier 'lcsCSType'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(677): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(677): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(680): error C2146: syntax error : missing ';' before identifier 'lcsGammaRed'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(680): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(680): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(681): error C2146: syntax error : missing ';' before identifier 'lcsGammaGreen'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(681): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(681): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(682): error C2146: syntax error : missing ';' before identifier 'lcsGammaBlue'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(682): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(682): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(683): error C2146: syntax error : missing ';' before identifier 'lcsFilename'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(683): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(683): error C2065: 'MAX_PATH' : undeclared identifier
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(683): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(686): error C2146: syntax error : missing ';' before identifier 'lcsSignature'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(686): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(686): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(687): error C2146: syntax error : missing ';' before identifier 'lcsVersion'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(687): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(687): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(688): error C2146: syntax error : missing ';' before identifier 'lcsSize'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(688): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(688): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(689): error C2146: syntax error : missing ';' before identifier 'lcsCSType'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(689): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(689): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(692): error C2146: syntax error : missing ';' before identifier 'lcsGammaRed'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(692): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(692): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(693): error C2146: syntax error : missing ';' before identifier 'lcsGammaGreen'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(693): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(693): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(694): error C2146: syntax error : missing ';' before identifier 'lcsGammaBlue'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(694): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(694): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(695): error C2146: syntax error : missing ';' before identifier 'lcsFilename'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(695): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(695): error C2065: 'MAX_PATH' : undeclared identifier
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(695): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(709): error C2146: syntax error : missing ';' before identifier 'bcSize'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(709): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(709): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(710): error C2146: syntax error : missing ';' before identifier 'bcWidth'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(710): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(710): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(711): error C2146: syntax error : missing ';' before identifier 'bcHeight'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(711): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(711): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(712): error C2146: syntax error : missing ';' before identifier 'bcPlanes'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(712): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(712): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(713): error C2146: syntax error : missing ';' before identifier 'bcBitCount'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(713): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(713): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(714): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(714): error C2371: 'FAR' : redefinition; different basic types
+                 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581) : see declaration of 'FAR'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(714): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(714): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(717): error C2146: syntax error : missing ';' before identifier 'biSize'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(717): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(717): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(720): error C2146: syntax error : missing ';' before identifier 'biPlanes'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(720): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(720): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(721): error C2146: syntax error : missing ';' before identifier 'biBitCount'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(721): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(721): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(722): error C2146: syntax error : missing ';' before identifier 'biCompression'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(722): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(722): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(723): error C2146: syntax error : missing ';' before identifier 'biSizeImage'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(723): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(723): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(726): error C2146: syntax error : missing ';' before identifier 'biClrUsed'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(726): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(726): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(727): error C2146: syntax error : missing ';' before identifier 'biClrImportant'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(727): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(727): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(728): error C2143: syntax error : missing ';' before '*'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(728): error C2371: 'FAR' : redefinition; different basic types
+                 C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(581) : see declaration of 'FAR'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(728): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(728): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(732): error C2146: syntax error : missing ';' before identifier 'bV4Size'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(732): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(732): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(735): error C2146: syntax error : missing ';' before identifier 'bV4Planes'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(735): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(735): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(736): error C2146: syntax error : missing ';' before identifier 'bV4BitCount'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(736): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(736): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(737): error C2146: syntax error : missing ';' before identifier 'bV4V4Compression'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(737): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(737): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(738): error C2146: syntax error : missing ';' before identifier 'bV4SizeImage'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(738): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(738): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(741): error C2146: syntax error : missing ';' before identifier 'bV4ClrUsed'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(741): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(741): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(742): error C2146: syntax error : missing ';' before identifier 'bV4ClrImportant'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(742): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(742): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(743): error C2146: syntax error : missing ';' before identifier 'bV4RedMask'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(743): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(743): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(744): error C2146: syntax error : missing ';' before identifier 'bV4GreenMask'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(744): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(744): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(745): error C2146: syntax error : missing ';' before identifier 'bV4BlueMask'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(745): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(745): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(746): error C2146: syntax error : missing ';' before identifier 'bV4AlphaMask'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(746): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(746): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(747): error C2146: syntax error : missing ';' before identifier 'bV4CSType'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(747): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(747): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(749): error C2146: syntax error : missing ';' before identifier 'bV4GammaRed'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(749): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(749): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(750): error C2146: syntax error : missing ';' before identifier 'bV4GammaGreen'
+     1>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\include\Wingdi.h(750): fatal error C1003: error count exceeds 100; stopping compilation
+     1>Done Building Project "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\superraytracer\superraytracer\superraytracer.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:03.85
