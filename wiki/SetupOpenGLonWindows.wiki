@@ -1,0 +1,1 @@
+http://openglbook.com/setting-up-opengl-glew-and-freeglut-in-visual-c/
