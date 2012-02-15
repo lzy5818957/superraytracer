@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="kernel.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Model">
+      <UniqueIdentifier>{626757f4-971e-4ea7-9028-dae3ced6b90e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{aefbd325-2e6a-4a9b-ad3f-214f75a59a50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\GML">
+      <UniqueIdentifier>{f0b03a97-ebd0-49bb-a727-0873d0e2a2ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Surface">
+      <UniqueIdentifier>{c4402f5b-cdbe-48d5-8163-45962f44c053}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utils\GML\gml.h">
+      <Filter>Utils\GML</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\GML\gmlstructs.h">
+      <Filter>Utils\GML</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\GML\matinlines.h">
+      <Filter>Utils\GML</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\GML\matvecinlines.h">
+      <Filter>Utils\GML</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\GML\vecinlines.h">
+      <Filter>Utils\GML</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utils\GML\usage.txt">
+      <Filter>Utils\GML</Filter>
+    </None>
+  </ItemGroup>
+</Project>
