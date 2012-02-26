@@ -7,6 +7,7 @@
 const char g_szClassName[] = "myWindowClass";
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
+
 // Step 4: the Window Procedure
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
