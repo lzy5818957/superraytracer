@@ -9,7 +9,6 @@
 #include <iostream>
 #include "Color.h"
 
-namespace Color{
 
     Color::Color()
     {
@@ -34,7 +33,7 @@ namespace Color{
         blue = source.B();
     }
 
-}
+
 
 
 

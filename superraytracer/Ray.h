@@ -1,7 +1,7 @@
 
 #pragma once
-#ifndef RayTracer_Ray_h
-#define RayTracer_Ray_h
+#ifndef RAYTRACER_RAY_H
+#define RAYTRACER_RAY_H
 
 #include "Utils/GML/gml.h"
 
