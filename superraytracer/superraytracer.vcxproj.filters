@@ -5,6 +5,9 @@
     <ClCompile Include="Ray.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="kernel.cu" />
@@ -41,6 +44,15 @@
     </ClInclude>
     <ClInclude Include="Ray.h">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="surface.h">
+      <Filter>Model\Surface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
