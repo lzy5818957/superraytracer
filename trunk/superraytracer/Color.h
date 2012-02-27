@@ -6,12 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 #pragma once
-#ifndef RayTracer_Color_h
-#define RayTracer_Color_h
+#ifndef RAYTRACER_COLOR_H
+#define RAYTRACER_COLOR_H
 
 typedef float colorType;
-
-namespace Color {
     
 
 class Color
@@ -33,6 +31,6 @@ private:
     colorType red, green, blue;
 };
 
-} //namespace
+
 
 #endif

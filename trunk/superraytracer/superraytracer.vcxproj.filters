@@ -8,6 +8,8 @@
     <ClCompile Include="Color.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="kernel.cu" />
@@ -54,6 +56,8 @@
     <ClInclude Include="surface.h">
       <Filter>Model\Surface</Filter>
     </ClInclude>
+    <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Utils\GML\usage.txt">

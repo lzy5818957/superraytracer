@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef RayTracer_Light_h
-#define RayTracer_Light_h
+#pragma once
+#ifndef RAYTRACER_LIGHT_H
+#define RAYTRACER_LIGHT_H
 
 #include "World.h"
-#include "GML/gml.h"
+#include "Utils/GML/gml.h"
 
-namespace Light {
     
     class Light 
     {
@@ -29,6 +29,6 @@ namespace Light {
         World* ownerWorld;
         
     }
-}
+
 
 #endif
