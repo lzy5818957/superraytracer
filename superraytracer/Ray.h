@@ -1,5 +1,7 @@
 
 #pragma once
+#ifndef RayTracer_Ray_h
+#define RayTracer_Ray_h
 
 #include "Utils/GML/gml.h"
 
@@ -25,3 +27,5 @@ public:
 	gml::vec3_t m_pos, m_dir;
 	int m_depth;
 };
+
+#endif

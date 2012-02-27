@@ -5,7 +5,7 @@
 //  Created by Jiachen Zhang on 12-02-26.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-
+#pragma once
 #ifndef RayTracer_Color_h
 #define RayTracer_Color_h
 
