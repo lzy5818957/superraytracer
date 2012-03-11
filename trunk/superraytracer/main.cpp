@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <gl/glew.h>
 #include <gl/freeglut.h>
-
+#include "camera.h"
 
 const char g_szClassName[] = "myWindowClass";
 const int WINDOW_WIDTH = 800;
