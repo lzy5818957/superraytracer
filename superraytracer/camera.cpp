@@ -14,7 +14,6 @@
 #include <cmath>
 #include "camera.h"
 
-
 Camera::Camera()
 {
 	m_right = gml::vec3_t(1.0,0.0,0.0);
@@ -37,6 +36,16 @@ Camera::Camera()
 
 Camera::~Camera() {}
 
+void Camera::setWindowToWorld()
+{
+	// To construct the window -> world space matrix,
+	// first we construct the world -> window space matrix, and then
+	// invert.
+
+	// TODO!!
+}
+
+
 void Camera::setWorldView()
 {
 	/* Set the matrix m_worldView to be the transformation matrix
@@ -52,6 +61,8 @@ void Camera::setWorldView()
 	m_worldView[1] = gml::vec4_t(m_right.y, m_up.y, m_viewDir.y, 0.0);
 	m_worldView[2] = gml::vec4_t(m_right.z, m_up.z, m_viewDir.z, 0.0);
 	m_worldView[3] = gml::vec4_t( -gml::dot(m_right, m_camPos), -gml::dot(m_up, m_camPos), -gml::dot(m_viewDir, m_camPos), 1.0);
+
+	setWindowToWorld();
 }
 
 void Camera::setPerspective()
@@ -95,6 +106,8 @@ void Camera::setOrtho()
 	m_ortho[1][1] = 1.0 / t;
 	m_ortho[2][2] = 2.0 / (near - far);
 	m_ortho[3][2] = (near + far)/(near - far);
+
+	setWindowToWorld();
 }
 
 void Camera::setProjection()
@@ -168,10 +181,12 @@ void Camera::setFOV(float fov)
 	this->setProjection();
 }
 
-void Camera::setAspect(float aspect)
+void Camera::setImageDimensions(const int width, const int height)
 {
-	assert(aspect > 0);
-	m_aspect = aspect;
+	assert(width > 0 && height > 0);
+	m_aspect = width / (float)height;
+	m_windowWidth = width;
+	m_windowHeight = height;
 	this->setOrtho();
 	this->setProjection();
 }
@@ -185,6 +200,21 @@ void Camera::setDepthClip(float near, float far)
 	this->setPerspective();
 	this->setProjection();
 }
+
+RayTracing::Ray_t Camera::genViewRay(float x, float y) const
+{
+	// TODO!!
+	// Generate a viewing ray with origin of the camera's
+	// position, and through the world-space position of
+	// the screen-space point (x,y).
+	//   Note: Use m_windowToWorld
+	RayTracing::Ray_t ray;
+
+
+	return ray;
+}
+
+
 
 void Camera::moveForward(const float distance)
 {
