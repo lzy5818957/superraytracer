@@ -59,6 +59,12 @@ protected:
 	gml::vec2_t m_depthClip;
 	float m_fov; // vertical field of view in radians
 	float m_aspect; // Aspect ratio (w/h) of the view screen
+	int m_windowWidth, m_windowHeight;
+
+	// Transformation matrix from window to world space
+	//  Does not incorporate the orthographic transform
+	gml::mat4x4_t m_windowToWorld;
+	void setWindowToWorld();
 
 	// Setup m_worldToCam from m_viewDir, m_up, m_right, m_camPos
 	void setWorldView();
@@ -79,15 +85,21 @@ public:
 	void setPosition(const gml::vec3_t camPos);
 	void setCameraProjection(CameraProjection type);
 	void setFOV(const float fov);
-	void setAspect(const float aspect);
+	void setImageDimensions(const int width, const int height);
 	void setDepthClip(const float near, const float far); // 0 < near < far
 
+	const gml::mat4x4_t& getOrtho() const { return m_ortho; }
 	const gml::mat4x4_t& getWorldView() const { return m_worldView; }
 	const gml::mat4x4_t& getProjection() const { return m_projection; }
+	const gml::vec3_t& getPosition() const { return m_camPos; }
 	float getFOV() const { return m_fov; }
 	float getAspect() const { return m_aspect; }
 	float getNearClip() const { return m_depthClip.x; }
 	float getFarClip() const { return m_depthClip.y; }
+
+	// Generate a viewing ray through pixel coordinates (x,y)
+	//   -- y=0 is the bottom of the image
+	RayTracing::Ray_t genViewRay(float x, float y) const;
 
 	// Movement controls
 	void moveForward(const float distance); // distance < 0 => backward
