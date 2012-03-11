@@ -23,7 +23,7 @@
 #ifndef __INC_CAMERA_H_
 #define __INC_CAMERA_H_
 
-#include "../GML/gml.h"
+#include "Utils\GML\gml.h"
 
 typedef enum {
 	CAMERA_PROJECTION_PERSPECTIVE,

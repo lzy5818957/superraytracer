@@ -150,11 +150,11 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <CudaCompile Include="kernel.cu" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\camera.cpp" />
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\camera.h" />
+    <ClInclude Include="camera.h" />
     <ClInclude Include="Utils\GML\gml.h" />
     <ClInclude Include="Utils\GML\gmlstructs.h" />
     <ClInclude Include="Utils\GML\matinlines.h" />
