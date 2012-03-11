@@ -2,14 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Ray.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseObject.cpp" />
-    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="kernel.cu" />
@@ -44,20 +36,6 @@
     <ClInclude Include="Utils\GML\vecinlines.h">
       <Filter>Utils\GML</Filter>
     </ClInclude>
-    <ClInclude Include="Ray.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="surface.h">
-      <Filter>Model\Surface</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseObject.h" />
-    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Utils\GML\usage.txt">

@@ -150,24 +150,14 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <CudaCompile Include="kernel.cu" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BaseObject.cpp" />
-    <ClCompile Include="Color.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Ray.cpp" />
-    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseObject.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="Ray.h" />
-    <ClInclude Include="surface.h" />
     <ClInclude Include="Utils\GML\gml.h" />
     <ClInclude Include="Utils\GML\gmlstructs.h" />
     <ClInclude Include="Utils\GML\matinlines.h" />
     <ClInclude Include="Utils\GML\matvecinlines.h" />
     <ClInclude Include="Utils\GML\vecinlines.h" />
-    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Utils\GML\usage.txt" />
