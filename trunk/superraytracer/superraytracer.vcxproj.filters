@@ -85,4 +85,8 @@
     <ClInclude Include="src\demo.h" />
     <ClInclude Include="src\glUtils.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\gray_wall.png" />
+    <None Include="res\testPattern.png" />
+  </ItemGroup>
 </Project>
