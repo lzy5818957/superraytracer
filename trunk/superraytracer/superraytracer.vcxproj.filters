@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="camera.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <CudaCompile Include="kernel.cu" />
   </ItemGroup>
   <ItemGroup>
@@ -20,28 +16,5 @@
     <Filter Include="Model\Surface">
       <UniqueIdentifier>{c4402f5b-cdbe-48d5-8163-45962f44c053}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Utils\GML\gml.h">
-      <Filter>Utils\GML</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\GML\gmlstructs.h">
-      <Filter>Utils\GML</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\GML\matinlines.h">
-      <Filter>Utils\GML</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\GML\matvecinlines.h">
-      <Filter>Utils\GML</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\GML\vecinlines.h">
-      <Filter>Utils\GML</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Utils\GML\usage.txt">
-      <Filter>Utils\GML</Filter>
-    </None>
   </ItemGroup>
 </Project>
