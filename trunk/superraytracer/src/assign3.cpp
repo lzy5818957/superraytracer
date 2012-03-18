@@ -1,14 +1,14 @@
 
 /*
- * Copyright:
- * Daniel D. Neilson (ddneilson@ieee.org)
- * University of Saskatchewan
- * All rights reserved
- *
- * Permission granted to use for use in assignments and
- * projects for CMPT 485 & CMPT 829 at the University
- * of Saskatchewan.
- */
+* Copyright:
+* Daniel D. Neilson (ddneilson@ieee.org)
+* University of Saskatchewan
+* All rights reserved
+*
+* Permission granted to use for use in assignments and
+* projects for CMPT 485 & CMPT 829 at the University
+* of Saskatchewan.
+*/
 
 
 #include "GL3/gl3w.h"
@@ -101,9 +101,9 @@ Assignment3::~Assignment3()
 bool Assignment3::init()
 {
 	/*
-	 * This function is called by main() when the program is starting up.
-	 * It should initialize whatever data the assignment requires.
-	 */
+	* This function is called by main() when the program is starting up.
+	* It should initialize whatever data the assignment requires.
+	*/
 
 	if ( !m_scene.init() )
 	{
@@ -114,8 +114,8 @@ bool Assignment3::init()
 	m_texture = new Texture::Texture("gray_wall.png");
 	if ( !m_texture->getIsReady() )
 	{
-		fprintf(stderr, "ERROR! Texture not ready\n");
-		return false;
+	fprintf(stderr, "ERROR! Texture not ready\n");
+	return false;
 	}
 	*/
 	// Create the geometry.
@@ -168,44 +168,44 @@ bool Assignment3::init()
 	// Ground plane
 	mat.setTexture(0);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(0.0,0.0,0.0)), gml::scaleh(5.0, 1.0, 5.0)) ) );
+		gml::mul(gml::translate(gml::vec3_t(0.0,0.0,0.0)), gml::scaleh(5.0, 1.0, 5.0)) ) );
 	// Box "top"
 	mat.setTexture(0);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(0.5,5.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(5.0, 1.0, 5.0))) ) );
+		gml::mul(gml::translate(gml::vec3_t(0.5,5.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(5.0, 1.0, 5.0))) ) );
 
 	// "Box" walls
 	mat.setSurfReflectance(green);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(5.0,2.5,0.0)), gml::mul(gml::rotateZh(pi2),gml::scaleh(2.5, 1.0, 5.0))) ) );
+		gml::mul(gml::translate(gml::vec3_t(5.0,2.5,0.0)), gml::mul(gml::rotateZh(pi2),gml::scaleh(2.5, 1.0, 5.0))) ) );
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(-5.0,2.5,0.0)), gml::mul(gml::rotateZh(-pi2),gml::scaleh(2.5, 1.0, 5.0))) ));
+		gml::mul(gml::translate(gml::vec3_t(-5.0,2.5,0.0)), gml::mul(gml::rotateZh(-pi2),gml::scaleh(2.5, 1.0, 5.0))) ));
 	mat.setSurfReflectance(red);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(0.0,2.5,5.0)), gml::mul(gml::rotateXh(-pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
+		gml::mul(gml::translate(gml::vec3_t(0.0,2.5,5.0)), gml::mul(gml::rotateXh(-pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(0.0,2.5,-5.0)), gml::mul(gml::rotateXh(pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
+		gml::mul(gml::translate(gml::vec3_t(0.0,2.5,-5.0)), gml::mul(gml::rotateXh(pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
 
 
 	// Light blocker
 	mat.setSurfReflectance(beige);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(0.0,2.0,0.0)), gml::scaleh(1.5, 0.15, 2.5)) ) );
+		gml::mul(gml::translate(gml::vec3_t(0.0,2.0,0.0)), gml::scaleh(1.5, 0.15, 2.5)) ) );
 
 
 	gml::mat4x4_t rotScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(0.5,0.5,0.5) );
 	// Some other objects
 	mat.setSurfReflectance(beige);
-	
+
 	Material::Material mirrorMat = mat;
 	mirrorMat.setShaderType(Material::MIRROR);
-	
+
 	m_scene.addObject(new Object::Object(m_geometry[OCTAHEDRON_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(0.0,0.75,0.0)), rotScale)) );
+		gml::mul(gml::translate(gml::vec3_t(0.0,0.75,0.0)), rotScale)) );
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(2.0,0.75,-2.0)), rotScale)) );
+		gml::mul(gml::translate(gml::vec3_t(2.0,0.75,-2.0)), rotScale)) );
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mirrorMat,
-			gml::mul(gml::translate(gml::vec3_t(-2.0,0.75,-2.0)), rotScale)) );
+		gml::mul(gml::translate(gml::vec3_t(-2.0,0.75,-2.0)), rotScale)) );
 
 	// =============================================================================================
 
@@ -223,29 +223,29 @@ bool Assignment3::init()
 	glGenTextures(1, &m_rtTex);
 
 	printf(
-			"Camera movement:\n"
-			"  [w] -- Camera forward\n"
-			"  [s] -- Camera backward\n"
-			"  [q] -- Camera up\n"
-			"  [e] -- Camera down\n"
-			"  [a] -- Camera strafe left\n"
-			"  [d] -- Camera strafe right\n"
-			"Camera rotation:\n"
-			"  [keypad 8] -- Rotate camera up\n"
-			"  [keypad 5] -- Rotate camera down\n"
-			"  [keypad 4] -- Rotate camera right\n"
-			"  [keypad 6] -- Rotate camera left\n"
-			"  [keypad 7] -- Spin camera left\n"
-			"  [keypad 9] -- Spin camera right\n"
-			"Other Controls:\n"
-			"  [F1] -- Toggle shadows\n"
-			"  [F2] -- Toggle ray tracing\n"
-			"  [g] -- Toggle sRGB framebuffer\n"
-			"  [f] -- Toggle wireframe rendering\n"
-			"  [o] -- Set to orthographic camera\n"
-			"  [p] -- Set to perspective camera\n"
-			"  [ESC] -- Quit\n"
-	);
+		"Camera movement:\n"
+		"  [w] -- Camera forward\n"
+		"  [s] -- Camera backward\n"
+		"  [q] -- Camera up\n"
+		"  [e] -- Camera down\n"
+		"  [a] -- Camera strafe left\n"
+		"  [d] -- Camera strafe right\n"
+		"Camera rotation:\n"
+		"  [keypad 8] -- Rotate camera up\n"
+		"  [keypad 5] -- Rotate camera down\n"
+		"  [keypad 4] -- Rotate camera right\n"
+		"  [keypad 6] -- Rotate camera left\n"
+		"  [keypad 7] -- Spin camera left\n"
+		"  [keypad 9] -- Spin camera right\n"
+		"Other Controls:\n"
+		"  [F1] -- Toggle shadows\n"
+		"  [F2] -- Toggle ray tracing\n"
+		"  [g] -- Toggle sRGB framebuffer\n"
+		"  [f] -- Toggle wireframe rendering\n"
+		"  [o] -- Set to orthographic camera\n"
+		"  [p] -- Set to perspective camera\n"
+		"  [ESC] -- Quit\n"
+		);
 
 	return true;
 }
@@ -253,11 +253,11 @@ bool Assignment3::init()
 void Assignment3::windowResize(int width, int height)
 {
 	/*
-	 * This function is called automatically when the
-	 * window is resized.
-	 * width & height are the new width & height, in pixels,
-	 * of the window
-	 */
+	* This function is called automatically when the
+	* window is resized.
+	* width & height are the new width & height, in pixels,
+	* of the window
+	*/
 	m_camera.setImageDimensions(width, height);
 	m_cameraChanged = true;
 	m_windowWidth = width;
@@ -290,11 +290,11 @@ void Assignment3::toggleCameraMoveDirection(bool enable, int direction)
 void Assignment3::specialKeyboard(UI::KeySpecial_t key, UI::ButtonState_t state)
 {
 	/*
-	 * Called automatically when the user presses a key on the keyboard
-	 * key will be a code indicating which key was pressed
-	 * state will be one of UI::BUTTON_UP or UI::BUTTON_DOWN
-	 *   indicating whether the key was released, or pressed
-	 */
+	* Called automatically when the user presses a key on the keyboard
+	* key will be a code indicating which key was pressed
+	* state will be one of UI::BUTTON_UP or UI::BUTTON_DOWN
+	*   indicating whether the key was released, or pressed
+	*/
 	switch (key)
 	{
 	case UI::KEY_ESC:
@@ -474,11 +474,11 @@ void Assignment3::rasterizeScene()
 void Assignment3::repaint()
 {
 	/*member
-	 * Called automatically whenever the window needs to be
-	 * redrawn.
-	 * This will end up being called after any user event (keypress, etc),
-	 * and pretty much every time through the event loop.
-	 */
+	* Called automatically whenever the window needs to be
+	* redrawn.
+	* This will end up being called after any user event (keypress, etc),
+	* and pretty much every time through the event loop.
+	*/
 	if (m_sRGBframebuffer)
 	{
 		//glEnable(GL_FRAMEBUFFER_SRGB_EXT);
@@ -490,9 +490,9 @@ void Assignment3::repaint()
 		glFramebufferTexture2D(GL_READ_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_rtTex, 0);
 		if (isGLError()) return;
 		glBlitFramebuffer(
-				0, 0, m_windowWidth, m_windowHeight,
-				0, 0, m_windowWidth, m_windowHeight,
-				GL_COLOR_BUFFER_BIT, GL_NEAREST);
+			0, 0, m_windowWidth, m_windowHeight,
+			0, 0, m_windowWidth, m_windowHeight,
+			GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		if (isGLError()) return;
 	}
 	else {
@@ -543,11 +543,11 @@ void Assignment3::idle()
 				{
 					gml::vec3_t clr(0.0, 0.0, 0.0);
 
-					
+
 					// (x,y) give the screen-space (aka: image-space, or window-space) coordinates of
 					// the ray to be cast.
 					const float x = c - 0.5 + rand() / ((float)RAND_MAX), y = m_rtRow - 0.5 + rand() / ((float)RAND_MAX);
-	  
+
 					//printf("%f, %f\n",x, y);
 
 					// TODO!!
@@ -562,9 +562,9 @@ void Assignment3::idle()
 					hitinfo.hitDist = FLT_MAX;
 					if(m_scene.rayIntersects(ray, 0.0001, 300.0, hitinfo))
 					{
-					  clr = m_scene.shadeRay(ray, hitinfo, MAX_RAY_DEPTH);
+						clr = m_scene.shadeRay(ray, hitinfo, MAX_RAY_DEPTH);
 					}
-					
+
 					// Use 'clr' to update the image
 					if (m_rtPassNum == 0)
 					{
@@ -596,48 +596,48 @@ void Assignment3::idle()
 		}
 	}
 
-		if (m_cameraMovement) // Is a camera movement key pressed?
+	if (m_cameraMovement) // Is a camera movement key pressed?
+	{
+		// time since the last time we updated the camera
+		double deltaT = currTime - m_lastCamMoveTime;
+		if (deltaT > 0)
 		{
-			// time since the last time we updated the camera
-			double deltaT = currTime - m_lastCamMoveTime;
-			if (deltaT > 0)
-			{
-				// Time has elapsed since the last time idle() was called
-				// so, move the camera according to which key(s) are pressed.
-				if (m_cameraMovement & CAMERA_FORWARD)
-					m_camera.moveForward( m_movementSpeed * deltaT );
-				if (m_cameraMovement & CAMERA_BACKWARD)
-					m_camera.moveForward( -m_movementSpeed * deltaT );
+			// Time has elapsed since the last time idle() was called
+			// so, move the camera according to which key(s) are pressed.
+			if (m_cameraMovement & CAMERA_FORWARD)
+				m_camera.moveForward( m_movementSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_BACKWARD)
+				m_camera.moveForward( -m_movementSpeed * deltaT );
 
-				if (m_cameraMovement & CAMERA_STRAFE_RIGHT)
-					m_camera.strafeRight( m_movementSpeed * deltaT );
-				if (m_cameraMovement & CAMERA_STRAFE_LEFT)
-					m_camera.strafeRight( -m_movementSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_STRAFE_RIGHT)
+				m_camera.strafeRight( m_movementSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_STRAFE_LEFT)
+				m_camera.strafeRight( -m_movementSpeed * deltaT );
 
-				if (m_cameraMovement & CAMERA_UP)
-					m_camera.moveUp( m_movementSpeed * deltaT);
-				if (m_cameraMovement & CAMERA_DOWN)
-					m_camera.moveUp( -m_movementSpeed * deltaT);
+			if (m_cameraMovement & CAMERA_UP)
+				m_camera.moveUp( m_movementSpeed * deltaT);
+			if (m_cameraMovement & CAMERA_DOWN)
+				m_camera.moveUp( -m_movementSpeed * deltaT);
 
-				if (m_cameraMovement & CAMERA_ROTATE_UP)
-					m_camera.rotateUp( m_rotationSpeed * deltaT );
-				if (m_cameraMovement & CAMERA_ROTATE_DOWN)
-					m_camera.rotateUp( -m_rotationSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_ROTATE_UP)
+				m_camera.rotateUp( m_rotationSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_ROTATE_DOWN)
+				m_camera.rotateUp( -m_rotationSpeed * deltaT );
 
-				if (m_cameraMovement & CAMERA_ROTATE_LEFT)
-					m_camera.rotateRight( m_rotationSpeed * deltaT );
-				if (m_cameraMovement & CAMERA_ROTATE_RIGHT)
-					m_camera.rotateRight( -m_rotationSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_ROTATE_LEFT)
+				m_camera.rotateRight( m_rotationSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_ROTATE_RIGHT)
+				m_camera.rotateRight( -m_rotationSpeed * deltaT );
 
-				if (m_cameraMovement & CAMERA_SPIN_LEFT)
-					m_camera.spinCamera( m_rotationSpeed * deltaT );
-				if (m_cameraMovement & CAMERA_SPIN_RIGHT)
-					m_camera.spinCamera( -m_rotationSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_SPIN_LEFT)
+				m_camera.spinCamera( m_rotationSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_SPIN_RIGHT)
+				m_camera.spinCamera( -m_rotationSpeed * deltaT );
 
-				m_cameraChanged = true;
-				m_lastCamMoveTime = currTime;
-			}
-		
+			m_cameraChanged = true;
+			m_lastCamMoveTime = currTime;
+		}
+
 
 	}
 
