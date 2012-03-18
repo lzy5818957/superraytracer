@@ -1,18 +1,18 @@
 
 /*
- * Copyright:
- * Daniel D. Neilson (ddneilson@ieee.org)
- * University of Saskatchewan
- * All rights reserved
- *
- * Permission granted to use for use in assignments and
- * projects for CMPT 485 & CMPT 829 at the University
- * of Saskatchewan.
- */
+* Copyright:
+* Daniel D. Neilson (ddneilson@ieee.org)
+* University of Saskatchewan
+* All rights reserved
+*
+* Permission granted to use for use in assignments and
+* projects for CMPT 485 & CMPT 829 at the University
+* of Saskatchewan.
+*/
 
 /*
- * Program Object class for CMPT 485/829 Assignment #3
- */
+* Program Object class for CMPT 485/829 Assignment #3
+*/
 
 #pragma once
 #ifndef __INC_ASSIGN3_H_
