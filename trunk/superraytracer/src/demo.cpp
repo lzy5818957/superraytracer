@@ -29,7 +29,7 @@ DemoProgram::DemoProgram() : UI::Callbacks()
 	m_geometry = 0;
 	m_nGeometry = 0;
 
-	m_sRGBframebuffer = glIsEnabled(GL_FRAMEBUFFER_SRGB_EXT) == GL_TRUE;
+	m_sRGBframebuffer = false;//glIsEnabled(GL_FRAMEBUFFER_SRGB_EXT) == GL_TRUE;
 	m_renderWireframe = false;
 }
 
@@ -117,13 +117,13 @@ void DemoProgram::specialKeyboard(UI::KeySpecial_t key, UI::ButtonState_t state)
 		{
 			if (m_sRGBframebuffer)
 			{
-				glDisable(GL_FRAMEBUFFER_SRGB_EXT);
+				//glDisable(GL_FRAMEBUFFER_SRGB_EXT);
 			}
 			else
 			{
-				glEnable(GL_FRAMEBUFFER_SRGB_EXT);
+				//glEnable(GL_FRAMEBUFFER_SRGB_EXT);
 			}
-			m_sRGBframebuffer = glIsEnabled(GL_FRAMEBUFFER_SRGB_EXT) == GL_TRUE;
+			m_sRGBframebuffer = false;//glIsEnabled(GL_FRAMEBUFFER_SRGB_EXT) == GL_TRUE;
 			if (m_sRGBframebuffer)
 			{
 				printf("sRGB framebuffer enabled\n");

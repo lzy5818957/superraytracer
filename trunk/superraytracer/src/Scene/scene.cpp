@@ -177,11 +177,7 @@ bool Scene::rayIntersects(const RayTracing::Ray_t &ray, const float t0, const fl
 	
 	if(hitinfo.hitDist != FLT_MAX)
 	{
-	  //printf("True le! at %f\n",hitinfo.hitDist);
-	 if(isnan(hitinfo.plane.u))
-	{
-	    printf("hitinfo.plane.u == -NAN in scene\n");
-	}
+
 	  return true;
 
 	}

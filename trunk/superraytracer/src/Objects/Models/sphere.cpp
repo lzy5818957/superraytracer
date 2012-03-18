@@ -29,35 +29,35 @@ namespace Models
 static const uint32_t NUM_L0_VERTS = 13;
 static gml::vec3_t level0Verts[NUM_L0_VERTS] =
 {
-		{0.0f, 1.0f, 0.0f},
-		{0.0f, 1.0f, 0.0f},
-		{0.0f, 1.0f, 0.0f},
-		{0.0f, 1.0f, 0.0f},
-		{1.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, -1.0f},
-		{-1.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, 1.0f},
-		{1.0f, 0.0f, 0.0f},
-		{0.0f, -1.0f, 0.0f},
-		{0.0f, -1.0f, 0.0f},
-		{0.0f, -1.0f, 0.0f},
-		{0.0f, -1.0f, 0.0f}
+		gml::vec3_t(0.0f, 1.0f, 0.0f),
+		gml::vec3_t(0.0f, 1.0f, 0.0f),
+		gml::vec3_t(0.0f, 1.0f, 0.0f),
+		gml::vec3_t(0.0f, 1.0f, 0.0f),
+		gml::vec3_t(1.0f, 0.0f, 0.0f),
+		gml::vec3_t(0.0f, 0.0f, -1.0f),
+		gml::vec3_t(-1.0f, 0.0f, 0.0f),
+		gml::vec3_t(0.0f, 0.0f, 1.0f),
+		gml::vec3_t(1.0f, 0.0f, 0.0f),
+		gml::vec3_t(0.0f, -1.0f, 0.0f),
+		gml::vec3_t(0.0f, -1.0f, 0.0f),
+		gml::vec3_t(0.0f, -1.0f, 0.0f),
+		gml::vec3_t(0.0f, -1.0f, 0.0f)
 };
 static gml::vec2_t level0texcoords[NUM_L0_VERTS] =
 {
-		{0.125f, 0.0f},
-		{0.375f, 0.0f},
-		{0.625f, 0.0f},
-		{0.875f, 0.0f},
-		{0.0f, 0.5f},
-		{0.25f, 0.5f},
-		{0.5f, 0.5f},
-		{0.75f, 0.5f},
-		{1.0f, 0.5f},
-		{0.125f, 1.0f},
-		{0.375f, 1.0f},
-		{0.625f, 1.0f},
-		{0.875f, 1.0f}
+		gml::vec2_t(0.125f, 0.0f),
+		gml::vec2_t(0.375f, 0.0f),
+		gml::vec2_t(0.625f, 0.0f),
+		gml::vec2_t(0.875f, 0.0f),
+		gml::vec2_t(0.0f, 0.5f),
+		gml::vec2_t(0.25f, 0.5f),
+		gml::vec2_t(0.5f, 0.5f),
+		gml::vec2_t(0.75f, 0.5f),
+		gml::vec2_t(1.0f, 0.5f),
+		gml::vec2_t(0.125f, 1.0f),
+		gml::vec2_t(0.375f, 1.0f),
+		gml::vec2_t(0.625f, 1.0f),
+		gml::vec2_t(0.875f, 1.0f)
 };
 static GLuint level0indices[8*3] =
 {
@@ -199,7 +199,10 @@ bool Sphere::rayIntersects(const RayTracing::Ray_t &ray, const float t0, const f
 	    else
 	    {
  	       	   hitinfo.hitDist = t;
-		   hitinfo.sphere.shadePoint = gml::add(ray.o, gml::scale(t, ray.d));
+			   gml::vec3_t shadePoint = gml::add(ray.o, gml::scale(t, ray.d));
+		   hitinfo.sphere.shadePoint_x = shadePoint.x;
+		   hitinfo.sphere.shadePoint_y = shadePoint.y;
+		   hitinfo.sphere.shadePoint_z = shadePoint.z;
 		   return true;
 	    }
 
@@ -260,7 +263,10 @@ void Sphere::hitProperties(const RayTracing::HitInfo_t &hitinfo, gml::vec3_t &no
 	//  Note2: You can/should use the getTexCoords() function, above, to calculate the texture
 	//  coordinates of a point on the sphere given the object-space position of a point on the sphere.
 	
-	gml::vec3_t shadePoint = hitinfo.sphere.shadePoint;
+	gml::vec3_t shadePoint;
+	shadePoint.x =  hitinfo.sphere.shadePoint_x;
+	shadePoint.y =  hitinfo.sphere.shadePoint_y;
+	shadePoint.z =  hitinfo.sphere.shadePoint_z;
 	normal = gml::scale(1/hitinfo.hitDist,shadePoint);
 	texCoords = getTexCoords(shadePoint);
 }

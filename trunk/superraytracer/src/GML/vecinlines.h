@@ -114,5 +114,5 @@ inline TYPE clamp(const TYPE v, const float a, const float b)
 
 inline TYPE reflect(const TYPE v, const TYPE n)
 {
-	return sub( scale(2.0 * dot(v,n), n), v );
+	return sub( scale(2.0f * dot(v,n), n), v );
 }

@@ -357,7 +357,7 @@ void Assignment1::repaint()
 	}
 	if (m_sRGBframebuffer)
 	{
-		glEnable(GL_FRAMEBUFFER_SRGB_EXT);
+		//glEnable(GL_FRAMEBUFFER_SRGB_EXT);
 	}
 
 	// Clear the pixel data & depth buffer
@@ -377,7 +377,7 @@ void Assignment1::repaint()
 
 	if (m_sRGBframebuffer)
 	{
-		glDisable(GL_FRAMEBUFFER_SRGB_EXT);
+		//glDisable(GL_FRAMEBUFFER_SRGB_EXT);
 	}
 	if (m_renderWireframe)
 	{
