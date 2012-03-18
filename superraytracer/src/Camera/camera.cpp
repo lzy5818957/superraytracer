@@ -14,6 +14,7 @@
 #include <cmath>
 #include "camera.h"
 #include <stdio.h>
+
 Camera::Camera()
 {
 	m_right = gml::vec3_t(1.0,0.0,0.0);
