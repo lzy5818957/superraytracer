@@ -150,21 +150,6 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <CudaCompile Include="kernel.cu" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="Utils\GML\gml.h" />
-    <ClInclude Include="Utils\GML\gmlstructs.h" />
-    <ClInclude Include="Utils\GML\matinlines.h" />
-    <ClInclude Include="Utils\GML\matvecinlines.h" />
-    <ClInclude Include="Utils\GML\vecinlines.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Utils\GML\usage.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 4.1.targets" />
