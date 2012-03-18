@@ -236,6 +236,10 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="src\Texture\texture.h" />
     <ClInclude Include="src\UI\ui.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\gray_wall.png" />
+    <None Include="res\testPattern.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 4.1.targets" />
