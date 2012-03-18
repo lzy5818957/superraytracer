@@ -205,8 +205,8 @@ gml::vec3_t Texture::lookup(gml::vec2_t coords) const
 {
 	if (m_wrapMode == REPEAT)
 	{
-		coords.s = copysignf( fmodf(coords.s, 1.0f), 1.0f );
-		coords.t = copysignf( fmodf(coords.t, 1.0f), 1.0f );
+		coords.s = _copysign( fmodf(coords.s, 1.0f), 1.0f );
+		coords.t = _copysign( fmodf(coords.t, 1.0f), 1.0f );
 	}
 	else // CLAMP mode
 	{

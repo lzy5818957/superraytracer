@@ -91,12 +91,12 @@ void Camera::setPerspective()
 	 *  n = near plane = this->getNearClip()
 	 *  f = far plane = this->getFarClip()
 	 */
-	float near = this->getNearClip();
-	float far = this->getFarClip();
-	m_perspective[0][0] = near;
-	m_perspective[1][1] = near;
-	m_perspective[2][2] = (near + far);
-	m_perspective[3][2] = near * far;
+	float _near = this->getNearClip();
+	float _far = this->getFarClip();
+	m_perspective[0][0] = _near;
+	m_perspective[1][1] = _near;
+	m_perspective[2][2] = (_near + _far);
+	m_perspective[3][2] = _near * _far;
 	m_perspective[2][3] = -1.0f;
 	m_perspective[3][3] = 0.0f;
 }
@@ -114,15 +114,15 @@ void Camera::setOrtho()
 	 *  n_x / n_y = m_aspect (section 7.5)
 	 *
 	 */
-	float near = this->getNearClip();
-	float far = this->getFarClip();
-	float tanHalf = tanf(0.5f * m_fov);
-	float t = near * tanHalf; // near * tan(fov/2)
+	float _near = this->getNearClip();
+	float _far = this->getFarClip();
+	float _tanHalf = tanf(0.5f * m_fov);
+	float t = _near * _tanHalf; // near * tan(fov/2)
 	float r = m_aspect * t;
-	m_ortho[0][0] = 1.0 / r;
-	m_ortho[1][1] = 1.0 / t;
-	m_ortho[2][2] = 2.0 / (near - far);
-	m_ortho[3][2] = (near + far)/(near - far);
+	m_ortho[0][0] = 1.0f / r;
+	m_ortho[1][1] = 1.0f / t;
+	m_ortho[2][2] = 2.0f / (_near - _far);
+	m_ortho[3][2] = (_near + _far)/(_near - _far);
 
 	setWindowToWorld();
 }
@@ -208,11 +208,11 @@ void Camera::setImageDimensions(const int width, const int height)
 	this->setProjection();
 }
 
-void Camera::setDepthClip(float near, float far)
+void Camera::setDepthClip(float _near, float _far)
 {
-	assert(0 < near);
-	assert(near < far);
-	m_depthClip = gml::vec2_t(near, far);
+	assert(0 < _near);
+	assert(_near < _far);
+	m_depthClip = gml::vec2_t(_near, _far);
 	this->setOrtho();
 	this->setPerspective();
 	this->setProjection();

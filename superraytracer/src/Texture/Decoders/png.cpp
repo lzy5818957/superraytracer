@@ -153,8 +153,9 @@ void *PNGDecoder::decode(FILE *ifile,
 	// Allocate space for the image data.
 	void *toReturn = malloc(_height * _rowbytes);
 
+
 	// Set up the row pointers.
-	png_bytep row_ptrs[_height];
+	png_bytep *row_ptrs = (png_bytep*)malloc(_height * sizeof(png_bytep));
 	row_ptrs[0] = (png_bytep)toReturn;
 	for (int r=1;r<_height;r++)
 		row_ptrs[r] = row_ptrs[r-1] + _rowbytes;

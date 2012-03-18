@@ -22,37 +22,37 @@ namespace Models
 static const uint32_t NUM_VERTS = 24;
 static gml::vec3_t _verts[NUM_VERTS] =
 {
-		{0.0f, 1.0f, 0.0f},
-		{1.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, -1.0f},
+		gml::vec3_t(0.0f, 1.0f, 0.0f),
+		gml::vec3_t(1.0f, 0.0f, 0.0f),
+		gml::vec3_t(0.0f, 0.0f, -1.0f),
 
-		{0.0f, 1.0f, 0.0f},
-		{0.0f, 0.0f, -1.0f},
-		{-1.0f, 0.0f, 0.0f},
+		gml::vec3_t(0.0f, 1.0f, 0.0f),
+		gml::vec3_t(0.0f, 0.0f, -1.0f),
+		gml::vec3_t(-1.0f, 0.0f, 0.0f),
 
-		{0.0f, 1.0f, 0.0f},
-		{-1.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, 1.0f},
+		gml::vec3_t(0.0f, 1.0f, 0.0f),
+		gml::vec3_t(-1.0f, 0.0f, 0.0f),
+		gml::vec3_t(0.0f, 0.0f, 1.0f),
 
-		{0.0f, 1.0f, 0.0f},
-		{0.0f, 0.0f, 1.0f},
-		{1.0f, 0.0f, 0.0f},
+		gml::vec3_t(0.0f, 1.0f, 0.0f),
+		gml::vec3_t(0.0f, 0.0f, 1.0f),
+		gml::vec3_t(1.0f, 0.0f, 0.0f),
 
-		{1.0f, 0.0f, 0.0f},
-		{0.0f, -1.0f, 0.0f},
-		{0.0f, 0.0f, -1.0f},
+		gml::vec3_t(1.0f, 0.0f, 0.0f),
+		gml::vec3_t(0.0f, -1.0f, 0.0f),
+		gml::vec3_t(0.0f, 0.0f, -1.0f),
 
-		{0.0f, 0.0f, -1.0f},
-		{0.0f, -1.0f, 0.0f},
-		{-1.0f, 0.0f, 0.0f},
+		gml::vec3_t(0.0f, 0.0f, -1.0f),
+		gml::vec3_t(0.0f, -1.0f, 0.0f),
+		gml::vec3_t(-1.0f, 0.0f, 0.0f),
 
-		{-1.0f, 0.0f, 0.0f},
-		{0.0f, -1.0f, 0.0f},
-		{0.0f, 0.0f, 1.0f},
+		gml::vec3_t(-1.0f, 0.0f, 0.0f),
+		gml::vec3_t(0.0f, -1.0f, 0.0f),
+		gml::vec3_t(0.0f, 0.0f, 1.0f),
 
-		{0.0f, 0.0f, 1.0f},
-		{0.0f, -1.0f, 0.0f},
-		{1.0f, 0.0f, 0.0f}
+		gml::vec3_t(0.0f, 0.0f, 1.0f),
+		gml::vec3_t(0.0f, -1.0f, 0.0f),
+		gml::vec3_t(1.0f, 0.0f, 0.0f)
 
 };
 static gml::vec3_t _normals[NUM_VERTS] =
@@ -91,37 +91,37 @@ static gml::vec3_t _normals[NUM_VERTS] =
 };
 static gml::vec2_t _texcoords[NUM_VERTS] =
 {
-		{0.125f, 0.0f},
-		{0.0f, 0.5f},
-		{0.25f, 0.5f},
+		gml::vec2_t(0.125f, 0.0f),
+		gml::vec2_t(0.0f, 0.5f),
+		gml::vec2_t(0.25f, 0.5f),
 
-		{0.375f, 0.0f},
-		{0.25f, 0.5f},
-		{0.5f, 0.5f},
+		gml::vec2_t(0.375f, 0.0f),
+		gml::vec2_t(0.25f, 0.5f),
+		gml::vec2_t(0.5f, 0.5f),
 
-		{0.625f, 0.0f},
-		{0.5f, 0.5f},
-		{0.75f, 0.5f},
+		gml::vec2_t(0.625f, 0.0f),
+		gml::vec2_t(0.5f, 0.5f),
+		gml::vec2_t(0.75f, 0.5f),
 
-		{0.875f, 0.0f},
-		{0.75f, 0.5f},
-		{1.0f, 0.5f},
+		gml::vec2_t(0.875f, 0.0f),
+		gml::vec2_t(0.75f, 0.5f),
+		gml::vec2_t(1.0f, 0.5f),
 
-		{0.0f, 0.5f},
-		{0.125f, 1.0f},
-		{0.25f, 0.5f},
+		gml::vec2_t(0.0f, 0.5f),
+		gml::vec2_t(0.125f, 1.0f),
+		gml::vec2_t(0.25f, 0.5f),
 
-		{0.25f, 0.5f},
-		{0.375f, 1.0f},
-		{0.5f, 0.5f},
+		gml::vec2_t(0.25f, 0.5f),
+		gml::vec2_t(0.375f, 1.0f),
+		gml::vec2_t(0.5f, 0.5f),
 
-		{0.5f, 0.5f},
-		{0.625f, 1.0f},
-		{0.75f, 0.5f},
+		gml::vec2_t(0.5f, 0.5f),
+		gml::vec2_t(0.625f, 1.0f),
+		gml::vec2_t(0.75f, 0.5f),
 
-		{0.75f, 0.5f},
-		{0.875f, 1.0f},
-		{1.0f, 0.5f}
+		gml::vec2_t(0.75f, 0.5f),
+		gml::vec2_t(0.875f, 1.0f),
+		gml::vec2_t(1.0f, 0.5f)
 };
 static GLuint _indices[8*3] =
 {

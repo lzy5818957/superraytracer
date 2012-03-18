@@ -72,7 +72,7 @@ bool Manager::init()
 
 	m_shaders[DEPTH] = new Constant::Depth();
 	if ( !m_shaders[DEPTH] ) return false;
-
+	
 	m_shaders[CONST_LAMB_GOURAUD] = new Constant::Lambertian::Gouraud();
 	if ( !m_shaders[CONST_LAMB_GOURAUD] ) return false;
 
@@ -84,7 +84,7 @@ bool Manager::init()
 
 	m_shaders[CONST_SPEC_PHONG] = new Constant::Specular::Phong();
 	if ( !m_shaders[CONST_SPEC_PHONG] ) return false;
-
+	
 	m_shaders[TEXTURE_LAMB_GOURAUD] = new Texture::Lambertian::Gouraud();
 	if ( !m_shaders[TEXTURE_LAMB_GOURAUD] ) return false;
 
@@ -96,7 +96,7 @@ bool Manager::init()
 
 	m_shaders[TEXTURE_SPEC_PHONG] = new Texture::Specular::Phong();
 	if ( !m_shaders[TEXTURE_SPEC_PHONG] ) return false;
-
+	
 	return true;
 }
 

@@ -319,7 +319,7 @@ void Assignment2::rasterizeScene()
 	}
 	if (m_sRGBframebuffer)
 	{
-		glEnable(GL_FRAMEBUFFER_SRGB_EXT);
+		//glEnable(GL_FRAMEBUFFER_SRGB_EXT);
 	}
 
 	// Turn on backface culling
@@ -352,7 +352,7 @@ void Assignment2::rasterizeScene()
 
 	if (m_sRGBframebuffer)
 	{
-		glDisable(GL_FRAMEBUFFER_SRGB_EXT);
+		//glDisable(GL_FRAMEBUFFER_SRGB_EXT);
 	}
 	if (m_renderWireframe)
 	{

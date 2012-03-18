@@ -10,6 +10,7 @@
  * of Saskatchewan.
  */
 
+
 #include "GL3/gl3w.h"
 #include <GL/wglext.h>
 #include <cassert>
@@ -26,6 +27,7 @@
 
 #include "glUtils.h"
 #include "assign3.h"
+
 
 // Values for bitfield for camera movement
 static const int CAMERA_FORWARD = 0x001;
@@ -479,7 +481,7 @@ void Assignment3::repaint()
 	 */
 	if (m_sRGBframebuffer)
 	{
-		glEnable(GL_FRAMEBUFFER_SRGB_EXT);
+		//glEnable(GL_FRAMEBUFFER_SRGB_EXT);
 	}
 
 	if (m_isRayTracing)
@@ -509,7 +511,7 @@ void Assignment3::repaint()
 
 	if (m_sRGBframebuffer)
 	{
-		glDisable(GL_FRAMEBUFFER_SRGB_EXT);
+		//glDisable(GL_FRAMEBUFFER_SRGB_EXT);
 	}
 }
 

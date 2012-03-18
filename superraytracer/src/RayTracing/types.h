@@ -42,7 +42,9 @@ typedef struct {
 	// TODO!
 	// Replace placeholder with whatever information you believe to
 	// be necessary to cache.
-	gml::vec3_t shadePoint;
+	float shadePoint_x;
+	float shadePoint_y;
+	float shadePoint_z;
 } SphereHitInfo_t;
 
 typedef struct {
