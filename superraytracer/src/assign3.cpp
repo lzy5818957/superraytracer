@@ -43,7 +43,7 @@ static const int CAMERA_ROTATE_DOWN = 0x200;
 static const int CAMERA_SPIN_LEFT = 0x400;
 static const int CAMERA_SPIN_RIGHT = 0x800;
 
-static const int MAX_RT_PASSES = 500;
+static const int MAX_RT_PASSES = 0;
 static const int MAX_RAY_DEPTH = 2;
 
 Assignment3::Assignment3()
@@ -304,57 +304,57 @@ void Assignment3::specialKeyboard(UI::KeySpecial_t key, UI::ButtonState_t state)
 		}
 		break;
 	case UI::KEY_W:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_FORWARD);
 		break;
 	case UI::KEY_S:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_BACKWARD);
 		break;
 
 	case UI::KEY_A:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_STRAFE_LEFT);
 		break;
 	case UI::KEY_D:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_STRAFE_RIGHT);
 		break;
 
 	case UI::KEY_Q:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_UP);
 		break;
 	case UI::KEY_E:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_DOWN);
 		break;
 
 
 	case UI::KEY_KP_8:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_UP);
 		break;
 	case UI::KEY_KP_5:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_DOWN);
 		break;
 
 	case UI::KEY_KP_4:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_LEFT);
 		break;
 	case UI::KEY_KP_6:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_RIGHT);
 		break;
 
 	case UI::KEY_KP_7:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_SPIN_LEFT);
 		break;
 	case UI::KEY_KP_9:
-		if (m_isRayTracing) break;
+		//if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_SPIN_RIGHT);
 		break;
 
@@ -595,8 +595,7 @@ void Assignment3::idle()
 			}
 		}
 	}
-	else
-	{
+
 		if (m_cameraMovement) // Is a camera movement key pressed?
 		{
 			// time since the last time we updated the camera
@@ -638,7 +637,7 @@ void Assignment3::idle()
 				m_cameraChanged = true;
 				m_lastCamMoveTime = currTime;
 			}
-		}
+		
 
 	}
 

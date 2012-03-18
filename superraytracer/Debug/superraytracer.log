@@ -1,537 +1,149 @@
-﻿Build started 17/03/2012 8:08:13 PM.
+﻿Build started 18/03/2012 2:11:02 PM.
      1>Project "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\superraytracer\superraytracer.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\superraytracer.unsuccessfulbuild".
+         Creating "Debug\superraytracer.unsuccessfulbuild" because "AlwaysCreate" was specified.
        AddCudaCompileDeps:
        Skipping target "AddCudaCompileDeps" because all output files are up-to-date with respect to the input files.
        AddCudaCompilePropsDeps:
-         Found "CudaToolkitCustomDir".
-         Found "AdditionalDeps".
-         Found "CompileOut".
-         Found "Include".
-         Found "Keep".
-         Found "KeepDir".
-         Found "NvccCompilation".
-         Found "NvccPath".
-         Found "RequiredIncludes".
-         Found "TargetMachinePlatform".
-         Found "CInterleavedPTX".
-         Found "CodeGeneration".
-         Found "GPUDebugInfo".
-         Found "MaxRegCount".
-         Found "PtxAsOptionV".
-         Found "Defines".
-         Found "Emulation".
-         Found "HostDebugInfo".
-         Found "FastMath".
-         Found "Optimization".
-         Found "Runtime".
-         Found "RuntimeChecks".
-         Found "TypeInfo".
-         Found "Warning".
-         Found "AdditionalOptions".
-         Found "CommandLineTemplate".
+       Skipping target "AddCudaCompilePropsDeps" because all output files are up-to-date with respect to the input files.
        CudaBuild:
        Skipping target "CudaBuild" because all output files are up-to-date with respect to the input files.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /ZI /nologo /W4 /WX- /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt src\Camera\camera.cpp src\Objects\Models\octahedron.cpp src\Objects\Models\plane.cpp src\Objects\Models\sphere.cpp src\Objects\geometry.cpp src\Objects\mesh.cpp src\Objects\object.cpp src\RayTracing\ray.cpp src\RayTracing\rayintersector.cpp src\Scene\scene.cpp src\Shaders\Constant\Lambertian\phong.cpp src\Shaders\Constant\Specular\phong.cpp src\Shaders\Constant\depth.cpp src\Shaders\Texture\Lambertian\phong.cpp src\Shaders\Texture\Specular\phong.cpp src\ShadowMapping\shadowmap.cpp src\Texture\Decoders\png.cpp src\Texture\texture.cpp src\assign1.cpp src\assign2.cpp src\assign3.cpp src\demo.cpp src\main.cpp -std=c89 -D_USE_MATH_DEFINES 
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /ZI /nologo /W4 /WX- /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\/src\/" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt src\assign3.cpp src\main.cpp -std=c89 -D_USE_MATH_DEFINES 
      1>cl : Command line warning D9002: ignoring unknown option '-std=c89'
-         main.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-         demo.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(32): error C2065: 'GL_FRAMEBUFFER_SRGB_EXT' : undeclared identifier
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(79): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(79): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(120): error C2065: 'GL_FRAMEBUFFER_SRGB_EXT' : undeclared identifier
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(124): error C2065: 'GL_FRAMEBUFFER_SRGB_EXT' : undeclared identifier
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(126): error C2065: 'GL_FRAMEBUFFER_SRGB_EXT' : undeclared identifier
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(174): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(174): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(174): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(190): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(190): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\demo.cpp(190): warning C4305: 'argument' : truncation from 'double' to 'float'
          assign3.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
      1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
                  c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(54): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(146): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(159): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(160): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(160): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(160): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(56): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(148): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(161): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(161): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(161): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(191): warning C4305: 'argument' : truncation from 'double' to 'const float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(194): warning C4305: 'argument' : truncation from 'double' to 'const float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(482): error C2065: 'GL_FRAMEBUFFER_SRGB_EXT' : undeclared identifier
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(512): error C2065: 'GL_FRAMEBUFFER_SRGB_EXT' : undeclared identifier
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(547): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(547): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(561): warning C4305: 'argument' : truncation from 'double' to 'const float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(573): warning C4244: 'argument' : conversion from 'int' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(607): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(162): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(162): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(162): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(163): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(163): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(163): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(193): warning C4305: 'argument' : truncation from 'double' to 'const float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(196): warning C4305: 'argument' : truncation from 'double' to 'const float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(549): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(549): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(563): warning C4305: 'argument' : truncation from 'double' to 'const float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(575): warning C4244: 'argument' : conversion from 'int' to 'const float', possible loss of data
      1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(609): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(612): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(611): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
      1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(614): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(617): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(616): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
      1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(619): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(622): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(621): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
      1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(624): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(627): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(626): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
      1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(629): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(632): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(631): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
      1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(634): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-         assign2.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(50): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(122): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(129): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(129): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(136): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(137): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(137): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(137): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(138): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(138): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(138): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(322): error C2065: 'GL_FRAMEBUFFER_SRGB_EXT' : undeclared identifier
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(355): error C2065: 'GL_FRAMEBUFFER_SRGB_EXT' : undeclared identifier
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(406): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(408): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(411): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(413): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(416): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(418): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(421): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(423): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(426): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(428): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(431): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(433): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign2.cpp(443): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-         assign1.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(49): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(130): warning C4305: 'argument' : truncation from 'double' to 'const float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(133): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(133): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(149): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(149): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(149): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(200): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(200): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(200): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(360): error C2065: 'GL_FRAMEBUFFER_SRGB_EXT' : undeclared identifier
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(380): error C2065: 'GL_FRAMEBUFFER_SRGB_EXT' : undeclared identifier
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(409): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(411): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(414): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(416): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(419): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(421): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(424): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(426): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(429): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(431): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(434): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign1.cpp(436): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-         texture.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\texture\texture.cpp(29): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(238) : see declaration of 'strdup'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\texture\texture.cpp(208): error C3861: 'copysignf': identifier not found
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\texture\texture.cpp(209): error C3861: 'copysignf': identifier not found
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\texture\texture.cpp(233): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\texture\texture.cpp(233): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\texture\texture.cpp(236): warning C4244: 'argument' : conversion from 'int' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\texture\texture.cpp(237): warning C4244: 'argument' : conversion from 'int' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\texture\texture.cpp(239): warning C4244: 'argument' : conversion from 'int' to 'const float', possible loss of data
-         png.cpp
-     1>c:\program files (x86)\gnuwin32\include\png.h(477): fatal error C1083: Cannot open include file: 'zlib.h': No such file or directory
-         shadowmap.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\shadowmapping\shadowmap.cpp(49): warning C4305: 'argument' : truncation from 'double' to 'const float'
-         phong.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-         phong.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-         depth.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-         phong.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-         phong.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-         scene.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\scene\scene.cpp(181): error C3861: 'isnan': identifier not found
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\scene\scene.cpp(259): warning C4305: 'argument' : truncation from 'double' to 'const float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\scene\scene.cpp(283): warning C4305: 'argument' : truncation from 'double' to 'const float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\scene\scene.cpp(305): warning C4305: 'argument' : truncation from 'double' to 'const float'
-         rayintersector.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-         ray.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\ray.cpp(72): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\ray.cpp(73): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-         object.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-         mesh.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\mesh.cpp(304): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-         geometry.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-         sphere.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(32): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(33): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(34): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(35): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(36): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(37): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(38): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(39): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(40): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(41): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(42): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(43): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(44): error C2552: 'Object::Models::level0Verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(48): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(49): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(50): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(51): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(52): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(53): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(54): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(55): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(56): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(57): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(58): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(59): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(60): error C2552: 'Object::Models::level0texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(181): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(202): error C2039: 'sphere' : is not a member of 'RayTracing::_HitInfo_t'
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(59) : see declaration of 'RayTracing::_HitInfo_t'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(202): error C2228: left of '.shadePoint' must have class/struct/union
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(220): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(249): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(250): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(263): error C2039: 'sphere' : is not a member of 'RayTracing::_HitInfo_t'
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(59) : see declaration of 'RayTracing::_HitInfo_t'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(263): error C2228: left of '.shadePoint' must have class/struct/union
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\sphere.cpp(269): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\assign3.cpp(636): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
          Generating Code...
          Compiling...
-         plane.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
+         main.cpp
      1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
                  c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(24): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(25): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(26): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(27): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(31): error C2552: 'Object::Models::_normals' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(32): error C2552: 'Object::Models::_normals' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(33): error C2552: 'Object::Models::_normals' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(34): error C2552: 'Object::Models::_normals' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(38): error C2552: 'Object::Models::_texCoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(39): error C2552: 'Object::Models::_texCoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(40): error C2552: 'Object::Models::_texCoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\plane.cpp(41): error C2552: 'Object::Models::_texCoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-         octahedron.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(36): warning C4512: 'RayTracing::_ShaderValues' : assignment operator could not be generated
-                 c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\rayshader.h(26) : see declaration of 'RayTracing::_ShaderValues'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(25): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(26): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(27): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(29): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(30): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(31): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(33): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(34): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(35): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(37): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(38): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(39): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(41): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(42): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(43): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(45): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(46): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(47): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(49): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(50): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(51): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(53): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(54): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(55): error C2552: 'Object::Models::_verts' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec3_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(94): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(95): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(96): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(98): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(99): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(100): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(102): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(103): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(104): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(106): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(107): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(108): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(110): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(111): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(112): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(114): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(115): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(116): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(118): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(119): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(120): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(122): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(123): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\objects\models\octahedron.cpp(124): error C2552: 'Object::Models::_texcoords' : non-aggregates cannot be initialized with initializer list
-                 'gml::_vec2_t' : Types with user defined constructors are not aggregate
-         camera.cpp
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\vecinlines.h(117): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\gml\matinlines.h(663): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\raytracing\types.h(68): error C2621: member 'RayTracing::_HitInfo_t::sphere' of union 'RayTracing::_HitInfo_t::<unnamed-tag>' has copy constructor
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(30): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(50): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(51): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(53): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(53): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(93): error C2513: 'float' : no variable declared before '='
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(94): error C2513: 'float' : no variable declared before '='
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(95): error C2059: syntax error : ';'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(96): error C2059: syntax error : ';'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(97): error C2059: syntax error : ')'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(98): error C2059: syntax error : ';'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(116): error C2513: 'float' : no variable declared before '='
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(117): error C2513: 'float' : no variable declared before '='
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(119): error C2100: illegal indirection
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(121): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(122): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(123): error C2059: syntax error : ')'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(124): error C2059: syntax error : ')'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(173): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(174): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(175): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(212): error C2059: syntax error : ')'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(213): error C2059: syntax error : '<'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(214): error C2143: syntax error : missing ')' before ','
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(214): error C2059: syntax error : ')'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(214): error C2059: syntax error : ';'
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(293): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(294): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(295): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(318): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(319): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(320): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(344): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(345): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\camera\camera.cpp(346): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\main.cpp(28): warning C4100: 'argv' : unreferenced formal parameter
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\main.cpp(28): warning C4100: 'argc' : unreferenced formal parameter
          Generating Code...
-     1>Done Building Project "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\superraytracer\superraytracer.vcxproj" (build target(s)) -- FAILED.
+     1>c:\users\starblue\documents\visual studio 2010\projects\superraytracer\superraytracer\src\main.cpp(96): warning C4701: potentially uninitialized local variable 'program' used
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /ZI /nologo /W4 /WX- /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\/src\Camera\/" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt src\Camera\camera.cpp -std=c89 -D_USE_MATH_DEFINES 
+     1>cl : Command line warning D9002: ignoring unknown option '-std=c89'
+         Skipping... (no relevant changes detected)
+         camera.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /ZI /nologo /W4 /WX- /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\/src\GL3\/" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt src\GL3\gl3w.c -std=c89 -D_USE_MATH_DEFINES 
+     1>cl : Command line warning D9002: ignoring unknown option '-std=c89'
+         Skipping... (no relevant changes detected)
+         gl3w.c
+         All outputs are up-to-date.
+         All outputs are up-to-date.
+         All outputs are up-to-date.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /ZI /nologo /W4 /WX- /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\/src\Scene\/" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt src\Scene\scene.cpp -std=c89 -D_USE_MATH_DEFINES 
+     1>cl : Command line warning D9002: ignoring unknown option '-std=c89'
+         Skipping... (no relevant changes detected)
+         scene.cpp
+         All outputs are up-to-date.
+         All outputs are up-to-date.
+         All outputs are up-to-date.
+         All outputs are up-to-date.
+         All outputs are up-to-date.
+         All outputs are up-to-date.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /ZI /nologo /W4 /WX- /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\/src\ShadowMapping\/" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt src\ShadowMapping\shadowmap.cpp -std=c89 -D_USE_MATH_DEFINES 
+     1>cl : Command line warning D9002: ignoring unknown option '-std=c89'
+         Skipping... (no relevant changes detected)
+         shadowmap.cpp
+         All outputs are up-to-date.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /ZI /nologo /W4 /WX- /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\/src\Texture\/" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt src\Texture\texture.cpp -std=c89 -D_USE_MATH_DEFINES 
+     1>cl : Command line warning D9002: ignoring unknown option '-std=c89'
+         Skipping... (no relevant changes detected)
+         texture.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /ZI /nologo /W4 /WX- /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\/src\UI\/" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt src\UI\ui.cpp -std=c89 -D_USE_MATH_DEFINES 
+     1>cl : Command line warning D9002: ignoring unknown option '-std=c89'
+         Skipping... (no relevant changes detected)
+         ui.cpp
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\superraytracer.exe.embed.manifest.res" Debug\superraytracer_manifest.rc 
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\Debug\superraytracer.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\lib\Win32" cudart.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glfw.lib glew32.lib opengl32.lib glu32.lib freeglut.lib libpng.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\superraytracer.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\Debug\superraytracer.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\Debug\superraytracer.lib" /MACHINE:X86 Debug\kernel.cu.obj
+         Debug\superraytracer.exe.embed.manifest.res
+         Debug\/src\/assign1.obj
+         Debug\/src\/assign2.obj
+         Debug\/src\/assign3.obj
+         Debug\/src\/demo.obj
+         Debug\/src\/glUtils.obj
+         Debug\/src\/main.obj
+         Debug\/src\Camera\/camera.obj
+         Debug\/src\GL3\/gl3w.obj
+         Debug\/src\Objects\/geometry.obj
+         Debug\/src\Objects\/mesh.obj
+         Debug\/src\Objects\/object.obj
+         Debug\/src\Objects\Models\/octahedron.obj
+         Debug\/src\Objects\Models\/plane.obj
+         Debug\/src\Objects\Models\/sphere.obj
+         Debug\/src\RayTracing\/ray.obj
+         Debug\/src\RayTracing\/rayintersector.obj
+         Debug\/src\Scene\/scene.obj
+         Debug\/src\Shaders\Constant\/depth.obj
+         Debug\/src\Shaders\Constant\/simple.obj
+         Debug\/src\Shaders\Constant\Lambertian\/gouraud.obj
+         Debug\/src\Shaders\Constant\Lambertian\/phong.obj
+         Debug\/src\Shaders\Constant\Specular\/gouraud.obj
+         Debug\/src\Shaders\Constant\Specular\/phong.obj
+         Debug\/src\Shaders\/glprogram.obj
+         Debug\/src\Shaders\/manager.obj
+         Debug\/src\Shaders\/material.obj
+         Debug\/src\Shaders\/shader.obj
+         Debug\/src\Shaders\Texture\Lambertian\/gouraud.obj
+         Debug\/src\Shaders\Texture\Lambertian\/phong.obj
+         Debug\/src\Shaders\Texture\Specular\/gouraud.obj
+         Debug\/src\Shaders\Texture\Specular\/phong.obj
+         Debug\/src\ShadowMapping\/shadowmap.obj
+         Debug\/src\Texture\Decoders\/decoder.obj
+         Debug\/src\Texture\Decoders\/png.obj
+         Debug\/src\Texture\/texture.obj
+         Debug\/src\UI\/ui.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\superraytracer.exe.embed.manifest" /manifest Debug\superraytracer.exe.intermediate.manifest
+         All outputs are up-to-date.
+       LinkEmbedManifest:
+         All outputs are up-to-date.
+         superraytracer.vcxproj -> C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\Debug\superraytracer.exe
+       PostBuildEvent:
+         echo copy "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\bin\cudart*.dll" "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\Debug\"
+         copy "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\bin\cudart*.dll" "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\Debug\"
+         :VCEnd
+         copy "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\bin\cudart*.dll" "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\Debug\"
+         C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\bin\cudart32_41_28.dll
+         C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.1\bin\cudart64_41_28.dll
+                 2 file(s) copied.
+       FinalizeBuildStatus:
+         Deleting file "Debug\superraytracer.unsuccessfulbuild".
+         Touching "Debug\superraytracer.lastbuildstate".
+     1>Done Building Project "C:\Users\STARBLUE\Documents\Visual Studio 2010\Projects\superraytracer\superraytracer\superraytracer.vcxproj" (build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:18.66
+Time Elapsed 00:00:10.14
