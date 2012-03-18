@@ -4,17 +4,85 @@
     <CudaCompile Include="kernel.cu" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Model">
-      <UniqueIdentifier>{626757f4-971e-4ea7-9028-dae3ced6b90e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utils">
-      <UniqueIdentifier>{aefbd325-2e6a-4a9b-ad3f-214f75a59a50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utils\GML">
-      <UniqueIdentifier>{f0b03a97-ebd0-49bb-a727-0873d0e2a2ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Model\Surface">
-      <UniqueIdentifier>{c4402f5b-cdbe-48d5-8163-45962f44c053}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="src\Camera\camera.cpp" />
+    <ClCompile Include="src\GL3\gl3w.c" />
+    <ClCompile Include="src\Objects\Models\octahedron.cpp" />
+    <ClCompile Include="src\Objects\Models\plane.cpp" />
+    <ClCompile Include="src\Objects\Models\sphere.cpp" />
+    <ClCompile Include="src\Objects\geometry.cpp" />
+    <ClCompile Include="src\Objects\mesh.cpp" />
+    <ClCompile Include="src\Objects\object.cpp" />
+    <ClCompile Include="src\RayTracing\ray.cpp" />
+    <ClCompile Include="src\RayTracing\rayintersector.cpp" />
+    <ClCompile Include="src\Scene\scene.cpp" />
+    <ClCompile Include="src\Shaders\Constant\Lambertian\gouraud.cpp" />
+    <ClCompile Include="src\Shaders\Constant\Lambertian\phong.cpp" />
+    <ClCompile Include="src\Shaders\Constant\Specular\gouraud.cpp" />
+    <ClCompile Include="src\Shaders\Constant\Specular\phong.cpp" />
+    <ClCompile Include="src\Shaders\Constant\depth.cpp" />
+    <ClCompile Include="src\Shaders\Constant\simple.cpp" />
+    <ClCompile Include="src\Shaders\Texture\Lambertian\gouraud.cpp" />
+    <ClCompile Include="src\Shaders\Texture\Lambertian\phong.cpp" />
+    <ClCompile Include="src\Shaders\Texture\Specular\gouraud.cpp" />
+    <ClCompile Include="src\Shaders\Texture\Specular\phong.cpp" />
+    <ClCompile Include="src\Shaders\glprogram.cpp" />
+    <ClCompile Include="src\Shaders\manager.cpp" />
+    <ClCompile Include="src\Shaders\material.cpp" />
+    <ClCompile Include="src\Shaders\shader.cpp" />
+    <ClCompile Include="src\ShadowMapping\shadowmap.cpp" />
+    <ClCompile Include="src\Texture\Decoders\decoder.cpp" />
+    <ClCompile Include="src\Texture\Decoders\png.cpp" />
+    <ClCompile Include="src\Texture\texture.cpp" />
+    <ClCompile Include="src\UI\ui.cpp" />
+    <ClCompile Include="src\assign1.cpp" />
+    <ClCompile Include="src\assign2.cpp" />
+    <ClCompile Include="src\assign3.cpp" />
+    <ClCompile Include="src\demo.cpp" />
+    <ClCompile Include="src\glUtils.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Camera\camera.h" />
+    <ClInclude Include="src\GL3\gl3.h" />
+    <ClInclude Include="src\GL3\gl3w.h" />
+    <ClInclude Include="src\GML\gml.h" />
+    <ClInclude Include="src\GML\gmlstructs.h" />
+    <ClInclude Include="src\GML\matinlines.h" />
+    <ClInclude Include="src\GML\matvecinlines.h" />
+    <ClInclude Include="src\GML\vecinlines.h" />
+    <ClInclude Include="src\Objects\Models\octahedron.h" />
+    <ClInclude Include="src\Objects\Models\plane.h" />
+    <ClInclude Include="src\Objects\Models\sphere.h" />
+    <ClInclude Include="src\Objects\geometry.h" />
+    <ClInclude Include="src\Objects\mesh.h" />
+    <ClInclude Include="src\Objects\object.h" />
+    <ClInclude Include="src\RayTracing\rayintersector.h" />
+    <ClInclude Include="src\RayTracing\rayshader.h" />
+    <ClInclude Include="src\RayTracing\types.h" />
+    <ClInclude Include="src\Scene\scene.h" />
+    <ClInclude Include="src\Shaders\Constant\Lambertian\gouraud.h" />
+    <ClInclude Include="src\Shaders\Constant\Lambertian\phong.h" />
+    <ClInclude Include="src\Shaders\Constant\Specular\gouraud.h" />
+    <ClInclude Include="src\Shaders\Constant\Specular\phong.h" />
+    <ClInclude Include="src\Shaders\Constant\depth.h" />
+    <ClInclude Include="src\Shaders\Constant\simple.h" />
+    <ClInclude Include="src\Shaders\Texture\Lambertian\gouraud.h" />
+    <ClInclude Include="src\Shaders\Texture\Lambertian\phong.h" />
+    <ClInclude Include="src\Shaders\Texture\Specular\gouraud.h" />
+    <ClInclude Include="src\Shaders\Texture\Specular\phong.h" />
+    <ClInclude Include="src\Shaders\glprogram.h" />
+    <ClInclude Include="src\Shaders\manager.h" />
+    <ClInclude Include="src\Shaders\material.h" />
+    <ClInclude Include="src\Shaders\shader.h" />
+    <ClInclude Include="src\ShadowMapping\shadowmap.h" />
+    <ClInclude Include="src\Texture\Decoders\decoder.h" />
+    <ClInclude Include="src\Texture\Decoders\png.h" />
+    <ClInclude Include="src\Texture\texture.h" />
+    <ClInclude Include="src\UI\ui.h" />
+    <ClInclude Include="src\assign1.h" />
+    <ClInclude Include="src\assign2.h" />
+    <ClInclude Include="src\assign3.h" />
+    <ClInclude Include="src\demo.h" />
+    <ClInclude Include="src\glUtils.h" />
   </ItemGroup>
 </Project>
