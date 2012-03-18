@@ -660,7 +660,7 @@ inline mat4x4_t inverse(const mat4x4_t A)
 			-(A[3][0]*s3-A[3][1]*s1+A[3][2]*s0),
 			A[2][0]*s3-A[2][1]*s1+A[2][2]*s0
 			);
-	return scale(1.0/detA, inv);
+	return scale(1.0f/detA, inv);
 }
 
  // Matrix embedding
