@@ -110,14 +110,14 @@ bool Assignment3::init()
 		fprintf(stderr, "Could not initialize scene object\n");
 		return false;
 	}
-
+	/*
 	m_texture = new Texture::Texture("gray_wall.png");
 	if ( !m_texture->getIsReady() )
 	{
 		fprintf(stderr, "ERROR! Texture not ready\n");
 		return false;
 	}
-
+	*/
 	// Create the geometry.
 	const int SPHERE_LOC = 0;
 	const int OCTAHEDRON_LOC = 1;
@@ -166,7 +166,7 @@ bool Assignment3::init()
 
 	mat.setSurfReflectance(beige);
 	// Ground plane
-	mat.setTexture(m_texture);
+	mat.setTexture(0);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 			gml::mul(gml::translate(gml::vec3_t(0.0,0.0,0.0)), gml::scaleh(5.0, 1.0, 5.0)) ) );
 	// Box "top"

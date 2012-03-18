@@ -54,7 +54,7 @@ protected:
 	// Whether to render in wireframe or not
 	bool m_renderWireframe;
 
-	Texture::Texture *m_texture;
+	//Texture::Texture *m_texture;
 
 	bool m_useShadowMap;
 	int m_shadowmapSize;
