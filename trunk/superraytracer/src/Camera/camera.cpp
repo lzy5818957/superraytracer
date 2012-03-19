@@ -359,6 +359,10 @@ RayTracing::Ray_t* Camera::genViewRayInDim(const int w,const int h) const
 {
 	RayTracing::Ray_t *rays = (RayTracing::Ray_t*)malloc(w * h * sizeof(RayTracing::Ray_t));
 	cudaError_t cudaStatus = genViewRayWithCuda(rays, w, h);
+	for(int i = 0; i < w *h; i++)
+	{
+		printf("d.x = %d\n", rays[i].d.x);
+	}
 	return NULL;
 }
 
