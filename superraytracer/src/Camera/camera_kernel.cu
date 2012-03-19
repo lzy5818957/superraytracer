@@ -7,7 +7,9 @@ __global__ void genViewRayKernel(RayTracing::Ray_t *rays)
     int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 
-	printf("%d, %d\n", c ,r);
+	rays[0].d.x = 1.0f;
+	rays[0].d.y = 4.0f;
+	rays[0].d.z = 6.0f;
 }
 
 
@@ -37,8 +39,10 @@ extern "C" cudaError_t genViewRayWithCuda(RayTracing::Ray_t *host_rays, const in
                 h/threadsPerBlock.y);  
 
 
+
     // Launch a kernel on the GPU with one thread for each element.
     genViewRayKernel<<<numBlocks, threadsPerBlock>>>(dev_rays);
+
 
     // cudaDeviceSynchronize waits for the kernel to finish, and returns
     // any errors encountered during the launch.
