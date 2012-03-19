@@ -43,7 +43,7 @@ static const int CAMERA_ROTATE_DOWN = 0x200;
 static const int CAMERA_SPIN_LEFT = 0x400;
 static const int CAMERA_SPIN_RIGHT = 0x800;
 
-static const int MAX_RT_PASSES = 0;
+static const int MAX_RT_PASSES = 50;
 static const int MAX_RAY_DEPTH = 2;
 
 Assignment3::Assignment3()
@@ -304,57 +304,57 @@ void Assignment3::specialKeyboard(UI::KeySpecial_t key, UI::ButtonState_t state)
 		}
 		break;
 	case UI::KEY_W:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_FORWARD);
 		break;
 	case UI::KEY_S:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_BACKWARD);
 		break;
 
 	case UI::KEY_A:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_STRAFE_LEFT);
 		break;
 	case UI::KEY_D:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_STRAFE_RIGHT);
 		break;
 
 	case UI::KEY_Q:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_UP);
 		break;
 	case UI::KEY_E:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_DOWN);
 		break;
 
 
 	case UI::KEY_KP_8:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_UP);
 		break;
 	case UI::KEY_KP_5:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_DOWN);
 		break;
 
 	case UI::KEY_KP_4:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_LEFT);
 		break;
 	case UI::KEY_KP_6:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_RIGHT);
 		break;
 
 	case UI::KEY_KP_7:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_SPIN_LEFT);
 		break;
 	case UI::KEY_KP_9:
-		//if (m_isRayTracing) break;
+		if (m_isRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_SPIN_RIGHT);
 		break;
 
@@ -532,7 +532,12 @@ void Assignment3::idle()
 			// Ray trace rows for TIMEOUT s
 			float timeout = 0.1f; // 100ms
 
+			RayTracing::Ray_t *rays;
+			rays = m_camera.genViewRayInDim(m_windowWidth,m_windowHeight);
+
 			RayTracing::Ray_t ray;
+			
+
 			RayTracing::HitInfo_t hitinfo;
 			double time = currTime;
 			do
@@ -548,6 +553,7 @@ void Assignment3::idle()
 					// the ray to be cast.
 					const float x = c - 0.5 + rand() / ((float)RAND_MAX), y = m_rtRow - 0.5 + rand() / ((float)RAND_MAX);
 
+					ray = m_camera.genViewRay(x,y);
 					//printf("%f, %f\n",x, y);
 
 					// TODO!!
@@ -557,7 +563,7 @@ void Assignment3::idle()
 					//  Assign the shade of the ray to the 'clr' variable.
 					//  The recursive depth for shading the ray is given by the
 					// constant MAX_RAY_DEPTH (found at top of this file)
-					ray = m_camera.genViewRay(x,y);
+					
 					RayTracing::HitInfo_t hitinfo;
 					hitinfo.hitDist = FLT_MAX;
 					if(m_scene.rayIntersects(ray, 0.0001, 300.0, hitinfo))
@@ -595,50 +601,52 @@ void Assignment3::idle()
 			}
 		}
 	}
-
-	if (m_cameraMovement) // Is a camera movement key pressed?
+	else
 	{
-		// time since the last time we updated the camera
-		double deltaT = currTime - m_lastCamMoveTime;
-		if (deltaT > 0)
+		if (m_cameraMovement) // Is a camera movement key pressed?
 		{
-			// Time has elapsed since the last time idle() was called
-			// so, move the camera according to which key(s) are pressed.
-			if (m_cameraMovement & CAMERA_FORWARD)
-				m_camera.moveForward( m_movementSpeed * deltaT );
-			if (m_cameraMovement & CAMERA_BACKWARD)
-				m_camera.moveForward( -m_movementSpeed * deltaT );
+			// time since the last time we updated the camera
+			double deltaT = currTime - m_lastCamMoveTime;
+			if (deltaT > 0)
+			{
+				// Time has elapsed since the last time idle() was called
+				// so, move the camera according to which key(s) are pressed.
+				if (m_cameraMovement & CAMERA_FORWARD)
+					m_camera.moveForward( m_movementSpeed * deltaT );
+				if (m_cameraMovement & CAMERA_BACKWARD)
+					m_camera.moveForward( -m_movementSpeed * deltaT );
 
-			if (m_cameraMovement & CAMERA_STRAFE_RIGHT)
-				m_camera.strafeRight( m_movementSpeed * deltaT );
-			if (m_cameraMovement & CAMERA_STRAFE_LEFT)
-				m_camera.strafeRight( -m_movementSpeed * deltaT );
+				if (m_cameraMovement & CAMERA_STRAFE_RIGHT)
+					m_camera.strafeRight( m_movementSpeed * deltaT );
+				if (m_cameraMovement & CAMERA_STRAFE_LEFT)
+					m_camera.strafeRight( -m_movementSpeed * deltaT );
 
-			if (m_cameraMovement & CAMERA_UP)
-				m_camera.moveUp( m_movementSpeed * deltaT);
-			if (m_cameraMovement & CAMERA_DOWN)
-				m_camera.moveUp( -m_movementSpeed * deltaT);
+				if (m_cameraMovement & CAMERA_UP)
+					m_camera.moveUp( m_movementSpeed * deltaT);
+				if (m_cameraMovement & CAMERA_DOWN)
+					m_camera.moveUp( -m_movementSpeed * deltaT);
 
-			if (m_cameraMovement & CAMERA_ROTATE_UP)
-				m_camera.rotateUp( m_rotationSpeed * deltaT );
-			if (m_cameraMovement & CAMERA_ROTATE_DOWN)
-				m_camera.rotateUp( -m_rotationSpeed * deltaT );
+				if (m_cameraMovement & CAMERA_ROTATE_UP)
+					m_camera.rotateUp( m_rotationSpeed * deltaT );
+				if (m_cameraMovement & CAMERA_ROTATE_DOWN)
+					m_camera.rotateUp( -m_rotationSpeed * deltaT );
 
-			if (m_cameraMovement & CAMERA_ROTATE_LEFT)
-				m_camera.rotateRight( m_rotationSpeed * deltaT );
-			if (m_cameraMovement & CAMERA_ROTATE_RIGHT)
-				m_camera.rotateRight( -m_rotationSpeed * deltaT );
+				if (m_cameraMovement & CAMERA_ROTATE_LEFT)
+					m_camera.rotateRight( m_rotationSpeed * deltaT );
+				if (m_cameraMovement & CAMERA_ROTATE_RIGHT)
+					m_camera.rotateRight( -m_rotationSpeed * deltaT );
 
-			if (m_cameraMovement & CAMERA_SPIN_LEFT)
-				m_camera.spinCamera( m_rotationSpeed * deltaT );
-			if (m_cameraMovement & CAMERA_SPIN_RIGHT)
-				m_camera.spinCamera( -m_rotationSpeed * deltaT );
+				if (m_cameraMovement & CAMERA_SPIN_LEFT)
+					m_camera.spinCamera( m_rotationSpeed * deltaT );
+				if (m_cameraMovement & CAMERA_SPIN_RIGHT)
+					m_camera.spinCamera( -m_rotationSpeed * deltaT );
 
-			m_cameraChanged = true;
-			m_lastCamMoveTime = currTime;
+				m_cameraChanged = true;
+				m_lastCamMoveTime = currTime;
+			}
+
+
 		}
-
-
 	}
 
 	m_lastIdleTime = currTime;

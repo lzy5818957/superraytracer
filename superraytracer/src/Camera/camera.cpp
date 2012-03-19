@@ -13,7 +13,10 @@
 #include <cassert>
 #include <cmath>
 #include "camera.h"
-#include <stdio.h>
+#include <cstdio>
+#include <cstdlib>
+
+#include "camera_kernel.cuh"
 
 Camera::Camera()
 {
@@ -350,6 +353,13 @@ void Camera::spinCamera(const float angle)
 	assert( fabsf(gml::dot(m_up, m_right)) < 1e-6 );
 
 	this->setWorldView();
+}
+
+RayTracing::Ray_t* Camera::genViewRayInDim(const int w,const int h) const
+{
+	RayTracing::Ray_t *rays = (RayTracing::Ray_t*)malloc(w * h * sizeof(RayTracing::Ray_t));
+	cudaError_t cudaStatus = genViewRayWithCuda(rays, w, h);
+	return NULL;
 }
 
 void Camera::printMatrix4x4(const gml::mat4x4_t *matrix_ref,const char *matrixName)

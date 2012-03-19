@@ -157,6 +157,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CudaCompile Include="kernel.cu" />
+    <CudaCompile Include="src\Camera\camera_kernel.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\assign1.cpp" />
@@ -243,6 +244,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <None Include="res\gray_wall.png" />
     <None Include="res\testPattern.png" />
+    <None Include="src\Camera\camera_kernel.cuh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
