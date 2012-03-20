@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 				"2) Assignment 2\n"
 				"3) Assignment 3\n"
 				"Which program do you want to run? ");
-		scanf("%d", &choice);
+		//scanf("%d", &choice);
 	} while (choice < 0 || choice > 3);
 #endif
 	UI::Callbacks *program;
