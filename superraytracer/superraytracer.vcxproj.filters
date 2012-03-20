@@ -3,6 +3,7 @@
   <ItemGroup>
     <CudaCompile Include="kernel.cu" />
     <CudaCompile Include="src\Camera\camera_kernel.cu" />
+    <CudaCompile Include="src\Util\cudaVectUtil.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera\camera.cpp" />
@@ -90,5 +91,6 @@
     <None Include="res\gray_wall.png" />
     <None Include="res\testPattern.png" />
     <None Include="src\Camera\camera_kernel.cuh" />
+    <None Include="src\Util\cudaVectUtil.cuh" />
   </ItemGroup>
 </Project>
