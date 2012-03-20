@@ -8,33 +8,27 @@ __global__ void setup_rand_kernel ( curandState * state , int w, int h)
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	/* Each thread gets same seed , a different sequence
 	number , no offset */
-	curand_init (1234 , c + r * w , 0, & state [ c + r * w ]);
-	curand_init (1234 , c + r * w  + w * h, 0, & state [c + r * w  + w * h]);
+	curand_init (1234 , 3 * c + w * r, 0, & state [  3 * c + w * r ]);
+	curand_init (1234 , 1 + 3 * c + w * r, 0, & state [ 1 + 3 * c + w * r ]);
 }
-__global__ void generate_rand_kernel ( curandState *state ,	int *result, int w, int h )
+__global__ void generate_rand_kernel ( curandState *state ,	float *result, int w, int h )
 {
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 
 	
-	curandState localState = state [c + r * w ];
-
-	int x1 = curand (& localState );
+	curandState localState = state [3 * c + w * r ];
 	/* Store results */
-	result [c + r * w ] = x1;
-	/* Copy state back to global memory */
-	//state [c + r * w ] = localState ;
+	result [3 * c + w * r ] = curand_uniform (& localState );
 
 	/* Copy state to local memory for efficiency */
-	localState = state [c + r * w  + w * h ];
-	int x2 = curand (& localState );
-	result [ c + r * w  + w * h ] = x2;
-	/* Copy state back to global memory */
-	//state [2* (c + r * w) ] = localState ;
+	localState = state [1 + 3 * c + w * r ];
+	result [ 1 + 3 * c + w * r ] = curand_uniform (& localState );
+
 
 }
 
-__global__ void genViewRayKernel(float *rayDirs, int* rand_result, int w, int h)
+__global__ void genViewRayKernel(float *rayDirs, float* rand_result, int w, int h)
 {
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
@@ -43,7 +37,7 @@ __global__ void genViewRayKernel(float *rayDirs, int* rand_result, int w, int h)
 	float screenPositionInWorld4;
 
 
-	const float x = c - 0.5 + rand_result[c + r * w] / ((float)INT_MAX), y = r - 0.5 + rand_result[c + r * w  + w * h] / ((float)INT_MAX);
+	const float x = c - 0.5 + rand_result[ 3 * c + w * r], y = r - 0.5 + rand_result[1 + 3 * c + r * w];
 
 	float screenPos[4] = {x, y, 1, 1};
 
@@ -55,9 +49,9 @@ __global__ void genViewRayKernel(float *rayDirs, int* rand_result, int w, int h)
 */
 	//ray.d = gml::normalize(gml::sub(screenPositionInWorld3,ray.o));
 
-	rayDirs[c + w * r] = x;
-	rayDirs[1 + c + r * w ] = y;
-	rayDirs[2 + c + r * w ] = 0.0f;
+	rayDirs[ 3 * c + w * r] = x;
+	rayDirs[ 1 + 3 * c + r * w ] = y;
+	rayDirs[ 2 + 3 * c + r * w ] = 0.0f;
 
 }
 
@@ -67,7 +61,7 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRayDirs, const int w, const
 
 	float *devRayDirs = 0;
 	curandState * devStates;
-	int *dev_rand_result;
+	float *dev_rand_result;
 	cudaError_t cudaStatus;
 
 	// Choose which GPU to run on, change this on a multi-GPU system.
@@ -90,7 +84,7 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRayDirs, const int w, const
 		goto Error;
 	}
 	*/
-	cudaStatus = cudaMalloc (( void **)& dev_rand_result , 2 * w * h * sizeof ( int));
+	cudaStatus = cudaMalloc (( void **)& dev_rand_result , 2 * w * h * sizeof ( float));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
 		goto Error;
