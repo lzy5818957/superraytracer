@@ -67,11 +67,10 @@ protected:
 	gml::vec3_t *m_rtImage; // Ray traced image. Allocated as an m_windowWidth x m_windowHeight array
 	// Note: Row 0 in the image is the bottom of the window, not the top
 	bool m_isRayTracing; // true iff ray tracing mode is toggled 'on'
+	bool m_isProcessingRayTracing;
 	GLuint m_rtFBO; // Framebuffer object for ray tracing
 	GLuint m_rtTex; // Texturebuffer object to copy ray traced image data to for display.
-	int m_rtRow; // Which row to ray trace next.
 	bool m_cameraChanged;
-	int m_rtPassNum; // How many rays have been cast through each pixel
 
 	void toggleCameraMoveDirection(bool enable, int direction);
 

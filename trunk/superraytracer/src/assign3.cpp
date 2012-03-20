@@ -43,7 +43,7 @@ static const int CAMERA_ROTATE_DOWN = 0x200;
 static const int CAMERA_SPIN_LEFT = 0x400;
 static const int CAMERA_SPIN_RIGHT = 0x800;
 
-static const int MAX_RT_PASSES = 50;
+static const int MAX_RT_PASSES = 1;
 static const int MAX_RAY_DEPTH = 2;
 
 Assignment3::Assignment3()
@@ -67,6 +67,7 @@ Assignment3::Assignment3()
 
 	m_rtImage = 0;
 	m_isRayTracing = false;
+	m_isProcessingRayTracing = false;
 	m_rtFBO = 0;
 	m_rtTex = 0;
 
@@ -304,62 +305,62 @@ void Assignment3::specialKeyboard(UI::KeySpecial_t key, UI::ButtonState_t state)
 		}
 		break;
 	case UI::KEY_W:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_FORWARD);
 		break;
 	case UI::KEY_S:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_BACKWARD);
 		break;
 
 	case UI::KEY_A:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_STRAFE_LEFT);
 		break;
 	case UI::KEY_D:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_STRAFE_RIGHT);
 		break;
 
 	case UI::KEY_Q:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_UP);
 		break;
 	case UI::KEY_E:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_DOWN);
 		break;
 
 
 	case UI::KEY_KP_8:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_UP);
 		break;
 	case UI::KEY_KP_5:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_DOWN);
 		break;
 
 	case UI::KEY_KP_4:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_LEFT);
 		break;
 	case UI::KEY_KP_6:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_ROTATE_RIGHT);
 		break;
 
 	case UI::KEY_KP_7:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_SPIN_LEFT);
 		break;
 	case UI::KEY_KP_9:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		toggleCameraMoveDirection(state == UI::BUTTON_DOWN, CAMERA_SPIN_RIGHT);
 		break;
 
 	case UI::KEY_F1:
-		if (m_isRayTracing) break;
+		if (m_isProcessingRayTracing) break;
 		if (state == UI::BUTTON_DOWN)
 			m_useShadowMap = !m_useShadowMap;
 		break;
@@ -370,7 +371,6 @@ void Assignment3::specialKeyboard(UI::KeySpecial_t key, UI::ButtonState_t state)
 			m_isRayTracing = !m_isRayTracing;
 			if (m_isRayTracing && m_cameraChanged)
 			{
-				m_rtRow = 0; // start at the beginning of the image.
 				glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_rtFBO);
 				glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_rtTex, 0);
 				isGLError();
@@ -379,10 +379,9 @@ void Assignment3::specialKeyboard(UI::KeySpecial_t key, UI::ButtonState_t state)
 				glClearColor(0.0, 0.0, 0.0, 1.0);
 				isGLError();
 				glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-				m_cameraChanged = false;
+				m_cameraChanged = true;
 				// Zero(black)-out the image
 				memset(m_rtImage, 0x00, sizeof(gml::vec3_t)*m_windowHeight*m_windowWidth);
-				m_rtPassNum = 0;
 			}
 		}
 		break;
@@ -523,23 +522,24 @@ void Assignment3::idle()
 
 	double currTime = UI::getTime(); // current time
 
-	if (m_isRayTracing)
-	{
-		if (m_rtRow < m_windowHeight)
+	if (m_isRayTracing && m_cameraChanged)
+	{/*
+		RayTracing::Ray_t *rays;
+		rays = m_camera.genViewRayInDim(m_windowWidth,m_windowHeight);
+*/
+		m_isProcessingRayTracing = true;
+		for(int pass = 0; pass < MAX_RT_PASSES; pass++)
 		{
-			GLuint startRow = m_rtRow;
-
+			
 			// Ray trace rows for TIMEOUT s
 			float timeout = 0.1f; // 100ms
-
-			RayTracing::Ray_t *rays;
-			rays = m_camera.genViewRayInDim(m_windowWidth,m_windowHeight);
 
 			RayTracing::Ray_t ray;
 			
 
 			RayTracing::HitInfo_t hitinfo;
 			double time = currTime;
+			GLuint m_rtRow = 0;
 			do
 			{
 				gml::vec3_t *imgPos = m_rtImage + m_rtRow*m_windowWidth;
@@ -572,34 +572,31 @@ void Assignment3::idle()
 					}
 
 					// Use 'clr' to update the image
-					if (m_rtPassNum == 0)
+					if (pass == 0)
 					{
 						*imgPos = clr;
 					}
 					else
 					{
-						*imgPos = gml::scale(1.0f/(m_rtPassNum+1),	gml::add( gml::scale(m_rtPassNum,*imgPos), clr ) );
+						*imgPos = gml::scale(1.0f/(pass+1),	gml::add( gml::scale(pass,*imgPos), clr ) );
 					}
 				}
 
 				m_rtRow += 1;
 				time = UI::getTime();
-			} while (m_rtRow < m_windowHeight && (time-currTime)<timeout);
+			} while (m_rtRow < m_windowHeight);
+
 
 			// Copy the new image data to the texture for blitting to the screen.
 			glBindTexture(GL_TEXTURE_2D, m_rtTex);
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, startRow, m_windowWidth, m_rtRow-startRow, GL_RGB, GL_FLOAT, m_rtImage+startRow*m_windowWidth);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_windowWidth, m_windowHeight, GL_RGB, GL_FLOAT, m_rtImage);
 			if (isGLError()) return;
+
+			m_cameraChanged = false;
+			fprintf(stdout, "Pass %d Complete\n", pass);
+
 		}
-		else
-		{
-			if (m_rtPassNum < MAX_RT_PASSES)
-			{
-				m_rtRow = 0;
-				m_rtPassNum += 1;
-				fprintf(stdout, "Pass %d Complete\n", m_rtPassNum);
-			}
-		}
+		m_isProcessingRayTracing = false;
 	}
 	else
 	{
