@@ -6,24 +6,24 @@ __global__ void setup_rand_kernel ( curandState * state , int w, int h)
 {
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
+	int arrayPos1 = c + w * r;
+
 	/* Each thread gets same seed , a different sequence
 	number , no offset */
-	curand_init (1234 , 3 * c + w * r, 0, & state [  3 * c + w * r ]);
-	curand_init (1234 , 1 + 3 * c + w * r, 0, & state [ 1 + 3 * c + w * r ]);
+	curand_init (1234 , arrayPos1, 0, & state [ arrayPos1 ]);
 }
 __global__ void generate_rand_kernel ( curandState *state ,	float *result, int w, int h )
 {
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
-
+	int arrayPos2 = 2 * c + w * r;
 	
-	curandState localState = state [3 * c + w * r ];
+	curandState localState = state [ c + w * r ];
 	/* Store results */
-	result [3 * c + w * r ] = curand_uniform (& localState );
+	result [ arrayPos2 ] = curand_uniform (& localState );
 
 	/* Copy state to local memory for efficiency */
-	localState = state [1 + 3 * c + w * r ];
-	result [ 1 + 3 * c + w * r ] = curand_uniform (& localState );
+	result [ 1 + arrayPos2 ] = curand_uniform (& localState );
 
 
 }
@@ -33,11 +33,13 @@ __global__ void genViewRayKernel(float *rayDirs, float* rand_result, int w, int 
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 
-
+	int arrayPos2 = 2 * c + w * r;
+	int arrayPos3 = 3 * c + w * r;
+	
 	float screenPositionInWorld4;
 
 
-	const float x = c - 0.5 + rand_result[ 3 * c + w * r], y = r - 0.5 + rand_result[1 + 3 * c + r * w];
+	const float x = c - 0.5 + rand_result[ arrayPos2 ], y = r - 0.5 + rand_result[1 + arrayPos2];
 
 	float screenPos[4] = {x, y, 1, 1};
 
@@ -49,14 +51,14 @@ __global__ void genViewRayKernel(float *rayDirs, float* rand_result, int w, int 
 */
 	//ray.d = gml::normalize(gml::sub(screenPositionInWorld3,ray.o));
 
-	rayDirs[ 3 * c + w * r] = x;
-	rayDirs[ 1 + 3 * c + r * w ] = y;
-	rayDirs[ 2 + 3 * c + r * w ] = 0.0f;
+	rayDirs[ arrayPos3] = x;
+	rayDirs[ 1 + arrayPos3 ] = y;
+	rayDirs[ 2 + arrayPos3 ] = 0.0f;
 
 }
 
 
-extern "C" cudaError_t genViewRayWithCuda(float *hostRayDirs, const int w, const int h)
+extern "C" cudaError_t genViewRayWithCuda(float *hostRayDirs, const int w, const int h,  float *camPos)
 {
 
 	float *devRayDirs = 0;
@@ -72,31 +74,20 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRayDirs, const int w, const
 	}
 
 	// Allocate GPU buffers for three vectors (two input, one output)    .
-	cudaStatus = cudaMalloc((void**)&devRayDirs, w * h * 3 * sizeof(float));
+	cudaStatus = cudaMalloc((void**)&devRayDirs, 3 * w * h * sizeof(float));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
 		goto Error;
 	}
-	/*
-	cudaMemset ( devRayDirs , 0, w * h * 3 * sizeof ( float));
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemset failed!");
-		goto Error;
-	}
-	*/
+
 	cudaStatus = cudaMalloc (( void **)& dev_rand_result , 2 * w * h * sizeof ( float));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
 		goto Error;
 	}
 
-	cudaMemset ( dev_rand_result , 0, 2 * w * h * sizeof ( int));
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemset failed!");
-		goto Error;
-	}
 
-	cudaMalloc (( void **)& devStates , 2 * w * h * sizeof ( curandState ));
+	cudaMalloc (( void **)& devStates , w * h * sizeof ( curandState ));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
 		goto Error;
