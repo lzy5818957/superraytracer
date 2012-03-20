@@ -106,13 +106,13 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRayDirs, const int w, const
 	}
 
 
-	cudaMalloc (( void **)& devStates , w * h * sizeof ( curandState ));
+	cudaStatus = cudaMalloc (( void **)& devStates , w * h * sizeof ( curandState ));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
 		goto Error;
 	}
 
-	cudaMalloc (( void **)& devStates , 16 * sizeof ( devWindowToWorld ));
+	cudaStatus = cudaMalloc (( void **)& devWindowToWorld , 16 * sizeof ( float ));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
 		goto Error;
@@ -132,7 +132,7 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRayDirs, const int w, const
 		h/threadsPerBlock.y);  
 	
 	setup_rand_kernel <<<numBlocks, threadsPerBlock>>>( devStates, w, h );
-	
+
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
 	// any errors encountered during the launch.
 	cudaStatus = cudaDeviceSynchronize();
@@ -175,13 +175,8 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRayDirs, const int w, const
 	float alpha = 1.0f;
 	float beta = 0.0f;
 
-			for(int i = 0; i < 16; i++)
-	{
-		printf("host matrix %f\n",hostWindowToWorld[i]);
-	}
-
 	cublasStatus = cublasSetVector(16, sizeof(hostWindowToWorld[0]), hostWindowToWorld, 1, devWindowToWorld, 1);
-    if (cublasStatus != CUBLAS_STATUS_ALLOC_FAILED) {
+    if (cublasStatus != CUBLAS_STATUS_SUCCESS) {
         fprintf(stderr, "cublasSetVector returned error code %d after launching cublasSetVector!\n", cublasStatus);
 		goto Error;
     }
@@ -202,7 +197,7 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRayDirs, const int w, const
 	}
 
 	// Copy output vector from GPU buffer to host memory.
-	cudaStatus = cudaMemcpy(devScreenPosInWorld, devRayDirs, 4 * w * h * sizeof(float), cudaMemcpyDeviceToHost);
+	cudaStatus = cudaMemcpy(hostRayDirs, devScreenPosInWorld, 4 * w * h * sizeof(float), cudaMemcpyDeviceToHost);
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMemcpy failed!");
 		goto Error;
