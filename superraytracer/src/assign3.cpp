@@ -523,10 +523,10 @@ void Assignment3::idle()
 	double currTime = UI::getTime(); // current time
 
 	if (m_isRayTracing && m_cameraChanged)
-	{/*
+	{
 		RayTracing::Ray_t *rays;
 		rays = m_camera.genViewRayInDim(m_windowWidth,m_windowHeight);
-*/
+
 		m_isProcessingRayTracing = true;
 		for(int pass = 0; pass < MAX_RT_PASSES; pass++)
 		{
@@ -535,7 +535,6 @@ void Assignment3::idle()
 			float timeout = 0.1f; // 100ms
 
 			RayTracing::Ray_t ray;
-			
 
 			RayTracing::HitInfo_t hitinfo;
 			double time = currTime;
@@ -547,7 +546,6 @@ void Assignment3::idle()
 				for (int c=0; c<m_windowWidth; c++, imgPos++)
 				{
 					gml::vec3_t clr(0.0, 0.0, 0.0);
-
 
 					// (x,y) give the screen-space (aka: image-space, or window-space) coordinates of
 					// the ray to be cast.

@@ -1,6 +1,6 @@
 
 #include "cudaVectUtil.cuh"
-
+/*
 __device__ float* vector3ToArray(gml::vec3_t vec)
 {
 	float array[3];
@@ -56,3 +56,4 @@ __device__ gml::mat4x4_t arrayToMatrix4x4(float* array)
 
 	return mat;
 }
+*/
