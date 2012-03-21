@@ -1,6 +1,6 @@
 #include "camera_kernel.cuh"
 #include "curand_kernel.h"
-#include "cublas_v2.h"
+#include "../Util/cudaVectUtil.cuh"
 
 #include <cstdio>
 
@@ -43,8 +43,10 @@ __global__ void genRaysKernel(float *rays,float *camPos, float* rand_result, int
 	const float x = c - 0.5 + rand_result[ arrayPos2 ], y = r - 0.5 + rand_result[1 + arrayPos2];
 	
 	float screenPosition4[4] = {x, y, 1, 1};
-	
+	float screenPositionInWorld4[4];
+	Mat4x4_Mul_Vec4(m_windowToWorld,screenPosition4,screenPositionInWorld4);
 
+	
 	/*
 	screenPositionInWorld4 = gml::mul(m_windowToWorld, gml::vec4_t(x, y, 1, 1));
 	gml::vec3_t screenPositionInWorld3 = gml::vec3_t(screenPositionInWorld4.x/screenPositionInWorld4.w,
