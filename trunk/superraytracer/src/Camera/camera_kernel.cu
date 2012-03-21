@@ -18,6 +18,7 @@ __global__ void setup_rand_kernel ( curandState * state , int w, int h)
 	number , no offset */
 	curand_init (1234 , arrayPos1, 0, & state [ arrayPos1 ]);
 }
+
 __global__ void generate_rand_kernel ( curandState *state ,	float *result, int w, int h )
 {
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
@@ -51,8 +52,6 @@ __global__ void genRaysKernel(float *rays, float *camPos, float* rand_result, in
 	Mat4x4_Mul_Vec4(m_windowToWorld,(float*)&screenPosition4,(float*)&screenPositionInWorld4);
 
 	float3 rayDir = normalize(make_float3(screenPositionInWorld4) - *(float3*)(camPos));
-
-	
 
 	
 	/*
