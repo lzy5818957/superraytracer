@@ -357,13 +357,15 @@ void Camera::spinCamera(const float angle)
 
 RayTracing::Ray_t* Camera::genViewRayInDim(const int w, const int h) const
 {
-	float *rays = (float*)malloc(w * h * 6 * sizeof(float));
-	cudaError_t cudaStatus = genViewRayWithCuda(rays, w, h, (float*)&m_camPos, (float*)&m_windowToWorld);
+	float *raysFloat = (float*)malloc(w * h * 6 * sizeof(float));
 
+	cudaError_t cudaStatus = genViewRayWithCuda(raysFloat, w, h, (float*)&m_camPos, (float*)&m_windowToWorld);
+
+	RayTracing::Ray_t* rays = (RayTracing::Ray_t*)raysFloat;
 
 	for(int i = 0 ; i < 6 ; i++)
 	{
-		printf("float = %f\n", rays[i]);
+		printf("float = %f\n", (rays[0].o)[i]);
 
 	}
 
