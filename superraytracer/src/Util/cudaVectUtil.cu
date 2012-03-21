@@ -1,5 +1,15 @@
 
 #include "cudaVectUtil.cuh"
+
+__device__ float* Mat4x4_Mul_Mat4x4(float *A, float *B, float *c)
+{
+
+}
+__device__ float* Mat4x4_Mul_Vec4(float *A, float *B, float *c)
+{
+
+}
+
 /*
 __device__ float* vector3ToArray(gml::vec3_t vec)
 {
