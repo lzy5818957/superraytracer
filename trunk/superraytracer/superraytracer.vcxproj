@@ -64,8 +64,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\GnuWin32\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files (x86)\GnuWin32\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\ProgramData\NVIDIA Corporation\NVIDIA GPU Computing SDK 4.1\CUDALibraries\common\inc;C:\Program Files (x86)\GnuWin32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\ProgramData\NVIDIA Corporation\NVIDIA GPU Computing SDK 4.1\CUDALibraries\common\lib;C:\Program Files (x86)\GnuWin32\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

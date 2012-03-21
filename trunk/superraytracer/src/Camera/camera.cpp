@@ -374,7 +374,7 @@ RayTracing::Ray_t* Camera::genViewRayInDim(const int w, const int h) const
 
 void Camera::printMatrix4x4(const gml::mat4x4_t *matrix_ref,const char *matrixName)
 {
-      gml::mat4x4_t matrix = *matrix_ref;
+    gml::mat4x4_t matrix = *matrix_ref;
       printf("-------------\n");
       printf("%s:\n",matrixName);
       

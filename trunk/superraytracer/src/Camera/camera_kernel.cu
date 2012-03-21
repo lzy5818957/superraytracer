@@ -1,9 +1,11 @@
 #include "camera_kernel.cuh"
 #include "curand_kernel.h"
 #include <cutil_math.h>
-#include "../Util/cudaVectUtil.cu"
 
 #include <cstdio>
+
+#include "../Util/cudaVectUtil.cu"
+
 
 #define BLOCK_SIZE 8
 
@@ -12,7 +14,6 @@ __global__ void setup_rand_kernel ( curandState * state , int w, int h)
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	int arrayPos1 = c + w * r;
-	fmaxf(1,2);
 	/* Each thread gets same seed , a different sequence
 	number , no offset */
 	curand_init (1234 , arrayPos1, 0, & state [ arrayPos1 ]);
@@ -44,9 +45,9 @@ __global__ void genRaysKernel(float *rays, float *camPos, float* rand_result, in
 	const float x = c - 0.5 + rand_result[ arrayPos2 ], y = r - 0.5 + rand_result[1 + arrayPos2];
 	
 	float screenPosition4[4] = {x, y, 1, 1};
-	float screenPositionInWorld4[4];
+	float4x4 screenPositionInWorld4 = *(float4*)(m_windowToWorld) * 
 
-	Mat4x4_Mul_Vec4(m_windowToWorld,screenPosition4,screenPositionInWorld4);
+	Mat4x4_Mul_Vec4(,screenPosition4,screenPositionInWorld4);
 
 	float screenPositionInWorld3Nrm[3];
 
