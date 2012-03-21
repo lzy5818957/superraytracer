@@ -45,6 +45,7 @@ __global__ void genRaysKernel(float *rays, float *camPos, float* rand_result, in
 	
 	float screenPosition4[4] = {x, y, 1, 1};
 	float screenPositionInWorld4[4];
+
 	//Mat4x4_Mul_Vec4(m_windowToWorld,screenPosition4,screenPositionInWorld4);
 
 	//float 
