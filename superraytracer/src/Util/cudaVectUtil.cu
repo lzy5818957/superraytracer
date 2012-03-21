@@ -2,6 +2,7 @@
 #define __INC_CUDA_VECTOR_UTIL_H__
 
 #include "cuda_runtime.h"
+#include <cutil_math.h>
 
 struct float4x4
 {
