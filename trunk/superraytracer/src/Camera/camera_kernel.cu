@@ -46,10 +46,12 @@ __global__ void genRaysKernel(float *rays, float *camPos, float* rand_result, in
 	float screenPosition4[4] = {x, y, 1, 1};
 	float screenPositionInWorld4[4];
 
-	//Mat4x4_Mul_Vec4(m_windowToWorld,screenPosition4,screenPositionInWorld4);
+	Mat4x4_Mul_Vec4(m_windowToWorld,screenPosition4,screenPositionInWorld4);
 
-	//float 
-	//Vec3_Nrm(screenPositionInWorld4,
+	float screenPositionInWorld3Nrm[3];
+
+	Vec3_Nrm(screenPositionInWorld4,screenPositionInWorld3Nrm);
+
 	
 	/*
 	screenPositionInWorld4 = gml::mul(m_windowToWorld, gml::vec4_t(x, y, 1, 1));
