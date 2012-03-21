@@ -1,5 +1,6 @@
 #include "camera_kernel.cuh"
 #include "curand_kernel.h"
+
 #include "../Util/cudaVectUtil.cuh"
 
 #include <cstdio>
@@ -32,7 +33,7 @@ __global__ void generate_rand_kernel ( curandState *state ,	float *result, int w
 
 }
 
-__global__ void genRaysKernel(float *rays,float *camPos, float* rand_result, int w, int h, float *m_windowToWorld)
+__global__ void genRaysKernel(float *rays, float *camPos, float* rand_result, int w, int h, float *m_windowToWorld)
 {
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
@@ -44,8 +45,10 @@ __global__ void genRaysKernel(float *rays,float *camPos, float* rand_result, int
 	
 	float screenPosition4[4] = {x, y, 1, 1};
 	float screenPositionInWorld4[4];
-	Mat4x4_Mul_Vec4(m_windowToWorld,screenPosition4,screenPositionInWorld4);
+	//Mat4x4_Mul_Vec4(m_windowToWorld,screenPosition4,screenPositionInWorld4);
 
+	//float 
+	//Vec3_Nrm(screenPositionInWorld4,
 	
 	/*
 	screenPositionInWorld4 = gml::mul(m_windowToWorld, gml::vec4_t(x, y, 1, 1));
@@ -55,10 +58,10 @@ __global__ void genRaysKernel(float *rays,float *camPos, float* rand_result, int
 		*/
 	//ray.d = gml::normalize(gml::sub(screenPositionInWorld3,ray.o));
 	
-	rays[ arrayPos6] = x;
-	rays[ 1 + arrayPos6 ] = y;
-	rays[ 2 + arrayPos6 ] = 1.0f;
-	rays[ 3 + arrayPos6 ] = 1.0f;
+	rays[ arrayPos6] = camPos[0];
+	rays[ 1 + arrayPos6 ] = camPos[1];
+	rays[ 2 + arrayPos6 ] = camPos[2];
+	//rays[ 3 + arrayPos6 ] = 1.0f;
 
 }
 
@@ -121,9 +124,9 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRays, const int w, const in
 		goto Error;
 	}
 
-	cudaStatus = cudaMemcpy(devCamPos, hostCamPos, 16 * sizeof(float), cudaMemcpyHostToDevice);
+	cudaStatus = cudaMemcpy(devCamPos, hostCamPos, 3 * sizeof(float), cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "hostCamPos->devCamPos cudaMemcpy failed!");
 		goto Error;
 	}
 
