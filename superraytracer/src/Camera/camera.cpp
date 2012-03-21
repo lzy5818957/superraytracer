@@ -375,6 +375,7 @@ RayTracing::Ray_t* Camera::genViewRayInDim(const int w, const int h) const
 
 	}
 	*/
+
 	return rays;
 }
 
