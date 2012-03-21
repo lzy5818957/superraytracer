@@ -3,6 +3,11 @@
 
 #include "cuda_runtime.h"
 
+struct float4x4
+{
+    float4 m[4];
+};
+
 __device__ void Mat4x4_Mul(float *A, float *B, float *C)
 {
 	C[0] = A[0]*B[0]+A[1]*B[4]+A[2]*B[8]+A[3]*B[12]; 
@@ -48,5 +53,15 @@ __device__ void Vec3_Cross(float *A, float *B, float *C)
 	C[2] = A[0]*B[1] - A[1]*B[0];
 }
 
+__device__
+float4 mul(const float4x4 &M, const float4 &v)
+{
+    float4 r;
+    r.x = dot(v, M.m[0]);
+    r.y = dot(v, M.m[1]);
+    r.z = dot(v, M.m[2]);
+    r.w = dot(v, M.m[3]);
+    return r;
+}
 
 #endif
