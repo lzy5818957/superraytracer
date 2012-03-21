@@ -44,14 +44,15 @@ __global__ void genRaysKernel(float *rays, float *camPos, float* rand_result, in
 
 	const float x = c - 0.5 + rand_result[ arrayPos2 ], y = r - 0.5 + rand_result[1 + arrayPos2];
 	
-	float screenPosition4[4] = {x, y, 1, 1};
-	float4x4 screenPositionInWorld4 = *(float4*)(m_windowToWorld) * 
+	float4 screenPosition4 = {x, y, 1, 1};
 
-	Mat4x4_Mul_Vec4(,screenPosition4,screenPositionInWorld4);
+	float4 screenPositionInWorld4;
 
-	float screenPositionInWorld3Nrm[3];
+	Mat4x4_Mul_Vec4(m_windowToWorld,(float*)&screenPosition4,(float*)&screenPositionInWorld4);
 
-	Vec3_Nrm(screenPositionInWorld4,screenPositionInWorld3Nrm);
+	float3 rayDir = normalize(make_float3(screenPositionInWorld4) - *(float3*)(camPos));
+
+	
 
 	
 	/*
@@ -65,7 +66,9 @@ __global__ void genRaysKernel(float *rays, float *camPos, float* rand_result, in
 	rays[ arrayPos6] = camPos[0];
 	rays[ 1 + arrayPos6 ] = camPos[1];
 	rays[ 2 + arrayPos6 ] = camPos[2];
-	//rays[ 3 + arrayPos6 ] = 1.0f;
+	rays[ 3 + arrayPos6 ] = rayDir.x;
+	rays[ 4 + arrayPos6 ] = rayDir.y;
+	rays[ 5 + arrayPos6 ] = rayDir.z;
 
 }
 

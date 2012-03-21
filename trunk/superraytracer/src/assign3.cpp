@@ -530,7 +530,7 @@ void Assignment3::idle()
 		m_isProcessingRayTracing = true;
 		for(int pass = 0; pass < MAX_RT_PASSES; pass++)
 		{
-			
+
 			// Ray trace rows for TIMEOUT s
 			float timeout = 0.1f; // 100ms
 
@@ -549,10 +549,23 @@ void Assignment3::idle()
 
 					// (x,y) give the screen-space (aka: image-space, or window-space) coordinates of
 					// the ray to be cast.
-					const float x = c - 0.5 + rand() / ((float)RAND_MAX), y = m_rtRow - 0.5 + rand() / ((float)RAND_MAX);
+					//const float x = c - 0.5 + rand() / ((float)RAND_MAX), y = m_rtRow - 0.5 + rand() / ((float)RAND_MAX);
 
-					ray = m_camera.genViewRay(x,y);
-					//printf("%f, %f\n",x, y);
+					ray = (rays[c + m_rtRow * m_windowWidth]);
+					/*
+					for(int i = 0 ; i < 3 ; i++)
+					{
+						printf("ray.o = %f\n", (ray.o)[i]);
+
+					}
+					for(int i = 0 ; i < 3 ; i++)
+					{
+						printf("ray.d = %f\n", (ray.d)[i]);
+
+					}
+					
+					printf("-----------------------\n");
+					*/
 
 					// TODO!!
 					//   Create the ray through (x,y) from the camera, then use the m_scene
@@ -561,7 +574,7 @@ void Assignment3::idle()
 					//  Assign the shade of the ray to the 'clr' variable.
 					//  The recursive depth for shading the ray is given by the
 					// constant MAX_RAY_DEPTH (found at top of this file)
-					
+
 					RayTracing::HitInfo_t hitinfo;
 					hitinfo.hitDist = FLT_MAX;
 					if(m_scene.rayIntersects(ray, 0.0001, 300.0, hitinfo))
