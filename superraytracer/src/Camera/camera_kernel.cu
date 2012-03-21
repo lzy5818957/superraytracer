@@ -160,7 +160,7 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRays, const int w, const in
 	}
 
 	cudaFree(devStates);
-
+	devStates = 0;
 
 	// Launch a kernel on the GPU with one thread for each element.
 	genRaysKernel<<<numBlocks, threadsPerBlock>>>(devRays, devCamPos, devRandResult, w, h, devWindowToWorld);
@@ -174,7 +174,7 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRays, const int w, const in
 	}
 
 	cudaFree(devRandResult);
-
+	devRandResult = 0;
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
 	// any errors encountered during the launch.
@@ -191,10 +191,14 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRays, const int w, const in
 		goto Error;
 	}
 
+	cudaFree(devRays);
+	devRays = 0;
+
 Error:
 	cudaFree(devRays);
-	cudaFree(devWindowToWorld);
+	cudaFree(devStates);
 	cudaFree(devRandResult);
+	cudaFree(devWindowToWorld);
 	cudaFree(devCamPos);
 	return cudaStatus;
 
