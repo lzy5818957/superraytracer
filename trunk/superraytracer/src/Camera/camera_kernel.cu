@@ -1,6 +1,6 @@
 #include "camera_kernel.cuh"
 #include "curand_kernel.h"
-
+#include <cutil_math.h>
 #include "../Util/cudaVectUtil.cu"
 
 #include <cstdio>
@@ -12,7 +12,7 @@ __global__ void setup_rand_kernel ( curandState * state , int w, int h)
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	int arrayPos1 = c + w * r;
-
+	fmaxf(1,2);
 	/* Each thread gets same seed , a different sequence
 	number , no offset */
 	curand_init (1234 , arrayPos1, 0, & state [ arrayPos1 ]);
