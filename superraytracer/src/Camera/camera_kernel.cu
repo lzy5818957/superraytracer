@@ -182,7 +182,6 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRayDirs, const int w, const
     }
 
 	cublasStatus = cublasSgemm(cublasHandle, CUBLAS_OP_N, CUBLAS_OP_N, 4, 1, 4, &alpha, devWindowToWorld, 4, devScreenPos, 4, &beta, devScreenPosInWorld, 4);
-
 	if (cublasStatus != CUBLAS_STATUS_SUCCESS) {
 		fprintf(stderr, "cublasSgemm returned error code %d after launching cublasSgemm!\n", cublasStatus);
 		goto Error;
