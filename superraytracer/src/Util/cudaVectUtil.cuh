@@ -6,8 +6,8 @@
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 
-__device__ float* Mat4x4_Mul_Mat4x4(float *A, float *B, float *c);
-__device__ float* Mat4x4_Mul_Vec4(float *A, float *B, float *c);
-
+__device__ float* Mat4x4_Mul_Mat4x4(float *A, float *B, float *C);
+__device__ float* Mat4x4_Mul_Vec4(float *A, float *B, float *C);
+__device__ float* Vec3_Nrm(float *A, float *B);
 
 #endif
