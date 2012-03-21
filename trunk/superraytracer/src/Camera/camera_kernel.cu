@@ -1,7 +1,7 @@
 #include "camera_kernel.cuh"
 #include "curand_kernel.h"
 
-#include "../Util/cudaVectUtil.cuh"
+#include "../Util/cudaVectUtil.cu"
 
 #include <cstdio>
 
