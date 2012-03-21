@@ -363,19 +363,6 @@ RayTracing::Ray_t* Camera::genViewRayInDim(const int w, const int h) const
 
 	RayTracing::Ray_t* rays = (RayTracing::Ray_t*)raysFloat;
 
-	/*
-	for(int i = 0 ; i < 3 ; i++)
-	{
-		printf("fay.o = %f\n", (rays[0].o)[i]);
-
-	}
-	for(int i = 0 ; i < 3 ; i++)
-	{
-		printf("fay.d = %f\n", (rays[0].d)[i]);
-
-	}
-	*/
-
 	return rays;
 }
 
