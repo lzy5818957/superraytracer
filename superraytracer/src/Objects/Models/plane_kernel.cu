@@ -1,51 +1,63 @@
 #include "plane_kernel.cuh"
+
 #include <cstdio>
+#include <cutil_math.h>
+#include <cfloat>
 
 #define BLOCK_SIZE 8
 
-__global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hitInfos)
+__global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hitInfos, float3 vert0)
 {
-	gml::vec3_t E1(0.0f, 0.0f, 2.0f);
-	gml::vec3_t E2(2.0f, 0.0f, 0.0f);
 
-	gml::vec3_t P = gml::cross( ray.d, E2 );
+	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
+	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
+	int arrayPos1 = c + w * r;
+	int arrayPos6 = 6 * (c + w * r);
 
-	float detM = gml::dot(P, E1);
+	float3 E1 = {0.0f, 0.0f, 2.0f};
+	float3 E2 = {2.0f, 0.0f, 0.0f};
+	float3 rayDir = {devRays[arrayPos6 + 3], devRays[arrayPos6 + 4], devRays[arrayPos6 + 5]};
+	float3 rayOri = {devRays[arrayPos6], devRays[arrayPos6 + 1], devRays[arrayPos6 + 2]};
+	float3 P = cross(rayDir, E2);
+
+	float detM = dot(P, E1);
 
 	if (fabs(detM) < 1e-4)
 	{
-		return false;
+		hitInfos[arrayPos1].hitDist = FLT_MAX;
+		return;
 	}
 
-	gml::vec3_t T = gml::sub( ray.o, _verts[0] );
+	float3 T = rayOri - vert0;
 
-	float u = gml::dot( P, T ) / detM;
+	float u = dot( P, T ) / detM;
 	
 	if ( u < 0.0f || 1.0f < u )
 	{
-		return false;
+		hitInfos[arrayPos1].hitDist = FLT_MAX;
+		return;
 	}
 
-	gml::vec3_t TxE1 = gml::cross(T, E1);
-	float v = gml::dot( TxE1, ray.d ) / detM;
+	float3 TxE1 = cross(T, E1);
+	float v = dot( TxE1, rayDir ) / detM;
 	if ( v < 0.0f || 1.0f < v)
 	{
-		return false;
+		hitInfos[arrayPos1].hitDist = FLT_MAX;
+		return;
 	}
 
-	float t = gml::dot( TxE1, E2 ) / detM;
+	float t = dot( TxE1, E2 ) / detM;
 	if (t < t0 || t1 < t)
 	{
-		return false;
+		hitInfos[arrayPos1].hitDist = FLT_MAX;
+		return;
 	}
 
-	hitinfo.hitDist =  t;
+	hitInfos[arrayPos1].hitDist =  t;
   
-	hitinfo.plane.u = u;
-	hitinfo.plane.v = v;
+	hitInfos[arrayPos1].plane.u = u;
+	hitInfos[arrayPos1].plane.v = v;
 	
-	return true;
-
 
 }
 
@@ -80,12 +92,20 @@ extern "C" cudaError_t raysIntersectsWithCudaPlane(float *devRays, const float t
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);  
 
-	raysIntersectsPlaneKernel <<<numBlocks, threadsPerBlock>>>(devRays, t0, t1, w, h, devHitInfos);
+	raysIntersectsPlaneKernel <<<numBlocks, threadsPerBlock>>>(devRays, t0, t1, w, h, devHitInfos, make_float3(1,1,1));
 
 	// Copy output vector from GPU buffer to host memory.
 	cudaStatus = cudaMemcpy(hostHitInfos, devHitInfos, w * h * sizeof( RayTracing::HitInfo_t), cudaMemcpyDeviceToHost);
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMemcpy failed!");
+		goto Error;
+	}
+
+	// cudaDeviceSynchronize waits for the kernel to finish, and returns
+	// any errors encountered during the launch.
+	cudaStatus = cudaDeviceSynchronize();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaDeviceSynchronize returned error code %d before launching setup_rand_kernel!\n", cudaStatus);
 		goto Error;
 	}
 
