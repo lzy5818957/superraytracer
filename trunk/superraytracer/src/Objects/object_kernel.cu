@@ -1,11 +1,19 @@
 #include "object_kernel.cuh"
 #include "curand_kernel.h"
 #include "cublas_v2.h"
-#include "../Util/cudaVectUtil.cu"
 #include <cutil_math.h>
 
 #include <cstdio>
 
+#define BLOCK_SIZE 8
+
+__device__ void Mat4x4_Mul_Vec4_obj(float *A, float *B, float *C)
+{
+	C[0] = A[0]*B[0]+A[4]*B[1]+A[8]*B[2]+A[12]*B[3]; 
+	C[1] = A[1]*B[0]+A[5]*B[1]+A[9]*B[2]+A[13]*B[3];
+	C[2] = A[2]*B[0]+A[6]*B[1]+A[10]*B[2]+A[14]*B[3];
+	C[3] = A[3]*B[0]+A[7]*B[1]+A[11]*B[2]+A[15]*B[3];
+}
 
 __global__ void tfRayWdToObj(float3 *rays, float *m_worldToObject, int w)
 {
@@ -16,11 +24,11 @@ __global__ void tfRayWdToObj(float3 *rays, float *m_worldToObject, int w)
 
 	float4 ray_wd = make_float4(rays[arraypos2], 1.0f);
 	float4 ray_obj;
-	Mat4x4_Mul_Vec4(m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
+	Mat4x4_Mul_Vec4_obj(m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
 	rays[arraypos2] = make_float3(ray_obj);
 
 	ray_wd = make_float4(rays[arraypos2+1], 1.0f);
-	Mat4x4_Mul_Vec4(m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
+	Mat4x4_Mul_Vec4_obj(m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
 	rays[arraypos2+1] = make_float3(ray_obj);
 }
 
@@ -63,11 +71,16 @@ extern "C" cudaError_t transformRayToObjSpaceWithCuda(float *hostRays, const int
 		goto Error;
 	}
 
-	tfRayWdToObj(devRays, m_worldToObject, w);
+	dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);  // 64 threads 
+
+	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
+		h/threadsPerBlock.y); 
+
+	tfRayWdToObj <<<numBlocks,threadsPerBlock>>> (devRays, m_worldToObject, w);
 
 Error:
 	//cudaFree(devRayDirs);
-	free(devRays);
-	free(dev_wdToObj);
+	cudaFree(devRays);
+	cudaFree(dev_wdToObj);
 	return cudaStatus;
 }
