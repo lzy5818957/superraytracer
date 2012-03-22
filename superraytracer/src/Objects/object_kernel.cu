@@ -15,7 +15,7 @@ __device__ void Mat4x4_Mul_Vec4_obj(float *A, float *B, float *C)
 	C[3] = A[3]*B[0]+A[7]*B[1]+A[11]*B[2]+A[15]*B[3];
 }
 
-__global__ void tfRayWdToObj(float3 *rays, float *m_worldToObject, int w)
+__global__ void tfRayWdToObj(float3 *rays, float *m_worldToObject, int w, float3 *raysInObj)
 {
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
@@ -25,16 +25,17 @@ __global__ void tfRayWdToObj(float3 *rays, float *m_worldToObject, int w)
 	float4 ray_wd = make_float4(rays[arraypos2], 1.0f);
 	float4 ray_obj;
 	Mat4x4_Mul_Vec4_obj(m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
-	rays[arraypos2] = make_float3(ray_obj);
+	raysInObj[arraypos2] = make_float3(ray_obj);
 
 	ray_wd = make_float4(rays[arraypos2+1], 1.0f);
 	Mat4x4_Mul_Vec4_obj(m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
-	rays[arraypos2+1] = make_float3(ray_obj);
+	raysInObj[arraypos2+1] = make_float3(ray_obj);
+
 }
 
-extern "C" cudaError_t transformRayToObjSpaceWithCuda(float *hostRays, const int w, const int h, float *m_worldToObject)
+extern "C"  float* transformRayToObjSpaceWithCuda(float *rays, const int w, const int h, float *m_worldToObject)
 {
-	float3 *devRays = 0;
+	float3 *devRaysObj = 0;
 	float4 *dev_wdToObj = 0;
 	
 	curandState * devStates;
@@ -47,17 +48,12 @@ extern "C" cudaError_t transformRayToObjSpaceWithCuda(float *hostRays, const int
 		goto Error;
 	}
 
-	cudaStatus = cudaMalloc (( void **)& devRays , w*h*2* sizeof ( float3 ));
+	cudaStatus = cudaMalloc (( void **)& devRaysObj , 2 * w * h * sizeof ( float3 ));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
 		goto Error;
 	}
 
-	cudaStatus = cudaMemcpy(devRays, hostRays, w*h*2* sizeof(float3), cudaMemcpyHostToDevice);
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
-		goto Error;
-	}
 
 	cudaStatus = cudaMalloc (( void **)& dev_wdToObj , 4 * sizeof ( float4 ));
 	if (cudaStatus != cudaSuccess) {
@@ -76,11 +72,10 @@ extern "C" cudaError_t transformRayToObjSpaceWithCuda(float *hostRays, const int
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y); 
 
-	tfRayWdToObj <<<numBlocks,threadsPerBlock>>> (devRays, m_worldToObject, w);
+	tfRayWdToObj <<<numBlocks,threadsPerBlock>>> ((float3*)rays, m_worldToObject, w,devRaysObj );
 
 Error:
-	//cudaFree(devRayDirs);
-	cudaFree(devRays);
+
 	cudaFree(dev_wdToObj);
-	return cudaStatus;
+	return (float*)devRaysObj;
 }
