@@ -69,13 +69,6 @@ extern "C" cudaError_t raysIntersectsWithCudaSphere(float *devRays, const float 
 	}
 
 
-	cudaStatus = cudaMalloc((void **)& devHitInfos, w * h * sizeof(float));
-	if(cudaStatus != cudaSuccess)
-	{
-		fprintf(stderr, "cudaMalloc failed!_sphere! ");
-		goto Error;
-	}
-
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
 	// any errors encountered during the launch.
 	cudaStatus = cudaDeviceSynchronize();
@@ -97,12 +90,6 @@ extern "C" cudaError_t raysIntersectsWithCudaSphere(float *devRays, const float 
 		goto Error;
 	}
 
-	// Copy output vector from GPU buffer to host memory.
-	cudaStatus = cudaMemcpy(hostHitInfos, devHitInfos, w * h * sizeof( RayTracing::HitInfo_t), cudaMemcpyDeviceToHost);
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
-		goto Error;
-	}
 
 	cudaFree(devHitInfos);
 	devRays = 0;
