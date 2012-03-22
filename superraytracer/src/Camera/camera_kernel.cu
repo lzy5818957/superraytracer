@@ -80,26 +80,6 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRays, const int w, const in
 		goto Error;
 	}
 
-	// Allocate GPU buffers for three vectors (two input, one output)    .
-	cudaStatus = cudaMalloc((void**)&devRays, 6 * w * h * sizeof(float));
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMalloc failed!");
-		goto Error;
-	}
-
-
-	cudaStatus = cudaMalloc (( void **)& devRandResult , 2 * w * h * sizeof ( float));
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMalloc failed!");
-		goto Error;
-	}
-
-
-	cudaStatus = cudaMalloc (( void **)& devStates , w * h * sizeof ( curandState ));
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMalloc failed!");
-		goto Error;
-	}
 
 	cudaStatus = cudaMalloc (( void **)& devWindowToWorld , 16 * sizeof ( float ));
 	if (cudaStatus != cudaSuccess) {
@@ -139,6 +119,12 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRays, const int w, const in
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);  
 	
+	cudaStatus = cudaMalloc (( void **)& devStates , w * h * sizeof ( curandState ));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
 	setup_rand_kernel <<<numBlocks, threadsPerBlock>>>( devStates, w, h );
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
@@ -148,6 +134,13 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRays, const int w, const in
 		fprintf(stderr, "cudaDeviceSynchronize returned error code %d after launching setup_rand_kernel!\n", cudaStatus);
 		goto Error;
 	}
+
+	cudaStatus = cudaMalloc (( void **)& devRandResult , 2 * w * h * sizeof ( float));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
 
 	generate_rand_kernel <<<numBlocks, threadsPerBlock>>>( devStates , devRandResult, w, h );
 	
@@ -161,6 +154,14 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRays, const int w, const in
 
 	cudaFree(devStates);
 	devStates = 0;
+
+
+	// Allocate GPU buffers for three vectors (two input, one output)    .
+	cudaStatus = cudaMalloc((void**)&devRays, 6 * w * h * sizeof(float));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
 
 	// Launch a kernel on the GPU with one thread for each element.
 	genRaysKernel<<<numBlocks, threadsPerBlock>>>(devRays, devCamPos, devRandResult, w, h, devWindowToWorld);
