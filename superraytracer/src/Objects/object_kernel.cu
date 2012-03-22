@@ -24,11 +24,50 @@ __global__ void tfRayWdToObj(float3 *rays, float *m_worldToObject, int w)
 	rays[arraypos2+1] = make_float3(ray_obj);
 }
 
-extern "C" cudaError_t transformRayToObjSpaceWithCuda(float *devRays, const int w, const int h, float *m_worldToObject)
+extern "C" cudaError_t transformRayToObjSpaceWithCuda(float *hostRays, const int w, const int h, float *m_worldToObject)
 {
-
+	float3 *devRays = 0;
+	float4 *dev_wdToObj = 0;
+	
+	curandState * devStates;
 	cudaError_t cudaStatus;
+
+	// Choose which GPU to run on, change this on a multi-GPU system.
+	cudaStatus = cudaSetDevice(0);
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaSetDevice failed!  Do you have a CUDA-capable GPU installed?");
+		goto Error;
+	}
+
+	cudaStatus = cudaMalloc (( void **)& devRays , w*h*2* sizeof ( float3 ));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
+	cudaStatus = cudaMemcpy(devRays, hostRays, w*h*2* sizeof(float3), cudaMemcpyHostToDevice);
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMemcpy failed!");
+		goto Error;
+	}
+
+	cudaStatus = cudaMalloc (( void **)& dev_wdToObj , 4 * sizeof ( float4 ));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
+	cudaStatus = cudaMemcpy(dev_wdToObj, m_worldToObject, 4 * sizeof(float4), cudaMemcpyHostToDevice);
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMemcpy failed!");
+		goto Error;
+	}
+
+	tfRayWdToObj(devRays, m_worldToObject, w);
+
 Error:
 	//cudaFree(devRayDirs);
+	free(devRays);
+	free(dev_wdToObj);
 	return cudaStatus;
 }
