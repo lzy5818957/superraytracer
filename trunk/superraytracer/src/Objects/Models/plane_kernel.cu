@@ -14,11 +14,12 @@ extern "C" cudaError_t raysIntersectsWithCudaPlane(float *devRays, const float t
 	}
 
 
-	cudaStatus = cudaMalloc (( void **)& devHitInfos , w * h * sizeof ( float ));
+	cudaStatus = cudaMalloc (( void **)& devHitInfos , w * h * sizeof ( RayTracing::HitInfo_t ));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
 		goto Error;
 	}
+
 
 
 Error:
