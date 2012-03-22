@@ -15,7 +15,7 @@ __global__ void setup_rand_kernel ( curandState * state , int w, int h)
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	int arrayPos1 = c + w * r;
 
-	curand_init (arrayPos1 , arrayPos1, 0, & state [ arrayPos1 ]);
+	curand_init (arrayPos1 , 0, 0, & state [ arrayPos1 ]);
 }
 
 __global__ void generate_rand_kernel ( curandState *state ,	float *result, int w, int h )
