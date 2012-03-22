@@ -1,6 +1,8 @@
 #include "plane_kernel.cuh"
 #include <cstdio>
 
+#define BLOCK_SIZE 8
+
 extern "C" cudaError_t raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hostHitInfos)
 {
 	RayTracing::HitInfo_t *devHitInfos = 0;
@@ -20,6 +22,10 @@ extern "C" cudaError_t raysIntersectsWithCudaPlane(float *devRays, const float t
 		goto Error;
 	}
 
+	dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);  // 64 threads 
+
+	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
+		h/threadsPerBlock.y);  
 
 
 Error:
