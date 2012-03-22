@@ -15,6 +15,8 @@
 
 #include <cassert>
 
+#include "object_kernel.cuh"
+
 namespace Object
 {
 
@@ -66,6 +68,8 @@ namespace Object
 
 	RayTracing::HitInfo_t* Object::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1,const int w, const int h)
 	{
-		return NULL;
+		RayTracing::Ray_t* raysInObj = (RayTracing::Ray_t*)transformRayToObjSpaceWithCuda((float*)rays, w, h, (float*)&m_worldToObject);
+
+		return m_geometry->rayIntersectsInParallel(raysInObj,t0,t1, w, h);
 	}
 }
