@@ -159,6 +159,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <CudaCompile Include="kernel.cu" />
     <CudaCompile Include="src\Camera\camera_kernel.cu" />
+    <CudaCompile Include="src\Objects\mesh_kernel.cu" />
     <CudaCompile Include="src\Objects\Models\plane_kernel.cu" />
     <CudaCompile Include="src\Objects\Models\sphere_kernel.cu" />
     <CudaCompile Include="src\Objects\object_kernel.cu" />
@@ -250,6 +251,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <None Include="res\gray_wall.png" />
     <None Include="res\testPattern.png" />
     <None Include="src\Camera\camera_kernel.cuh" />
+    <None Include="src\Objects\mesh_kernel.cuh" />
     <None Include="src\Objects\Models\plane_kernel.cuh" />
     <None Include="src\Objects\Models\sphere_kernel.cuh" />
     <None Include="src\Objects\object_kernel.cuh" />
