@@ -4,10 +4,16 @@
 
 #include <cstdio>
 
-#include "../Util/cudaVectUtil.cu"
-
 
 #define BLOCK_SIZE 8
+
+__device__ void Mat4x4_Mul_Vec4_CAMERA(float *A, float *B, float *C)
+{
+	C[0] = A[0]*B[0]+A[4]*B[1]+A[8]*B[2]+A[12]*B[3]; 
+	C[1] = A[1]*B[0]+A[5]*B[1]+A[9]*B[2]+A[13]*B[3];
+	C[2] = A[2]*B[0]+A[6]*B[1]+A[10]*B[2]+A[14]*B[3];
+	C[3] = A[3]*B[0]+A[7]*B[1]+A[11]*B[2]+A[15]*B[3];
+}
 
 __global__ void setup_rand_kernel ( curandState * state , int w, int h)
 {
@@ -46,7 +52,7 @@ __global__ void genRaysKernel(float *rays, float *camPos, float* rand_result, in
 
 	float4 screenPositionInWorld4;
 
-	Mat4x4_Mul_Vec4(m_windowToWorld,(float*)&screenPosition4,(float*)&screenPositionInWorld4);
+	Mat4x4_Mul_Vec4_CAMERA(m_windowToWorld,(float*)&screenPosition4,(float*)&screenPositionInWorld4);
 
 	float3 rayDir = normalize(make_float3(screenPositionInWorld4) - *(float3*)(camPos));
 
