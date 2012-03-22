@@ -48,7 +48,7 @@ namespace Object
 			virtual bool shadowsRay(const RayTracing::Ray_t &ray, const float t0, const float t1) const;
 			virtual void hitProperties(const RayTracing::HitInfo_t &hitinfo, gml::vec3_t &normal, gml::vec2_t &texCoords) const;
 
-			RayTracing::HitInfo_t* Plane::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1)const;
+			virtual RayTracing::HitInfo_t* rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h) const;
 
 		};
 
