@@ -147,7 +147,7 @@ namespace Object
 			normal = gml::vec3_t(0.0f, 1.0f, 0.0f);
 		}
 
-		RayTracing::HitInfo_t* Plane::rayIntersectsWithCuda(const RayTracing::Ray_t *rays, const float t0, const float t1) const
+		RayTracing::HitInfo_t* Plane::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1) const
 		{
 
 			//raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hostHitInfos);

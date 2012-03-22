@@ -6,6 +6,7 @@
     <CudaCompile Include="src\Objects\object_kernel.cu" />
     <CudaCompile Include="src\Objects\Models\plane_kernel.cu" />
     <CudaCompile Include="src\Objects\Models\sphere_kernel.cu" />
+    <CudaCompile Include="src\Scene\scene_kernel.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera\camera.cpp" />
@@ -96,5 +97,6 @@
     <None Include="src\Objects\object_kernel.cuh" />
     <None Include="src\Objects\Models\plane_kernel.cuh" />
     <None Include="src\Objects\Models\sphere_kernel.cuh" />
+    <None Include="src\Scene\scene_kernel.cuh" />
   </ItemGroup>
 </Project>

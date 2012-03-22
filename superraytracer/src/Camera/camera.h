@@ -103,7 +103,7 @@ public:
 	// Generate a viewing ray through pixel coordinates (x,y)
 	//   -- y=0 is the bottom of the image
 	RayTracing::Ray_t genViewRay(float x, float y) const;
-	RayTracing::Ray_t* Camera::genViewRayInDim(const int w,const int h) const;
+	
 	// Movement controls
 	void moveForward(const float distance); // distance < 0 => backward
 	void moveUp(const float distance); // distance < 0 => down
@@ -114,6 +114,8 @@ public:
 	void rotateUp(const float angle); // angle in radians
 	// rotate the camera about the view vector
 	void spinCamera(const float angle); // angle in radians
+
+	RayTracing::Ray_t* Camera::genViewRayInParallel(const int w,const int h) const;
 };
 
 #endif

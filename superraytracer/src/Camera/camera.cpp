@@ -355,7 +355,7 @@ void Camera::spinCamera(const float angle)
 	this->setWorldView();
 }
 
-RayTracing::Ray_t* Camera::genViewRayInDim(const int w, const int h) const
+RayTracing::Ray_t* Camera::genViewRayInParallel(const int w, const int h) const
 {
 	float *raysFloat = (float*)malloc(w * h * 6 * sizeof(float));
 

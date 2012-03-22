@@ -162,6 +162,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <CudaCompile Include="src\Objects\Models\plane_kernel.cu" />
     <CudaCompile Include="src\Objects\Models\sphere_kernel.cu" />
     <CudaCompile Include="src\Objects\object_kernel.cu" />
+    <CudaCompile Include="src\Scene\scene_kernel.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\assign1.cpp" />
@@ -252,6 +253,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <None Include="src\Objects\Models\plane_kernel.cuh" />
     <None Include="src\Objects\Models\sphere_kernel.cuh" />
     <None Include="src\Objects\object_kernel.cuh" />
+    <None Include="src\Scene\scene_kernel.cuh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
