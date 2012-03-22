@@ -38,7 +38,7 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 	    if(t > t1 || t < t0 )
 	    {
 
-	       hitinfos[arrayPos6].hitDist = FLT_MAX;;
+	       hitinfos[arrayPos6].hitDist = FLT_MAX;
 	    }
 	    else
 	    {
