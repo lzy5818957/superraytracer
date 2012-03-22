@@ -4,7 +4,7 @@
 
 #include <cstdio>
 
-extern "C" cudaError_t transformRayToObjSpaceWithCuda(float *hostRayDirs,float *hostRayOrig, const int w, const int h, float *m_worldToObject)
+extern "C" cudaError_t transformRayToObjSpaceWithCuda(float *devRays, const int w, const int h, float *m_worldToObject)
 {
 	cudaError_t cudaStatus;
 Error:
