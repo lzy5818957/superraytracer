@@ -525,7 +525,7 @@ void Assignment3::idle()
 	if (m_isRayTracing && m_cameraChanged)
 	{
 		RayTracing::Ray_t *rays;
-		rays = m_camera.genViewRayInDim(m_windowWidth,m_windowHeight);
+		rays = m_camera.genViewRayInParallel(m_windowWidth,m_windowHeight);
 
 		m_isProcessingRayTracing = true;
 		for(int pass = 0; pass < MAX_RT_PASSES; pass++)
