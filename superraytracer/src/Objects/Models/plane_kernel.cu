@@ -3,6 +3,12 @@
 
 #define BLOCK_SIZE 8
 
+__global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hitInfos)
+{
+
+
+}
+
 extern "C" cudaError_t raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hostHitInfos)
 {
 	RayTracing::HitInfo_t *devHitInfos = 0;
@@ -15,10 +21,17 @@ extern "C" cudaError_t raysIntersectsWithCudaPlane(float *devRays, const float t
 		goto Error;
 	}
 
-
 	cudaStatus = cudaMalloc (( void **)& devHitInfos , w * h * sizeof ( RayTracing::HitInfo_t ));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
+	// cudaDeviceSynchronize waits for the kernel to finish, and returns
+	// any errors encountered during the launch.
+	cudaStatus = cudaDeviceSynchronize();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaDeviceSynchronize returned error code %d before launching setup_rand_kernel!\n", cudaStatus);
 		goto Error;
 	}
 
@@ -27,6 +40,17 @@ extern "C" cudaError_t raysIntersectsWithCudaPlane(float *devRays, const float t
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);  
 
+	raysIntersectsPlaneKernel <<<numBlocks, threadsPerBlock>>>(devRays, t0, t1, w, h, devHitInfos);
+
+	// Copy output vector from GPU buffer to host memory.
+	cudaStatus = cudaMemcpy(hostHitInfos, devHitInfos, w * h * sizeof( RayTracing::HitInfo_t), cudaMemcpyDeviceToHost);
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMemcpy failed!");
+		goto Error;
+	}
+
+	cudaFree(devHitInfos);
+	devRays = 0;
 
 Error:
 	//cudaFree(devRayDirs);
