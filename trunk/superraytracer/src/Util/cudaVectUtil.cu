@@ -1,5 +1,4 @@
-#ifndef __INC_CUDA_VECTOR_UTIL_H__
-#define __INC_CUDA_VECTOR_UTIL_H__
+#ifdef __INC_CUDA_VECTOR_UTIL_H__
 
 #include "cuda_runtime.h"
 
@@ -33,24 +32,6 @@ __device__ void Mat4x4_Mul_Vec4(float *A, float *B, float *C)
 	C[1] = A[1]*B[0]+A[5]*B[1]+A[9]*B[2]+A[13]*B[3];
 	C[2] = A[2]*B[0]+A[6]*B[1]+A[10]*B[2]+A[14]*B[3];
 	C[3] = A[3]*B[0]+A[7]*B[1]+A[11]*B[2]+A[15]*B[3];
-}
-__device__ void Vec3_Nrm(float *A, float *B)
-{
-	B[0] = A[0]/sqrt(A[0]*A[0]+A[1]*A[1]+A[2]*A[2]);
-	B[1] = A[1]/sqrt(A[0]*A[0]+A[1]*A[1]+A[2]*A[2]);
-	B[2] = A[2]/sqrt(A[0]*A[0]+A[1]*A[1]+A[2]*A[2]);
-}
-
-__device__ void Vec3_Dot(float *A, float *B, float *C)
-{
-	C[0] = A[0]*B[0]+A[1]*B[1]+A[2]*B[2];
-}
-
-__device__ void Vec3_Cross(float *A, float *B, float *C)
-{
-	C[0] = A[1]*B[2] - A[2]*B[1];
-	C[1] = A[2]*B[0] - A[0]*B[2];
-	C[2] = A[0]*B[1] - A[1]*B[0];
 }
 
 
