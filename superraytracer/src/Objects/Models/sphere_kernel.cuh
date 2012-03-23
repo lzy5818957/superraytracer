@@ -8,5 +8,5 @@
 
 
 extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaSphere(float *devRays, const float t0, const float t1,const int w, const int h, void *objHit);
-
+extern "C" float* hitPropertiesWithCudaSphere(const RayTracing::HitInfo_t*hitinfos, const int w, const int h);
 #endif
