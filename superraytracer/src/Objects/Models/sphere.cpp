@@ -351,7 +351,10 @@ namespace Object
 			return raysIntersectsWithCudaSphere((float*)rays, t0, t1, w, h, objHit);
 		}
 
-
+		float* Sphere::hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const
+		{
+			return hitPropertiesWithCudaSphere(hitinfos, w, h);
+		}
 
 	}
 }
