@@ -168,5 +168,10 @@ namespace Object
 			return 0;
 		}
 
+		float* Octahedron::hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const
+		{
+			return NULL;
+		}
+
 	}
 }
