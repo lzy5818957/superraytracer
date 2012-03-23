@@ -153,7 +153,7 @@ extern "C" float* hitPropertiesWithCudaPlane(const RayTracing::HitInfo_t *hitinf
 	float *devNormTex = 0;
 	cudaError_t cudaStatus;
 
-	cudaStatus = cudaMalloc (( void **)& devNormTex , 5 * sizeof ( float ));
+	cudaStatus = cudaMalloc (( void **)& devNormTex , 5 * w * h * sizeof ( float ));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
 		goto Error;

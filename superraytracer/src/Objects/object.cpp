@@ -72,4 +72,12 @@ namespace Object
 
 		return m_geometry->rayIntersectsInParallel(raysInObj,t0,t1, w, h, (void*)this);
 	}
+
+	float* Object::hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const
+	{
+		float *normTex = m_geometry->hitPropertiesInParallel(hitinfos,w,h);
+
+		return hitPropertiesWithCudaObject(normTex, (float*)&m_objectToWorld_Normals, hitinfos, w, h);
+	}
+
 }

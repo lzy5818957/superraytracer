@@ -314,4 +314,9 @@ void Mesh::hitProperties(const RayTracing::HitInfo_t &hitinfo, gml::vec3_t &norm
 	normal = gml::normalize(normal);
 }
 
+		float* Mesh::hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const
+		{
+			return NULL;
+		}
+
 } // namespace
