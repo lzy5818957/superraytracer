@@ -6,7 +6,7 @@
 
 #define BLOCK_SIZE 8
 
-__global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hitInfos, float3 vert0)
+__global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hitInfos, float3 *vert0)
 {
 
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
@@ -28,7 +28,7 @@ __global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const 
 		return;
 	}
 
-	float3 T = rayOri - vert0;
+	float3 T = rayOri - (*vert0);
 
 	float u = dot( P, T ) / detM;
 	
@@ -61,8 +61,10 @@ __global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const 
 
 }
 
-extern "C" cudaError_t raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hitInfos)
+extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, float* hostVerts)
 {
+	float *devVert0 = 0;
+	RayTracing::HitInfo_t *devHitInfos = 0;
 	cudaError_t cudaStatus;
 
 	// Choose which GPU to run on, change this on a multi-GPU system.
@@ -72,6 +74,24 @@ extern "C" cudaError_t raysIntersectsWithCudaPlane(float *devRays, const float t
 		goto Error;
 	}
 
+	cudaStatus = cudaMalloc (( void **)& devVert0 , 3 * sizeof ( float ));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
+	cudaStatus = cudaMemcpy(devVert0, hostVerts, 3 * sizeof(float), cudaMemcpyHostToDevice);
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMemcpy failed!");
+		goto Error;
+	}
+
+	cudaStatus = cudaMalloc (( void **)& devHitInfos , w * h * sizeof ( RayTracing::HitInfo_t ));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
 	// any errors encountered during the launch.
 	cudaStatus = cudaDeviceSynchronize();
@@ -79,13 +99,15 @@ extern "C" cudaError_t raysIntersectsWithCudaPlane(float *devRays, const float t
 		fprintf(stderr, "cudaDeviceSynchronize returned error code %d before launching setup_rand_kernel!\n", cudaStatus);
 		goto Error;
 	}
+
+
 
 	dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);  // 64 threads 
 
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);  
 
-	raysIntersectsPlaneKernel <<<numBlocks, threadsPerBlock>>>(devRays, t0, t1, w, h, hitInfos, make_float3(1,1,1));
+	raysIntersectsPlaneKernel <<<numBlocks, threadsPerBlock>>>(devRays, t0, t1, w, h, devHitInfos, (float3*)devVert0);
 
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
@@ -96,8 +118,11 @@ extern "C" cudaError_t raysIntersectsWithCudaPlane(float *devRays, const float t
 		goto Error;
 	}
 
-	devRays = 0;
+	cudaFree(devVert0);
+	devVert0 = 0;
 
 Error:
-	return cudaStatus;
+
+	cudaFree(devVert0);
+	return devHitInfos;
 }

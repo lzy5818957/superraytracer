@@ -150,7 +150,7 @@ namespace Object
 		RayTracing::HitInfo_t* Plane::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h) const
 		{
 
-			//raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hostHitInfos);
+			return raysIntersectsWithCudaPlane((float*)rays, t0, t1, w, h,  (float*)_verts);
 		}
 
 	}
