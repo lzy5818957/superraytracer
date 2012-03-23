@@ -330,10 +330,22 @@ namespace Scene
 
 		hitInfos_array = (RayTracing::HitInfo_t**)malloc(m_nObjects * sizeof(RayTracing::HitInfo_t*));
 
+		RayTracing::Ray_t* devRays = rayHTD(rays,w,h);
+
 		for(GLuint i = 0; i < m_nObjects; i++)
 		{
 			
-			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(rays,t0,t1, w, h);
+			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(devRays,t0,t1, w, h);
+
+		}
+
+		for(GLuint i = 0; i < m_nObjects; i++)
+		{
+			
+			if(hitInfos_array[i] != 0)
+			{
+				return hitInfoDTH(hitInfos_array[i],w,h);
+			}
 
 		}
 

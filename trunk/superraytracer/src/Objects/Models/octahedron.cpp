@@ -161,7 +161,7 @@ namespace Object
 			m_mesh.hitProperties(hitinfo, normal, texCoords);
 		}
 
-		RayTracing::HitInfo_t* Octahedron::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h) const
+		RayTracing::HitInfo_t* Octahedron::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h, void *objHit) const
 		{
 
 			//raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hostHitInfos);

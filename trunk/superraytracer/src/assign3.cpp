@@ -525,25 +525,25 @@ void Assignment3::idle()
 	if (m_isRayTracing && m_cameraChanged)
 	{
 		RayTracing::Ray_t *rays;
+		RayTracing::HitInfo_t *hitinfos;
+
 		rays = m_camera.genViewRayInParallel(m_windowWidth,m_windowHeight);
+		hitinfos = m_scene.rayIntersectsInParallel(rays, 0.0001, 300.0, m_windowWidth, m_windowHeight);
 
 		m_isProcessingRayTracing = true;
 		for(int pass = 0; pass < MAX_RT_PASSES; pass++)
 		{
 
-			// Ray trace rows for TIMEOUT s
-			float timeout = 0.1f; // 100ms
-
 			RayTracing::Ray_t ray;
-
 			RayTracing::HitInfo_t hitinfo;
+
 			double time = currTime;
 			GLuint m_rtRow = 0;
 			do
 			{
 				gml::vec3_t *imgPos = m_rtImage + m_rtRow*m_windowWidth;
 
-				for (int c=0; c<m_windowWidth; c++, imgPos++)
+				for (GLuint c=0; c<m_windowWidth; c++, imgPos++)
 				{
 					gml::vec3_t clr(0.0, 0.0, 0.0);
 
@@ -552,20 +552,7 @@ void Assignment3::idle()
 					//const float x = c - 0.5 + rand() / ((float)RAND_MAX), y = m_rtRow - 0.5 + rand() / ((float)RAND_MAX);
 
 					ray = (rays[c + m_rtRow * m_windowWidth]);
-					/*
-					for(int i = 0 ; i < 3 ; i++)
-					{
-						printf("ray.o = %f\n", (ray.o)[i]);
 
-					}
-					for(int i = 0 ; i < 3 ; i++)
-					{
-						printf("ray.d = %f\n", (ray.d)[i]);
-
-					}
-					
-					printf("-----------------------\n");
-					*/
 
 					// TODO!!
 					//   Create the ray through (x,y) from the camera, then use the m_scene
@@ -575,9 +562,9 @@ void Assignment3::idle()
 					//  The recursive depth for shading the ray is given by the
 					// constant MAX_RAY_DEPTH (found at top of this file)
 
-					RayTracing::HitInfo_t hitinfo;
-					hitinfo.hitDist = FLT_MAX;
-					if(m_scene.rayIntersects(ray, 0.0001, 300.0, hitinfo))
+					hitinfo = (hitinfos[c + m_rtRow * m_windowWidth]);
+
+					if(hitinfo.hitDist != FLT_MAX)
 					{
 						clr = m_scene.shadeRay(ray, hitinfo, MAX_RAY_DEPTH);
 					}

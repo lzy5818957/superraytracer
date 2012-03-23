@@ -1,23 +1,23 @@
 
 /*
- * Copyright:
- * Daniel D. Neilson (ddneilson@ieee.org)
- * University of Saskatchewan
- * All rights reserved
- *
- * Permission granted to use for use in assignments and
- * projects for CMPT 485 & CMPT 829 at the University
- * of Saskatchewan.
- */
+* Copyright:
+* Daniel D. Neilson (ddneilson@ieee.org)
+* University of Saskatchewan
+* All rights reserved
+*
+* Permission granted to use for use in assignments and
+* projects for CMPT 485 & CMPT 829 at the University
+* of Saskatchewan.
+*/
 
 /*
- * Geometry for an octahedron
- *  - An 8-sided regular solid.
- *
- * This octahedron has flat faces.
- * It is also centered at (0,0,0).
- * The faces face 45 degree angles relative to the xz plane
- */
+* Geometry for an octahedron
+*  - An 8-sided regular solid.
+*
+* This octahedron has flat faces.
+* It is also centered at (0,0,0).
+* The faces face 45 degree angles relative to the xz plane
+*/
 
 #pragma once
 #ifndef __INC_OCTAHEDRON_H_
@@ -28,29 +28,29 @@
 
 namespace Object
 {
-namespace Models
-{
+	namespace Models
+	{
 
-class Octahedron : public Geometry
-{
-protected:
-	Mesh m_mesh;
-public:
-	Octahedron();
-	~Octahedron();
+		class Octahedron : public Geometry
+		{
+		protected:
+			Mesh m_mesh;
+		public:
+			Octahedron();
+			~Octahedron();
 
-	bool init();
+			bool init();
 
-	virtual void rasterize() const;
+			virtual void rasterize() const;
 
-	virtual bool rayIntersects(const RayTracing::Ray_t &ray, const float t0, const float t1, RayTracing::HitInfo_t &hitinfo) const;
-	virtual bool shadowsRay(const RayTracing::Ray_t &ray, const float t0, const float t1) const;
-	virtual void hitProperties(const RayTracing::HitInfo_t &hitinfo, gml::vec3_t &normal, gml::vec2_t &texCoords) const;
+			virtual bool rayIntersects(const RayTracing::Ray_t &ray, const float t0, const float t1, RayTracing::HitInfo_t &hitinfo) const;
+			virtual bool shadowsRay(const RayTracing::Ray_t &ray, const float t0, const float t1) const;
+			virtual void hitProperties(const RayTracing::HitInfo_t &hitinfo, gml::vec3_t &normal, gml::vec2_t &texCoords) const;
 
-	virtual RayTracing::HitInfo_t* rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h) const;
-};
+			virtual RayTracing::HitInfo_t* rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h, void *objHit) const;
+		};
 
-}
+	}
 }
 
 #endif

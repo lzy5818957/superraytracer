@@ -360,6 +360,10 @@ RayTracing::Ray_t* Camera::genViewRayInParallel(const int w, const int h) const
 	float *raysFloat = (float*)malloc(w * h * 6 * sizeof(float));
 
 	cudaError_t cudaStatus = genViewRayWithCuda(raysFloat, w, h, (float*)&m_camPos, (float*)&m_windowToWorld);
+	if(cudaStatus != cudaSuccess)
+	{
+		printf("error occored when genViewRayWithCuda \n");
+	}
 
 	RayTracing::Ray_t* rays = (RayTracing::Ray_t*)raysFloat;
 

@@ -29,7 +29,7 @@
 class Assignment3 : public UI::Callbacks
 {
 protected:
-	int m_windowWidth, m_windowHeight;
+	GLuint m_windowWidth, m_windowHeight;
 
 	// Array of geometry that has been allocated
 	// so that we can delete it.
