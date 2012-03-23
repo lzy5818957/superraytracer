@@ -128,8 +128,9 @@ extern "C" RayTracing::HitInfo_t* findClosestHits(const RayTracing::HitInfo_t** 
 	for(int i = 0 ; i < m_nObjects; i++)
 	{
 		cudaFree((void*)(hitInfos_array[i]));
+		hitInfos_array[i] = 0;
 	}
-	
+	cudaFree(devHitInfos_array);
 	return closestHits;
 	
 
