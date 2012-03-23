@@ -127,29 +127,29 @@ bool Assignment1::init()
 
 	Material::Material mat;
 
-	gml::mat4x4_t rotScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(0.5,0.5,0.5) );
+	gml::mat4x4_t rotScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(0.5f,0.5f,0.5f) );
 	const float specExp = 16.0;
 
-	mat.setSurfReflectance(gml::vec3_t(0.4, 0.5, 0.6));
+	mat.setSurfReflectance(gml::vec3_t(0.4f, 0.5f, 0.6f));
 	mat.setShaderType(Material::GOURAUD);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(-1.5,0.0,0.5)), rotScale)) );
+			gml::mul(gml::translate(gml::vec3_t(-1.5f,0.0f,0.5f)), rotScale)) );
 	mat.setShaderType(Material::PHONG);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(-0.5,0.0,0.5)), rotScale)) );
+			gml::mul(gml::translate(gml::vec3_t(-0.5f,0.0f,0.5f)), rotScale)) );
 	mat.setSpecExp(specExp);
 	mat.setShaderType(Material::GOURAUD);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(0.5,0.0,0.5)), rotScale)) );
+			gml::mul(gml::translate(gml::vec3_t(0.5f,0.0f,0.5f)), rotScale)) );
 	mat.setShaderType(Material::PHONG);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(1.5,0.0,0.5)), rotScale)) );
+			gml::mul(gml::translate(gml::vec3_t(1.5f,0.0f,0.5f)), rotScale)) );
 
 	mat.setSpecExp(-1.0);
-	mat.setSurfReflectance(gml::vec3_t(0.2, 0.8, 0.4));
+	mat.setSurfReflectance(gml::vec3_t(0.2f, 0.8f, 0.4f));
 	mat.setShaderType(Material::GOURAUD);
 	m_scene.addObject(new Object::Object(m_geometry[OCTAHEDRON_LOC], mat,
-			gml::mul(gml::translate(gml::vec3_t(-1.5,0.0,-0.5)), rotScale)) );
+			gml::mul(gml::translate(gml::vec3_t(-1.5f,0.0f,-0.5f)), rotScale)) );
 	mat.setShaderType(Material::PHONG);
 	m_scene.addObject(new Object::Object(m_geometry[OCTAHEDRON_LOC], mat,
 			gml::mul(gml::translate(gml::vec3_t(-0.5,0.0,-0.5)), rotScale)) );

@@ -5,32 +5,33 @@
 
 #define BLOCKSIZE 8
 
-__global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const float t1,const int w, const int h,RayTracing::HitInfo_t *hitInfos)
+__global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const float t1,const int w, const int h,RayTracing::HitInfo_t *hitInfos, void *objHit)
 {
 	float A,B,C;
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
+	int arrayPos1 = c + w * r;
 	int arrayPos6 = 6 * (c + w * r);
 
 	float3 ray_o;
-	ray_o.x = arrayPos6;
-	ray_o.y = arrayPos6 +1;
-	ray_o.z = arrayPos6 +2;
+	ray_o.x = devRays[arrayPos6];
+	ray_o.y = devRays[arrayPos6 +1];
+	ray_o.z = devRays[arrayPos6 +2];
 
 	float3 ray_d;
-	ray_d.x = arrayPos6 +3;
-	ray_d.y = arrayPos6 +4;
-	ray_d.z = arrayPos6 +5;
+	ray_d.x = devRays[arrayPos6 +3];
+	ray_d.y = devRays[arrayPos6 +4];
+	ray_d.z = devRays[arrayPos6 +5];
 
 	A = dot(ray_d,ray_d);
 	B = dot(ray_d,ray_o);
-	C = dot(ray_o,ray_o) - 1.0;
+	C = dot(ray_o,ray_o) - 1.0f;
 
 	float det = B*B - A*C;
 
 	if(det < 0.0)
 	{
-		hitInfos[arrayPos6].hitDist = FLT_MAX;
+		hitInfos[arrayPos1].hitDist = FLT_MAX;
 	}else
 	{
 		
@@ -38,15 +39,16 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 	    if(t > t1 || t < t0 )
 	    {
 
-	       hitInfos[arrayPos6].hitDist = FLT_MAX;
+	       hitInfos[arrayPos1].hitDist = FLT_MAX;
 	    }
 	    else
 	    {
- 	       hitInfos[arrayPos6].hitDist = t;
+ 	       hitInfos[arrayPos1].hitDist = t;
 		   float3 shadePoint = ray_o + (t * ray_d);
-		   hitInfos[arrayPos6].sphere.shadePoint_x = shadePoint.x;
-		   hitInfos[arrayPos6].sphere.shadePoint_y = shadePoint.y;
-		   hitInfos[arrayPos6].sphere.shadePoint_z = shadePoint.z;
+		   hitInfos[arrayPos1].sphere.shadePoint_x = shadePoint.x;
+		   hitInfos[arrayPos1].sphere.shadePoint_y = shadePoint.y;
+		   hitInfos[arrayPos1].sphere.shadePoint_z = shadePoint.z;
+		   hitInfos[arrayPos1].objHit = (Object::Object*)objHit;;
 
 	    }
 		
@@ -56,7 +58,7 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 }
 
 
-extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaSphere(float *devRays, const float t0, const float t1,const int w, const int h)
+extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaSphere(float *devRays, const float t0, const float t1,const int w, const int h,  void *objHit)
 {
 	RayTracing::HitInfo_t *devHitInfos = 0;
 	cudaError_t cudaStatus;
@@ -85,7 +87,7 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaSphere(float *devRays, c
 	dim3 threadsPerBlock(BLOCKSIZE,BLOCKSIZE);
 	dim3 numBlocks(w/threadsPerBlock.x,h/threadsPerBlock.y);
 
-	raysIntersectsSphereKernel <<< numBlocks, threadsPerBlock>>> (devRays,t0,t1,w,h,devHitInfos);
+	raysIntersectsSphereKernel <<< numBlocks, threadsPerBlock>>> (devRays,t0,t1,w,h,devHitInfos, objHit);
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
 	// any errors encountered during the launch.
@@ -95,11 +97,12 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaSphere(float *devRays, c
 		goto Error;
 	}
 
-	cudaFree(devHitInfos);
-	devHitInfos = 0;
+	return devHitInfos;
+	
 
 Error:
 	cudaFree(devHitInfos);
-	return devHitInfos;
+	devHitInfos = 0;
+	return NULL;
 
 }
