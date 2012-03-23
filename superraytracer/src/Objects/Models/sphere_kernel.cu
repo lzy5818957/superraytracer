@@ -48,7 +48,7 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 		   hitInfos[arrayPos1].sphere.shadePoint_x = shadePoint.x;
 		   hitInfos[arrayPos1].sphere.shadePoint_y = shadePoint.y;
 		   hitInfos[arrayPos1].sphere.shadePoint_z = shadePoint.z;
-		   hitInfos[arrayPos1].objHit = (Object::Object*)objHit;;
+		   hitInfos[arrayPos1].objHit = (Object::Object*)objHit;
 
 	    }
 		
