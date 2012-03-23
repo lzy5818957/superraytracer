@@ -165,6 +165,7 @@ namespace Object
 		{
 
 			//raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hostHitInfos);
+			return 0;
 		}
 
 	}
