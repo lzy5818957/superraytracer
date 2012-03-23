@@ -200,9 +200,10 @@ bool Assignment3::init()
 
 	Material::Material mirrorMat = mat;
 	mirrorMat.setShaderType(Material::MIRROR);
-
+	/*
 	m_scene.addObject(new Object::Object(m_geometry[OCTAHEDRON_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(0.0,0.75,0.0)), rotScale)) );
+		*/
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(2.0,0.75,-2.0)), rotScale)) );
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mirrorMat,
@@ -546,10 +547,6 @@ void Assignment3::idle()
 				for (GLuint c=0; c<m_windowWidth; c++, imgPos++)
 				{
 					gml::vec3_t clr(0.0, 0.0, 0.0);
-
-					// (x,y) give the screen-space (aka: image-space, or window-space) coordinates of
-					// the ray to be cast.
-					//const float x = c - 0.5 + rand() / ((float)RAND_MAX), y = m_rtRow - 0.5 + rand() / ((float)RAND_MAX);
 
 					ray = (rays[c + m_rtRow * m_windowWidth]);
 
