@@ -15,7 +15,7 @@ __device__ void Mat4x4_Mul_Vec4_obj(float *A, float *B, float *C)
 	C[3] = A[3]*B[0]+A[7]*B[1]+A[11]*B[2]+A[15]*B[3];
 }
 
-__global__ void tfRayWdToObj(float3 *rays, float *m_worldToObject, int w, float3 *raysInObj)
+__global__ void tfRayWdToObj(float3 *rays, float4 *m_worldToObject, int w, float3 *raysInObj)
 {
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
@@ -24,11 +24,11 @@ __global__ void tfRayWdToObj(float3 *rays, float *m_worldToObject, int w, float3
 
 	float4 ray_wd = make_float4(rays[arraypos2], 1.0f);
 	float4 ray_obj;
-	Mat4x4_Mul_Vec4_obj(m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
+	Mat4x4_Mul_Vec4_obj((float*)m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
 	raysInObj[arraypos2] = make_float3(ray_obj);
 
 	ray_wd = make_float4(rays[arraypos2+1], 1.0f);
-	Mat4x4_Mul_Vec4_obj(m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
+	Mat4x4_Mul_Vec4_obj((float*)m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
 	raysInObj[arraypos2+1] = make_float3(ray_obj);
 
 }
@@ -72,10 +72,13 @@ extern "C"  float* transformRayToObjSpaceWithCuda(float *rays, const int w, cons
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y); 
 
-	tfRayWdToObj <<<numBlocks,threadsPerBlock>>> ((float3*)rays, m_worldToObject, w,devRaysObj );
+	tfRayWdToObj <<<numBlocks,threadsPerBlock>>> ((float3*)rays, dev_wdToObj, w,devRaysObj );
+	cudaFree(dev_wdToObj);
+	dev_wdToObj = 0;
 
+	return (float*)devRaysObj;
 Error:
 
 	cudaFree(dev_wdToObj);
-	return (float*)devRaysObj;
+	return NULL;
 }

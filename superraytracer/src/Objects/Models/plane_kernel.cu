@@ -6,7 +6,7 @@
 
 #define BLOCK_SIZE 8
 
-__global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hitInfos, float3 *vert0)
+__global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hitInfos, float3 *vert0, void *objHit)
 {
 
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
@@ -54,14 +54,14 @@ __global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const 
 	}
 
 	hitInfos[arrayPos1].hitDist =  t;
-  
+	hitInfos[arrayPos1].objHit = (Object::Object*)objHit;
 	hitInfos[arrayPos1].plane.u = u;
 	hitInfos[arrayPos1].plane.v = v;
 	
 
 }
 
-extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, float* hostVerts)
+extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, float* hostVerts,void *objHit)
 {
 	float *devVert0 = 0;
 	RayTracing::HitInfo_t *devHitInfos = 0;
@@ -73,7 +73,7 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, co
 		fprintf(stderr, "cudaSetDevice failed!  Do you have a CUDA-capable GPU installed?");
 		goto Error;
 	}
-
+	
 	cudaStatus = cudaMalloc (( void **)& devVert0 , 3 * sizeof ( float ));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
@@ -85,7 +85,7 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, co
 		fprintf(stderr, "cudaMemcpy failed!");
 		goto Error;
 	}
-
+	
 	cudaStatus = cudaMalloc (( void **)& devHitInfos , w * h * sizeof ( RayTracing::HitInfo_t ));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
@@ -107,7 +107,7 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, co
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);  
 
-	raysIntersectsPlaneKernel <<<numBlocks, threadsPerBlock>>>(devRays, t0, t1, w, h, devHitInfos, (float3*)devVert0);
+	raysIntersectsPlaneKernel <<<numBlocks, threadsPerBlock>>>(devRays, t0, t1, w, h, devHitInfos, (float3*)devVert0, objHit);
 
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
@@ -121,8 +121,10 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, co
 	cudaFree(devVert0);
 	devVert0 = 0;
 
+	return devHitInfos;
+
 Error:
 
 	cudaFree(devVert0);
-	return devHitInfos;
+	return NULL;
 }
