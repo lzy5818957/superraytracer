@@ -324,50 +324,21 @@ namespace Scene
 		//   Find the closest intersection of the ray in the distance range [t0,t1].
 		// Return true if an intersection was found, false otherwise
 		
-		//return raysIntersectsWithCudaScene((float*)rays, t0, t1,  w, h, );
-		
-		//RayTracing::HitInfo_t **hitInfos_array;
-
-		//hitInfos_array = (RayTracing::HitInfo_t**)malloc(m_nObjects * sizeof(RayTracing::HitInfo_t*));
+		const RayTracing::HitInfo_t **hitInfos_array = (const RayTracing::HitInfo_t**)malloc(m_nObjects * sizeof(RayTracing::HitInfo_t*));
 
 		RayTracing::Ray_t* devRays = rayHTD(rays,w,h);
 
-		int i = 9;
-
-		RayTracing::HitInfo_t *hitInfos_array = m_scene[i]->rayIntersectsInParallel(devRays,t0,t1, w, h);
-
-		return hitInfoDTH(hitInfos_array,w,h);
-
-		/*
-		for(GLuint i = 0; i < m_nObjects; i++)
-		{
-			
-			//hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(devRays,t0,t1, w, h);
-
-		}
-		*/
-		/*
-		for(GLuint i = 0; i < m_nObjects; i++)
-		{
-			
-			if(hitInfos_array[i] != 0)
-			{
-				return hitInfoDTH(hitInfos_array[i],w,h);
-			}
-
-		}
-		*/
-		/*
-		if(hitinfo.hitDist != FLT_MAX)
-		{
-
-			return true;
-
-		}
-		*/
-
-		//return hitInfos_array[0];
 		
+		for(GLuint i = 0; i < m_nObjects; i++)
+		{
+			
+			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(devRays,t0,t1, w, h);
+
+		}
+		
+		RayTracing::HitInfo_t *closestHits = findClosestHits(hitInfos_array, w, h, m_nObjects);
+
+		return hitInfoDTH(closestHits,w,h);
 		
 	}
 }
