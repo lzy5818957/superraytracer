@@ -56,7 +56,7 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 }
 
 
-extern "C" cudaError_t raysIntersectsWithCudaSphere(float *devRays, const float t0, const float t1,const int w, const int h)
+extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaSphere(float *devRays, const float t0, const float t1,const int w, const int h)
 {
 	RayTracing::HitInfo_t *devHitInfos = 0;
 	cudaError_t cudaStatus;
@@ -95,12 +95,11 @@ extern "C" cudaError_t raysIntersectsWithCudaSphere(float *devRays, const float 
 		goto Error;
 	}
 
-
 	cudaFree(devHitInfos);
-	devRays = 0;
+	devHitInfos = 0;
 
 Error:
 	cudaFree(devHitInfos);
-	return cudaStatus;
+	return devHitInfos;
 
 }
