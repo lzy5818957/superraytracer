@@ -27,7 +27,7 @@ __global__ void tfRayWdToObj(float3 *rays, float4 *m_worldToObject, int w, float
 	Mat4x4_Mul_Vec4_obj((float*)m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
 	raysInObj[arraypos2] = make_float3(ray_obj);
 
-	ray_wd = make_float4(rays[arraypos2+1], 1.0f);
+	ray_wd = make_float4(rays[arraypos2+1], 0.0f);
 	Mat4x4_Mul_Vec4_obj((float*)m_worldToObject, (float *)(&ray_wd), (float *)(&ray_obj) );
 	raysInObj[arraypos2+1] = make_float3(ray_obj);
 

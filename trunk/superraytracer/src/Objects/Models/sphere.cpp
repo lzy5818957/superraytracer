@@ -221,7 +221,7 @@ namespace Object
 
 			float A = gml::dot(ray.d,ray.d);
 			float B = gml::dot(ray.d,ray.o);
-			float C = gml::dot(ray.o,ray.o) - 1.0;
+			float C = gml::dot(ray.o,ray.o) - 1.0f;
 
 			float det = B * B - A * C;
 
@@ -348,8 +348,7 @@ namespace Object
 		RayTracing::HitInfo_t* Sphere::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h, void* objHit) const
 		{
 
-			//raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hostHitInfos);
-			return 0;
+			return raysIntersectsWithCudaSphere((float*)rays, t0, t1, w, h, objHit);
 		}
 
 

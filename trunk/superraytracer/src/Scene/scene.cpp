@@ -326,19 +326,27 @@ namespace Scene
 		
 		//return raysIntersectsWithCudaScene((float*)rays, t0, t1,  w, h, );
 		
-		RayTracing::HitInfo_t **hitInfos_array;
+		//RayTracing::HitInfo_t **hitInfos_array;
 
-		hitInfos_array = (RayTracing::HitInfo_t**)malloc(m_nObjects * sizeof(RayTracing::HitInfo_t*));
+		//hitInfos_array = (RayTracing::HitInfo_t**)malloc(m_nObjects * sizeof(RayTracing::HitInfo_t*));
 
 		RayTracing::Ray_t* devRays = rayHTD(rays,w,h);
 
+		int i = 9;
+
+		RayTracing::HitInfo_t *hitInfos_array = m_scene[i]->rayIntersectsInParallel(devRays,t0,t1, w, h);
+
+		return hitInfoDTH(hitInfos_array,w,h);
+
+		/*
 		for(GLuint i = 0; i < m_nObjects; i++)
 		{
 			
-			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(devRays,t0,t1, w, h);
+			//hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(devRays,t0,t1, w, h);
 
 		}
-
+		*/
+		/*
 		for(GLuint i = 0; i < m_nObjects; i++)
 		{
 			
@@ -348,7 +356,7 @@ namespace Scene
 			}
 
 		}
-
+		*/
 		/*
 		if(hitinfo.hitDist != FLT_MAX)
 		{
@@ -358,7 +366,7 @@ namespace Scene
 		}
 		*/
 
-		return hitInfos_array[0];
+		//return hitInfos_array[0];
 		
 		
 	}
