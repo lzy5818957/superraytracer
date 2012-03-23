@@ -5,7 +5,7 @@
 
 #define BLOCKSIZE 8
 
-__global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const float t1,const int w, const int h, RayTracing::HitInfo_t *hitinfos)
+__global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const float t1,const int w, const int h,RayTracing::HitInfo_t *hitInfos)
 {
 	float A,B,C;
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
@@ -30,7 +30,7 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 
 	if(det < 0.0)
 	{
-		hitinfos[arrayPos6].hitDist = FLT_MAX;
+		hitInfos[arrayPos6].hitDist = FLT_MAX;
 	}else
 	{
 		
@@ -38,15 +38,15 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 	    if(t > t1 || t < t0 )
 	    {
 
-	       hitinfos[arrayPos6].hitDist = FLT_MAX;
+	       hitInfos[arrayPos6].hitDist = FLT_MAX;
 	    }
 	    else
 	    {
- 	       hitinfos[arrayPos6].hitDist = t;
+ 	       hitInfos[arrayPos6].hitDist = t;
 		   float3 shadePoint = ray_o + (t * ray_d);
-		   hitinfos[arrayPos6].sphere.shadePoint_x = shadePoint.x;
-		   hitinfos[arrayPos6].sphere.shadePoint_y = shadePoint.y;
-		   hitinfos[arrayPos6].sphere.shadePoint_z = shadePoint.z;
+		   hitInfos[arrayPos6].sphere.shadePoint_x = shadePoint.x;
+		   hitInfos[arrayPos6].sphere.shadePoint_y = shadePoint.y;
+		   hitInfos[arrayPos6].sphere.shadePoint_z = shadePoint.z;
 
 	    }
 		
@@ -56,7 +56,7 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 }
 
 
-extern "C" cudaError_t raysIntersectsWithCudaSphere(float *devRays, const float t0, const float t1,const int w, const int h, RayTracing::HitInfo_t *hostHitInfos)
+extern "C" cudaError_t raysIntersectsWithCudaSphere(float *devRays, const float t0, const float t1,const int w, const int h)
 {
 	RayTracing::HitInfo_t *devHitInfos = 0;
 	cudaError_t cudaStatus;
@@ -68,6 +68,11 @@ extern "C" cudaError_t raysIntersectsWithCudaSphere(float *devRays, const float 
 		goto Error;
 	}
 
+	cudaStatus = cudaMalloc (( void **)& devHitInfos , w * h * sizeof ( RayTracing::HitInfo_t ));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
 	// any errors encountered during the launch.
