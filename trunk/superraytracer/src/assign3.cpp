@@ -528,39 +528,35 @@ void Assignment3::idle()
 		RayTracing::Ray_t *rays;
 		RayTracing::HitInfo_t *hitinfos;
 
-		rays = m_camera.genViewRayInParallel(m_windowWidth,m_windowHeight);
-		hitinfos = m_scene.rayIntersectsInParallel(rays, 0.0001, 300.0, m_windowWidth, m_windowHeight);
-
 		m_isProcessingRayTracing = true;
+
+
+		
+		
 		for(int pass = 0; pass < MAX_RT_PASSES; pass++)
 		{
 
-			RayTracing::Ray_t ray;
-			RayTracing::HitInfo_t hitinfo;
+			rays = m_camera.genViewRayInParallel(m_windowWidth,m_windowHeight);
+			hitinfos = m_scene.rayIntersectsInParallel(rays, 0.0001, 300.0, m_windowWidth, m_windowHeight);
+			
+			gml::vec3_t *tempClrs = m_scene.shadeRaysInParallel(rays,hitinfos,MAX_RAY_DEPTH,m_windowWidth,m_windowHeight);
+			
+			memcpy(m_rtImage, tempClrs, m_windowWidth * m_windowHeight * sizeof(gml::vec3_t));
 
+			delete[] tempClrs;
+			/*
 			double time = currTime;
 			GLuint m_rtRow = 0;
 			do
 			{
-				gml::vec3_t *imgPos = m_rtImage + m_rtRow*m_windowWidth;
-
-				for (GLuint c=0; c<m_windowWidth; c++, imgPos++)
+				
+				
+				for (GLuint c=0; c<m_windowWidth; c++)
 				{
 					gml::vec3_t clr(0.0, 0.0, 0.0);
 
-					ray = (rays[c + m_rtRow * m_windowWidth]);
 
-
-					// TODO!!
-					//   Create the ray through (x,y) from the camera, then use the m_scene
-					// object to find an intersection of the ray, and shade the ray if there
-					// is an intersection.
-					//  Assign the shade of the ray to the 'clr' variable.
-					//  The recursive depth for shading the ray is given by the
-					// constant MAX_RAY_DEPTH (found at top of this file)
-
-					hitinfo = (hitinfos[c + m_rtRow * m_windowWidth]);
-
+					
 					if(hitinfo.hitDist != FLT_MAX)
 					{
 						clr = m_scene.shadeRay(ray, hitinfo, MAX_RAY_DEPTH);
@@ -575,12 +571,14 @@ void Assignment3::idle()
 					{
 						*imgPos = gml::scale(1.0f/(pass+1),	gml::add( gml::scale(pass,*imgPos), clr ) );
 					}
+					
 				}
 
 				m_rtRow += 1;
 				time = UI::getTime();
 			} while (m_rtRow < m_windowHeight);
 
+			*/
 
 			// Copy the new image data to the texture for blitting to the screen.
 			glBindTexture(GL_TEXTURE_2D, m_rtTex);

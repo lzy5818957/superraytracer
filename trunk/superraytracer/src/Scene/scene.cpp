@@ -233,7 +233,6 @@ namespace Scene
 		// calculated ray color wicstdlibll be black if the point is in shadow.
 
 
-
 		gml::vec3_t shadePoint = gml::add(ray.o, gml::scale(hitinfo.hitDist, ray.d));
 		gml::vec3_t shade(0.0, 0.0, 0.0);
 
@@ -326,20 +325,26 @@ namespace Scene
 		
 		const RayTracing::HitInfo_t **hitInfos_array = (const RayTracing::HitInfo_t**)malloc(m_nObjects * sizeof(RayTracing::HitInfo_t*));
 
-		RayTracing::Ray_t* devRays = rayHTD(rays,w,h);
-
 		
 		for(GLuint i = 0; i < m_nObjects; i++)
 		{
 			
-			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(devRays,t0,t1, w, h);
+			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(rays,t0,t1, w, h);
 
 		}
 		
-		RayTracing::HitInfo_t *closestHits = findClosestHits(hitInfos_array, w, h, m_nObjects);
+		RayTracing::HitInfo_t *closestHits = findClosestHitsWithCuda(hitInfos_array, w, h, m_nObjects);
 
-		return hitInfoDTH(closestHits,w,h);
+		return closestHits;
 		
 	}
+
+	gml::vec3_t* Scene::shadeRaysInParallel(const RayTracing::Ray_t *rays, RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h)
+	{
+		float* devImage = shadeRaysWithCuda(rays ,hitinfos,remainingRecursionDepth,w, h);
+		return (gml::vec3_t*)rgbDTH(devImage,w,h);
+		
+	}
+
 }
 
