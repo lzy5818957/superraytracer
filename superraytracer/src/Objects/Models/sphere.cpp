@@ -15,7 +15,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <stdio.h>
+
 #include "sphere.h"
+#include "sphere_kernel.cuh"
 
 #include "../object.h"
 
