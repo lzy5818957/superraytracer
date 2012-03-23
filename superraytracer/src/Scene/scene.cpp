@@ -317,7 +317,7 @@ namespace Scene
 		return shade;
 	}
 
-	RayTracing::HitInfo_t* Scene::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1,const int w, const int h)
+	RayTracing::HitInfo_t* Scene::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1,const int w, const int h, void* objHit) const
 	{
 		// TODO
 		//   Find the closest intersection of the ray in the distance range [t0,t1].
@@ -329,7 +329,7 @@ namespace Scene
 		for(GLuint i = 0; i < m_nObjects; i++)
 		{
 			
-			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(rays,t0,t1, w, h);
+			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(rays,t0,t1, w, h, NULL);
 
 		}
 		
@@ -346,5 +346,9 @@ namespace Scene
 		
 	}
 
+	float* Scene::hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const
+	{
+		return 0;
+	}
 }
 

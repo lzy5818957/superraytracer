@@ -66,7 +66,7 @@ namespace Object
 		normal = gml::normalize( gml::extract3( gml::mul( m_objectToWorld_Normals, gml::vec4_t(_normal, 0.0f) ) ) );
 	}
 
-	RayTracing::HitInfo_t* Object::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1,const int w, const int h)
+	RayTracing::HitInfo_t* Object::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1,const int w, const int h, void *objHit) const
 	{
 		RayTracing::Ray_t* raysInObj = (RayTracing::Ray_t*)transformRayToObjSpaceWithCuda((float*)rays, w, h, (float*)&m_worldToObject);
 

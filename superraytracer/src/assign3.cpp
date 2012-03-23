@@ -537,7 +537,7 @@ void Assignment3::idle()
 		{
 
 			rays = m_camera.genViewRayInParallel(m_windowWidth,m_windowHeight);
-			hitinfos = m_scene.rayIntersectsInParallel(rays, 0.0001, 300.0, m_windowWidth, m_windowHeight);
+			hitinfos = m_scene.rayIntersectsInParallel(rays, 0.0001, 300.0, m_windowWidth, m_windowHeight, NULL);
 			
 			gml::vec3_t *tempClrs = m_scene.shadeRaysInParallel(rays,hitinfos,MAX_RAY_DEPTH,m_windowWidth,m_windowHeight);
 			

@@ -72,7 +72,7 @@ namespace Scene
 		// Calculate the RGB color for the ray
 		gml::vec3_t shadeRay(const RayTracing::Ray_t &ray, RayTracing::HitInfo_t &hitinfo, const int remainingRecursionDepth) const;
 
-		virtual RayTracing::HitInfo_t* rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1,const int w, const int h);
+		virtual RayTracing::HitInfo_t* rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1,const int w, const int h, void* objHit) const;
 		virtual float* hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const;
 		virtual gml::vec3_t* Scene::shadeRaysInParallel(const RayTracing::Ray_t *rays, RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h);
 	};
