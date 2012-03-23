@@ -141,15 +141,21 @@ namespace Object
 
 			return true;
 		}
+
 		void Plane::hitProperties(const RayTracing::HitInfo_t &hitinfo, gml::vec3_t &normal, gml::vec2_t &texCoords) const
 		{
-			texCoords = gml::vec2_t(hitinfo.plane.u, hitinfo.plane.v);
 			normal = gml::vec3_t(0.0f, 1.0f, 0.0f);
+			texCoords = gml::vec2_t(hitinfo.plane.u, hitinfo.plane.v);
 		}
 
 		RayTracing::HitInfo_t* Plane::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h, void *objHit) const
 		{
 			return raysIntersectsWithCudaPlane((float*)rays, t0, t1, w, h,  (float*)_verts,objHit);
+		}
+
+		float* Plane::hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const
+		{
+			return hitPropertiesWithCudaPlane(hitinfos, w, h);
 		}
 
 	}

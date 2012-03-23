@@ -357,17 +357,9 @@ void Camera::spinCamera(const float angle)
 
 RayTracing::Ray_t* Camera::genViewRayInParallel(const int w, const int h) const
 {
-	float *raysFloat = (float*)malloc(w * h * 6 * sizeof(float));
 
-	cudaError_t cudaStatus = genViewRayWithCuda(raysFloat, w, h, (float*)&m_camPos, (float*)&m_windowToWorld);
-	if(cudaStatus != cudaSuccess)
-	{
-		printf("error occored when genViewRayWithCuda \n");
-	}
+	return (RayTracing::Ray_t*)genViewRayWithCuda(w, h, (float*)&m_camPos, (float*)&m_windowToWorld);
 
-	RayTracing::Ray_t* rays = (RayTracing::Ray_t*)raysFloat;
-
-	return rays;
 }
 
 void Camera::printMatrix4x4(const gml::mat4x4_t *matrix_ref,const char *matrixName)

@@ -6,6 +6,21 @@
 
 #define BLOCK_SIZE 8
 
+__global__ void hitPropertiesPlaneKernel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h , float *normTex)
+{
+	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
+	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
+	int arrayPos1 = (c + w * r);
+	int arrayPos5 = 5 * (c + w * r);
+
+	normTex[arrayPos5] = 0.0f;
+	normTex[arrayPos5 + 1] = 1.0f;
+	normTex[arrayPos5 + 2] = 0.0f;
+	normTex[arrayPos5 + 3] = hitinfos[arrayPos1].plane.u;
+	normTex[arrayPos5 + 4] = hitinfos[arrayPos1].plane.v;
+
+}
+
 __global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hitInfos, float3 *vert0, void *objHit)
 {
 
@@ -129,5 +144,52 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, co
 Error:
 
 	cudaFree(devVert0);
+	return NULL;
+}
+
+
+extern "C" float* hitPropertiesWithCudaPlane(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h)
+{
+	float *devNormTex = 0;
+	cudaError_t cudaStatus;
+
+	cudaStatus = cudaMalloc (( void **)& devNormTex , 5 * sizeof ( float ));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
+	
+	// cudaDeviceSynchronize waits for the kernel to finish, and returns
+	// any errors encountered during the launch.
+	cudaStatus = cudaDeviceSynchronize();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaDeviceSynchronize returned error code %d before launching setup_rand_kernel!\n", cudaStatus);
+		goto Error;
+	}
+
+
+	dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);  // 64 threads 
+
+	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
+		h/threadsPerBlock.y);  
+
+	hitPropertiesPlaneKernel <<<numBlocks, threadsPerBlock>>>(hitinfos, w, h,devNormTex );
+
+
+	// cudaDeviceSynchronize waits for the kernel to finish, and returns
+	// any errors encountered during the launch.
+	cudaStatus = cudaDeviceSynchronize();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaDeviceSynchronize returned error code %d before launching setup_rand_kernel!\n", cudaStatus);
+		goto Error;
+	}
+
+
+	return devNormTex;
+
+Error:
+
+	cudaFree(devNormTex);
 	return NULL;
 }

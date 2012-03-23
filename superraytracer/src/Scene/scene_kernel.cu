@@ -4,7 +4,7 @@
 
 #define BLOCK_SIZE 8
 
-__global__ void findClosestHits(RayTracing::HitInfo_t** hitInfos_array, const int w, const int h, RayTracing::HitInfo_t* closestHits, const int m_nObjects)
+__global__ void findClosestHitsKernel(RayTracing::HitInfo_t** hitInfos_array, const int w, const int h, RayTracing::HitInfo_t* closestHits, const int m_nObjects)
 {
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
@@ -21,8 +21,16 @@ __global__ void findClosestHits(RayTracing::HitInfo_t** hitInfos_array, const in
 		
 	}
 	closestHits[arrayPos1] = closestHit;
+
 }
 
+__global__ void shadeRaysKernel(const RayTracing::Ray_t *rays, RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h, float3* shades)
+{
+	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
+	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
+	int arrayPos1 = c + w * r;
+	shades[arrayPos1] = make_float3(1.0f,0.0f,0.0f);
+}
 
 extern "C" RayTracing::HitInfo_t* hitInfoDTH(const RayTracing::HitInfo_t *devHitInfos, const int w, const int h)
 {
@@ -47,6 +55,38 @@ Error:
 
 	return NULL;
 }
+
+
+extern "C" float* rgbDTH(const float *devImg, const int w, const int h)
+{
+	cudaError_t cudaStatus;
+
+	float* hostImg;
+
+	hostImg = (float*)malloc(w * h * sizeof(gml::vec3_t));
+	
+	cudaStatus = cudaMemcpy(hostImg, devImg, w * h * sizeof(float3), cudaMemcpyDeviceToHost);
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMemcpy failed!");
+		goto Error;
+	}
+	
+
+	for(int i = 0; i < 20; i ++)
+	{
+		printf("host img = %f\n",hostImg[i]);
+
+	}
+
+	return hostImg;
+
+Error:
+
+	printf("CUDA ERROR OCCURED\n");
+
+	return NULL;
+}
+
 
 extern "C" RayTracing::Ray_t* rayHTD(const RayTracing::Ray_t *hostRays, const int w, const int h)
 {
@@ -76,7 +116,7 @@ Error:
 	return NULL;
 }
 
-extern "C" RayTracing::HitInfo_t* findClosestHits(const RayTracing::HitInfo_t** hitInfos_array, const int w, const int h, const int m_nObjects)
+extern "C" RayTracing::HitInfo_t* findClosestHitsWithCuda(const RayTracing::HitInfo_t** hitInfos_array, const int w, const int h, const int m_nObjects)
 {	
 
 	RayTracing::HitInfo_t* closestHits = 0;
@@ -114,7 +154,7 @@ extern "C" RayTracing::HitInfo_t* findClosestHits(const RayTracing::HitInfo_t** 
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);  
 	
-	findClosestHits <<<numBlocks, threadsPerBlock>>>( devHitInfos_array, w, h, closestHits, m_nObjects );
+	findClosestHitsKernel <<<numBlocks, threadsPerBlock>>>( devHitInfos_array, w, h, closestHits, m_nObjects );
 
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
@@ -138,5 +178,31 @@ Error:
 
 	printf("CUDA ERROR OCCURED\n");
 
+	return NULL;
+}
+
+extern "C" float* shadeRaysWithCuda(const RayTracing::Ray_t *rays, RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h)
+{
+	cudaError_t cudaStatus;
+	float3* devShades = 0;
+	cudaStatus = cudaMalloc (( void **)& devShades , w * h * sizeof ( float3 ));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
+	dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);  // 64 threads 
+
+	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
+		h/threadsPerBlock.y);
+	
+	shadeRaysKernel <<<numBlocks, threadsPerBlock>>>( rays,hitinfos,remainingRecursionDepth,w,h,devShades );
+
+
+	return (float*)devShades;
+	
+Error:
+
+	printf("CUDA ERROR OCCURED\n");
 	return NULL;
 }

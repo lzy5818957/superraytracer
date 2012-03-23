@@ -67,7 +67,7 @@ __global__ void genRaysKernel(float *rays, float *camPos, float* rand_result, in
 }
 
 
-extern "C" cudaError_t genViewRayWithCuda(float *hostRays, const int w, const int h,  float *hostCamPos, float *hostWindowToWorld)
+extern "C" float* genViewRayWithCuda( const int w, const int h,  float *hostCamPos, float *hostWindowToWorld)
 {
 
 
@@ -191,15 +191,7 @@ extern "C" cudaError_t genViewRayWithCuda(float *hostRays, const int w, const in
 		goto Error;
 	}
 
-	// Copy output vector from GPU buffer to host memory.
-	cudaStatus = cudaMemcpy(hostRays, devRays, 6 * w * h * sizeof(float), cudaMemcpyDeviceToHost);
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
-		goto Error;
-	}
-
-	cudaFree(devRays);
-	devRays = 0;
+	return devRays;
 
 Error:
 	cudaFree(devRays);
@@ -207,6 +199,6 @@ Error:
 	cudaFree(devRandResult);
 	cudaFree(devWindowToWorld);
 	cudaFree(devCamPos);
-	return cudaStatus;
+	return NULL;
 
 }
