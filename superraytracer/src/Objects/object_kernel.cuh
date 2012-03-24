@@ -8,6 +8,12 @@
 
 typedef enum
 {
+	PLANE,
+	SPHERE
+} GeometryType_Kernel;
+
+typedef enum
+{
 	SIMPLE,
 	GOURAUD,
 	PHONG,
@@ -31,7 +37,7 @@ typedef struct {
 	// TODO!
 	// Replace placeholder with whatever information you believe to
 	// be necessary to cache.
-	int m_geometry_type;
+	GeometryType_Kernel m_geometry_type;
 
 	// Surface material
 	Material_Kernel_t m_material;
