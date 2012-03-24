@@ -133,17 +133,19 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, co
 		goto Error;
 	}
 
-	cudaFree(devVert0);
-	devVert0 = 0;
-
 	cudaFree(devRays);
 	devRays = 0;
+
+	cudaFree(devVert0);
+	devVert0 = 0;
 
 	return devHitInfos;
 
 Error:
-
+	cudaFree(devHitInfos);
+	devHitInfos = 0;
 	cudaFree(devVert0);
+	devVert0 = 0;
 	return NULL;
 }
 

@@ -32,30 +32,6 @@ __global__ void shadeRaysKernel(const RayTracing::Ray_t *rays, RayTracing::HitIn
 	shades[arrayPos1] = make_float3(1.0f,0.0f,0.0f);
 }
 
-extern "C" RayTracing::HitInfo_t* hitInfoDTH(const RayTracing::HitInfo_t *devHitInfos, const int w, const int h)
-{
-	cudaError_t cudaStatus;
-
-	RayTracing::HitInfo_t* hostHitInfos;
-
-
-	hostHitInfos = (RayTracing::HitInfo_t*)malloc(w * h * sizeof(RayTracing::HitInfo_t));
-
-	cudaStatus = cudaMemcpy(hostHitInfos, devHitInfos, w * h * sizeof(RayTracing::HitInfo_t), cudaMemcpyDeviceToHost);
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
-		goto Error;
-	}
-
-	return hostHitInfos;
-
-Error:
-
-	printf("CUDA ERROR OCCURED\n");
-
-	return NULL;
-}
-
 
 extern "C" float* rgbDTH(const float *devImg, const int w, const int h)
 {
@@ -71,13 +47,7 @@ extern "C" float* rgbDTH(const float *devImg, const int w, const int h)
 		goto Error;
 	}
 	
-
-	for(int i = 0; i < 20; i ++)
-	{
-		printf("host img = %f\n",hostImg[i]);
-
-	}
-
+	cudaFree((void*)devImg);
 	return hostImg;
 
 Error:
@@ -87,34 +57,6 @@ Error:
 	return NULL;
 }
 
-
-extern "C" RayTracing::Ray_t* rayHTD(const RayTracing::Ray_t *hostRays, const int w, const int h)
-{
-	cudaError_t cudaStatus;
-
-	RayTracing::Ray_t* devRays = 0;
-
-
-	cudaStatus = cudaMalloc (( void **)& devRays , 6 * w * h * sizeof ( float ));
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMalloc failed!");
-		goto Error;
-	}
-
-	cudaStatus = cudaMemcpy(devRays, hostRays, 6 * w * h * sizeof(float), cudaMemcpyHostToDevice);
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
-		goto Error;
-	}
-
-	return devRays;
-
-Error:
-
-	printf("CUDA ERROR OCCURED\n");
-
-	return NULL;
-}
 
 extern "C" RayTracing::HitInfo_t* findClosestHitsWithCuda(const RayTracing::HitInfo_t** hitInfos_array, const int w, const int h, const int m_nObjects)
 {	
@@ -165,17 +107,30 @@ extern "C" RayTracing::HitInfo_t* findClosestHitsWithCuda(const RayTracing::HitI
 		goto Error;
 	}
 
+	size_t free, total;
+
+	cudaMemGetInfo(&free,&total);
+	printf("before:      avaliable mem = %lu\n", free);
+
 	for(int i = 0 ; i < m_nObjects; i++)
 	{
+
 		cudaFree((void*)(hitInfos_array[i]));
 		hitInfos_array[i] = 0;
+
+
 	}
+	cudaMemGetInfo(&free,&total);
+	printf("after free:  avaliable mem = %lu\n", free);
+	printf("--------------------------------\n");
+
 	cudaFree(devHitInfos_array);
 	return closestHits;
 	
 
 Error:
 
+	cudaFree(devHitInfos_array);
 	printf("CUDA ERROR OCCURED\n");
 
 	return NULL;
@@ -198,6 +153,12 @@ extern "C" float* shadeRaysWithCuda(const RayTracing::Ray_t *rays, RayTracing::H
 	
 	shadeRaysKernel <<<numBlocks, threadsPerBlock>>>( rays,hitinfos,remainingRecursionDepth,w,h,devShades );
 
+	cudaFree((void*)rays);
+	rays = 0;
+
+	cudaFree((void*)hitinfos);
+	hitinfos = 0;
+	
 
 	return (float*)devShades;
 	

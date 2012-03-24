@@ -97,8 +97,8 @@ extern "C"  float* transformRayToObjSpaceWithCuda(float *rays, const int w, cons
 
 	return (float*)devRaysObj;
 Error:
-
 	cudaFree(dev_wdToObj);
+	cudaFree(devRaysObj);
 	return NULL;
 }
 

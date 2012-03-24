@@ -123,6 +123,9 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaSphere(float *devRays, c
 		goto Error;
 	}
 
+	cudaFree(devRays);
+	devRays = 0;
+
 	return devHitInfos;
 	
 
