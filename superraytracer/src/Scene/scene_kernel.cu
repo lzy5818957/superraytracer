@@ -1,6 +1,7 @@
 #include "scene_kernel.cuh"
 #include <cstdio>
 #include <cstdlib>
+#include <cfloat>
 
 #define BLOCK_SIZE 8
 
@@ -29,7 +30,15 @@ __global__ void shadeRaysKernel(const RayTracing::Ray_t *rays, RayTracing::HitIn
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	int arrayPos1 = c + w * r;
-	shades[arrayPos1] = make_float3(1.0f,0.0f,0.0f);
+	if(hitinfos[arrayPos1].hitDist > 1.0f)
+	{
+		shades[arrayPos1] = make_float3(1.0f,1.0f,0.0f);
+	}
+	else
+	{
+		shades[arrayPos1] = make_float3(1.0f,0.0f,0.0f);
+	}
+
 }
 
 
@@ -107,22 +116,11 @@ extern "C" RayTracing::HitInfo_t* findClosestHitsWithCuda(const RayTracing::HitI
 		goto Error;
 	}
 
-	size_t free, total;
-
-	cudaMemGetInfo(&free,&total);
-	printf("before:      avaliable mem = %lu\n", free);
-
 	for(int i = 0 ; i < m_nObjects; i++)
 	{
-
 		cudaFree((void*)(hitInfos_array[i]));
 		hitInfos_array[i] = 0;
-
-
 	}
-	cudaMemGetInfo(&free,&total);
-	printf("after free:  avaliable mem = %lu\n", free);
-	printf("--------------------------------\n");
 
 	cudaFree(devHitInfos_array);
 	return closestHits;
