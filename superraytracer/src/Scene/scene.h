@@ -19,9 +19,11 @@
 #include "../Shaders/manager.h"
 #include "../RayTracing/rayintersector.h"
 
+
 namespace Scene
 {
-
+	
+	
 	// Class for a scene representation
 	class Scene : public RayTracing::RayIntersector
 	{
@@ -60,7 +62,7 @@ namespace Scene
 		void rasterizeDepth(const gml::mat4x4_t &worldView, const gml::mat4x4_t &projection);
 		// Rasterize the scene. Assumes that the shadowmap, if used, is bound to texture unit 1
 		void rasterize(const gml::mat4x4_t &worldView, const gml::mat4x4_t &projection, const bool useShadows);
-
+		RayTracing::Object_Kernel_t* CreateObjInKernel();
 		// -----------------------------------------
 		// Ray tracing
 		// -----------------------------------------
