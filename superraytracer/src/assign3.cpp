@@ -164,17 +164,18 @@ bool Assignment3::init()
 	gml::vec3_t green(0.15, 0.48, 0.09);
 
 	mat.setSpecExp(-1.0f); // turn off specular
-
+	
 	mat.setSurfReflectance(beige);
 	// Ground plane
 	mat.setTexture(0);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(0.0,0.0,0.0)), gml::scaleh(5.0, 1.0, 5.0)) ) );
+	
 	// Box "top"
 	mat.setTexture(0);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(0.5,5.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(5.0, 1.0, 5.0))) ) );
-
+		
 	// "Box" walls
 	mat.setSurfReflectance(green);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
@@ -544,6 +545,7 @@ void Assignment3::idle()
 			memcpy(m_rtImage, tempClrs, m_windowWidth * m_windowHeight * sizeof(gml::vec3_t));
 
 			delete[] tempClrs;
+
 			/*
 			double time = currTime;
 			GLuint m_rtRow = 0;

@@ -102,7 +102,6 @@ namespace RayTracing
 	} MeshHitInfo_t;
 
 	typedef struct _HitInfo_t {
-		int objHitIndex;
 		// Object intersected
 		const Object::Object *objHit;
 		// Distance along ray to the intersection point

@@ -358,9 +358,7 @@ namespace Scene
 
 	RayTracing::Object_Kernel_t* Scene::createObjForKernel() const
 	{
-		RayTracing::Object_Kernel_t* container;
-
-		container = new RayTracing::Object_Kernel_t [m_nObjects];
+		RayTracing::Object_Kernel_t* container = (RayTracing::Object_Kernel_t*)malloc( m_nObjects * sizeof(RayTracing::Object_Kernel_t));
 
 		for(GLuint i = 0; i < m_nObjects; i++)
 		{
