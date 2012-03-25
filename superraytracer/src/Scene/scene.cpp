@@ -346,7 +346,7 @@ namespace Scene
 		const RayTracing::Object_Kernel_t* devObjKernel = objHTD(hostObjKernel,m_nObjects);
 		delete[] hostObjKernel;
 
-		float* devImage = shadeRaysWithCuda(rays ,hitinfos,devObjKernel, (float*)&m_lightPos, remainingRecursionDepth,w, h);
+		float* devImage = shadeRaysWithCuda(rays ,hitinfos,devObjKernel, (float*)&m_lightPos, (float*)&m_lightRad, remainingRecursionDepth,w, h);
 		return (gml::vec3_t*)rgbDTH(devImage,w,h);
 
 	}
@@ -364,12 +364,12 @@ namespace Scene
 		{
 
 			container[i].m_geometry_type = m_scene[i] -> getGeometryType();
-
+			
 			// copy material vaules to kernel 
 			container[i].m_material.m_surfRefl[0] = m_scene[i]->getMaterial().getSurfRefl().x;
 			container[i].m_material.m_surfRefl[1] = m_scene[i]->getMaterial().getSurfRefl().y;
 			container[i].m_material.m_surfRefl[2] = m_scene[i]->getMaterial().getSurfRefl().z;
-
+			
 			container[i].m_material.m_hasSpecular = m_scene[i]->getMaterial().hasSpecular();
 
 			container[i].m_material.m_specExp = m_scene[i]->getMaterial().getSpecExp();
@@ -396,71 +396,19 @@ namespace Scene
 			}
 			
 			// copy oject <-> world space transformation to kernel 
-			container[i].m_objectToWorld[0] = m_scene[i]->getObjectToWorld().m[0].x;
-			container[i].m_objectToWorld[1] = m_scene[i]->getObjectToWorld().m[0].y;
-			container[i].m_objectToWorld[2] = m_scene[i]->getObjectToWorld().m[0].z;
-			container[i].m_objectToWorld[3] = m_scene[i]->getObjectToWorld().m[0].w;
 
-			container[i].m_objectToWorld[4] = m_scene[i]->getObjectToWorld().m[1].x;
-			container[i].m_objectToWorld[5] = m_scene[i]->getObjectToWorld().m[1].y;
-			container[i].m_objectToWorld[6] = m_scene[i]->getObjectToWorld().m[1].w;
-			container[i].m_objectToWorld[7] = m_scene[i]->getObjectToWorld().m[1].z;
+			float* m_objectToWorldFloat = (float*)&(m_scene[i]->getObjectToWorld());
+			float* m_objectToWorld_NormalsFloat = (float*)&(m_scene[i]->getObjectToWorld_Normals());
+			float* m_worldToObjectFloat = (float*)&(m_scene[i]->getWorldToObject());
 
-			container[i].m_objectToWorld[8] = m_scene[i]->getObjectToWorld().m[2].x;
-			container[i].m_objectToWorld[9] = m_scene[i]->getObjectToWorld().m[2].y;
-			container[i].m_objectToWorld[10] = m_scene[i]->getObjectToWorld().m[2].z;
-			container[i].m_objectToWorld[11] = m_scene[i]->getObjectToWorld().m[2].w;
-
-			container[i].m_objectToWorld[12] = m_scene[i]->getObjectToWorld().m[3].x;
-			container[i].m_objectToWorld[13] = m_scene[i]->getObjectToWorld().m[3].y;
-			container[i].m_objectToWorld[14] = m_scene[i]->getObjectToWorld().m[3].z;
-			container[i].m_objectToWorld[15] = m_scene[i]->getObjectToWorld().m[3].w;
-
-
-			// copy oject <-> world space transformation to kernel 
-			container[i].m_objectToWorld_Normals[0] = m_scene[i]->getObjectToWorld_Normals().m[0].x;
-			container[i].m_objectToWorld_Normals[1] = m_scene[i]->getObjectToWorld_Normals().m[0].y;
-			container[i].m_objectToWorld_Normals[2] = m_scene[i]->getObjectToWorld_Normals().m[0].z;
-			container[i].m_objectToWorld_Normals[3] = m_scene[i]->getObjectToWorld_Normals().m[0].w;
-
-			container[i].m_objectToWorld_Normals[4] = m_scene[i]->getObjectToWorld_Normals().m[1].x;
-			container[i].m_objectToWorld_Normals[5] = m_scene[i]->getObjectToWorld_Normals().m[1].y;
-			container[i].m_objectToWorld_Normals[6] = m_scene[i]->getObjectToWorld_Normals().m[1].w;
-			container[i].m_objectToWorld_Normals[7] = m_scene[i]->getObjectToWorld_Normals().m[1].z;
-
-			container[i].m_objectToWorld_Normals[8] = m_scene[i]->getObjectToWorld_Normals().m[2].x;
-			container[i].m_objectToWorld_Normals[9] = m_scene[i]->getObjectToWorld_Normals().m[2].y;
-			container[i].m_objectToWorld_Normals[10] = m_scene[i]->getObjectToWorld_Normals().m[2].z;
-			container[i].m_objectToWorld_Normals[11] = m_scene[i]->getObjectToWorld_Normals().m[2].w;
-
-			container[i].m_objectToWorld_Normals[12] = m_scene[i]->getObjectToWorld_Normals().m[3].x;
-			container[i].m_objectToWorld_Normals[13] = m_scene[i]->getObjectToWorld_Normals().m[3].y;
-			container[i].m_objectToWorld_Normals[14] = m_scene[i]->getObjectToWorld_Normals().m[3].z;
-			container[i].m_objectToWorld_Normals[15] = m_scene[i]->getObjectToWorld_Normals().m[3].w;
+			for(int j = 0; j < 16; j++)
+			{
+				container[i].m_objectToWorld[j] = m_objectToWorldFloat[j];
+				container[i].m_objectToWorld_Normals[j] = m_objectToWorld_NormalsFloat[j];
+				container[i].m_worldToObject[j] =m_worldToObjectFloat[j];
+			}
 
 			
-			// copy oject <-> world space transformation to kernel 
-			container[i].m_worldToObject[0] = m_scene[i]->getWorldToObject().m[0].x;
-			container[i].m_worldToObject[1] = m_scene[i]->getWorldToObject().m[0].y;
-			container[i].m_worldToObject[2] = m_scene[i]->getWorldToObject().m[0].z;
-			container[i].m_worldToObject[3] = m_scene[i]->getWorldToObject().m[0].w;
-
-			container[i].m_worldToObject[4] = m_scene[i]->getWorldToObject().m[1].x;
-			container[i].m_worldToObject[5] = m_scene[i]->getWorldToObject().m[1].y;
-			container[i].m_worldToObject[6] = m_scene[i]->getWorldToObject().m[1].w;
-			container[i].m_worldToObject[7] = m_scene[i]->getWorldToObject().m[1].z;
-
-			container[i].m_worldToObject[8] = m_scene[i]->getWorldToObject().m[2].x;
-			container[i].m_worldToObject[9] = m_scene[i]->getWorldToObject().m[2].y;
-			container[i].m_worldToObject[10] = m_scene[i]->getWorldToObject().m[2].z;
-			container[i].m_worldToObject[11] = m_scene[i]->getWorldToObject().m[2].w;
-
-			container[i].m_worldToObject[12] = m_scene[i]->getWorldToObject().m[3].x;
-			container[i].m_worldToObject[13] = m_scene[i]->getWorldToObject().m[3].y;
-			container[i].m_worldToObject[14] = m_scene[i]->getWorldToObject().m[3].z;
-			container[i].m_worldToObject[15] = m_scene[i]->getWorldToObject().m[3].w;
-			
-
 		}
 
 		return container;
