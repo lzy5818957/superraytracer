@@ -329,7 +329,7 @@ namespace Scene
 		for(GLuint i = 0; i < m_nObjects; i++)
 		{
 
-			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(rays,t0,t1, w, h, NULL);
+			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(rays,t0,t1, w, h, (void*)i);
 
 		}
 
@@ -339,9 +339,14 @@ namespace Scene
 
 	}
 
-	gml::vec3_t* Scene::shadeRaysInParallel(const RayTracing::Ray_t *rays, RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h)
+	gml::vec3_t* Scene::shadeRaysInParallel(const RayTracing::Ray_t *rays,const RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h)
 	{
-		float* devImage = shadeRaysWithCuda(rays ,hitinfos,remainingRecursionDepth,w, h);
+		
+		RayTracing::Object_Kernel_t* hostObjKernel = this -> createObjForKernel();
+		const RayTracing::Object_Kernel_t* devObjKernel = objHTD(hostObjKernel,m_nObjects);
+		delete[] hostObjKernel;
+
+		float* devImage = shadeRaysWithCuda(rays ,hitinfos,devObjKernel, (float*)&m_lightPos, remainingRecursionDepth,w, h);
 		return (gml::vec3_t*)rgbDTH(devImage,w,h);
 
 	}
@@ -351,7 +356,7 @@ namespace Scene
 		return 0;
 	}
 
-	RayTracing::Object_Kernel_t* Scene::CreateObjInKernel()
+	RayTracing::Object_Kernel_t* Scene::createObjForKernel() const
 	{
 		RayTracing::Object_Kernel_t* container;
 
@@ -360,23 +365,13 @@ namespace Scene
 		for(GLuint i = 0; i < m_nObjects; i++)
 		{
 
-			//copy geometry type to kernel
-			if(m_scene[i]->getGeometryType() == 1)
-			{
-				container[i].m_geometry_type == RayTracing::PLANE;
-
-			}
-
-			if(m_scene[i]->getGeometryType() == 2)
-			{
-				container[i].m_geometry_type == RayTracing::SPHERE;
-
-			}
+			container[i].m_geometry_type = m_scene[i] -> getGeometryType();
 			// copy material vaules to kernel 
 			container[i].m_material.m_surfRefl = m_scene[i]->getMaterial().getSurfRefl();
 			container[i].m_material.m_hasSpecular = m_scene[i]->getMaterial().hasSpecular();
 			container[i].m_material.m_specExp = m_scene[i]->getMaterial().getSpecExp();
 			container[i].m_material.m_specRefl = m_scene[i]->getMaterial().getSpecRefl();
+
 			if(m_scene[i]->getMaterial().getShaderType() == Material::ShaderType::SIMPLE)
 			{
 				container[i].m_material.m_shadeType = RayTracing::SIMPLE;

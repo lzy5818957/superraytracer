@@ -70,7 +70,7 @@ namespace Object
 	{
 		RayTracing::Ray_t* raysInObj = (RayTracing::Ray_t*)transformRayToObjSpaceWithCuda((float*)rays, w, h, (float*)&m_worldToObject);
 
-		return m_geometry->rayIntersectsInParallel(raysInObj,t0,t1, w, h, (void*)this);
+		return m_geometry->rayIntersectsInParallel(raysInObj,t0,t1, w, h, objHit);
 	}
 
 	float* Object::hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const
