@@ -158,5 +158,10 @@ namespace Object
 			return hitPropertiesWithCudaPlane(hitinfos, w, h);
 		}
 
+		int Plane::getGeometryType()
+		{
+			return 1;
+		}
+
 	}
 }

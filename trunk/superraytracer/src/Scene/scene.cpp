@@ -361,8 +361,17 @@ namespace Scene
 		{
 
 			//copy geometry type to kernel
-			
+			if(m_scene[i]->getGeometryType() == 1)
+			{
+				container[i].m_geometry_type == RayTracing::PLANE;
 
+			}
+
+			if(m_scene[i]->getGeometryType() == 2)
+			{
+				container[i].m_geometry_type == RayTracing::SPHERE;
+
+			}
 			// copy material vaules to kernel 
 			container[i].m_material.m_surfRefl = m_scene[i]->getMaterial().getSurfRefl();
 			container[i].m_material.m_hasSpecular = m_scene[i]->getMaterial().hasSpecular();

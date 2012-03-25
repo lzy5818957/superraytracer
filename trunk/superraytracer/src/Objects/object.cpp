@@ -80,4 +80,8 @@ namespace Object
 		return hitPropertiesWithCudaObject(normTex, (float*)&m_objectToWorld_Normals, hitinfos, w, h);
 	}
 
+	int Object::getGeometryType()
+	{
+		return 0;
+	}
 }

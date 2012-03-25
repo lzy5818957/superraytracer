@@ -355,6 +355,11 @@ namespace Object
 		{
 			return NULL;
 		}
+		
+		int Sphere::getGeometryType()
+		{
+			return 2;
+		}
 
 	}
 }
