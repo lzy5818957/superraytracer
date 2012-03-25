@@ -38,10 +38,14 @@ __global__ void shadeRaysKernel(
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	int arrayPos1 = c + w * r;
 
-	int hitIndex = (int)hitinfos[arrayPos1].objHit;
+	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
 
-	shades[arrayPos1] = make_float3(hitIndex/10.0f,0.0f,0.0f);
+	int hitIndex = hitInfo.objHitIndex;
 
+	RayTracing::Object_Kernel_t object = objects[hitIndex];
+
+	float3 color = *((float3*)&object.m_material.m_surfRefl);
+	
 	/*
 	if(hitinfos[arrayPos1].hitDist > 1.0f)
 	{
@@ -53,6 +57,7 @@ __global__ void shadeRaysKernel(
 	}
 	*/
 
+	shades[arrayPos1] = make_float3(color.x, color.y, color.z);
 }
 
 

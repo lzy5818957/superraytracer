@@ -21,7 +21,7 @@ __global__ void hitPropertiesPlaneKernel(const RayTracing::HitInfo_t *hitinfos, 
 
 }
 
-__global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hitInfos, float3 *vert0, void *objHit)
+__global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hitInfos, float3 *vert0, int objHitIndex)
 {
 
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
@@ -69,14 +69,14 @@ __global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const 
 	}
 
 	hitInfos[arrayPos1].hitDist =  t;
-	hitInfos[arrayPos1].objHit = (Object::Object*)objHit;
+	hitInfos[arrayPos1].objHitIndex = objHitIndex;
 	hitInfos[arrayPos1].plane.u = u;
 	hitInfos[arrayPos1].plane.v = v;
 	
 
 }
 
-extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, float* hostVerts,void *objHit)
+extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, float* hostVerts,int objHitIndex)
 {
 	float *devVert0 = 0;
 	RayTracing::HitInfo_t *devHitInfos = 0;
@@ -122,7 +122,7 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, co
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);  
 
-	raysIntersectsPlaneKernel <<<numBlocks, threadsPerBlock>>>(devRays, t0, t1, w, h, devHitInfos, (float3*)devVert0, objHit);
+	raysIntersectsPlaneKernel <<<numBlocks, threadsPerBlock>>>(devRays, t0, t1, w, h, devHitInfos, (float3*)devVert0, objHitIndex);
 
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns

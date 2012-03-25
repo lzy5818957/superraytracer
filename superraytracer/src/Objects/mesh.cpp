@@ -319,7 +319,7 @@ namespace Object
 		return NULL;
 	}
 
-	RayTracing::HitInfo_t* Mesh::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h, void *objHit) const
+	RayTracing::HitInfo_t* Mesh::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h, int objHitIndex) const
 	{
 
 		//raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *hostHitInfos);

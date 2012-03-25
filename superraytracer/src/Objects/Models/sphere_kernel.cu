@@ -5,7 +5,7 @@
 
 #define BLOCKSIZE 8
 
-__global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const float t1,const int w, const int h,RayTracing::HitInfo_t *hitInfos, void *objHit)
+__global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const float t1,const int w, const int h,RayTracing::HitInfo_t *hitInfos, int objHitIndex)
 {
 	float A,B,C;
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
@@ -48,7 +48,7 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 		   hitInfos[arrayPos1].sphere.shadePoint_x = shadePoint.x;
 		   hitInfos[arrayPos1].sphere.shadePoint_y = shadePoint.y;
 		   hitInfos[arrayPos1].sphere.shadePoint_z = shadePoint.z;
-		   hitInfos[arrayPos1].objHit = (Object::Object*)objHit;
+		   hitInfos[arrayPos1].objHitIndex = objHitIndex;
 
 	    }
 		
@@ -84,7 +84,7 @@ __global__ void hitPropertiesSphereKernel(const RayTracing::HitInfo_t *hitinfos,
 	normTex [arrayPos5 + 4] = texCoords.y;
 }
 
-extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaSphere(float *devRays, const float t0, const float t1,const int w, const int h,  void *objHit)
+extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaSphere(float *devRays, const float t0, const float t1,const int w, const int h,  int objHitIndex)
 {
 	RayTracing::HitInfo_t *devHitInfos = 0;
 	cudaError_t cudaStatus;
@@ -113,7 +113,7 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaSphere(float *devRays, c
 	dim3 threadsPerBlock(BLOCKSIZE,BLOCKSIZE);
 	dim3 numBlocks(w/threadsPerBlock.x,h/threadsPerBlock.y);
 
-	raysIntersectsSphereKernel <<< numBlocks, threadsPerBlock>>> (devRays,t0,t1,w,h,devHitInfos, objHit);
+	raysIntersectsSphereKernel <<< numBlocks, threadsPerBlock>>> (devRays,t0,t1,w,h,devHitInfos, objHitIndex);
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
 	// any errors encountered during the launch.
