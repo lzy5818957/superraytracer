@@ -62,7 +62,7 @@ namespace Scene
 		void rasterizeDepth(const gml::mat4x4_t &worldView, const gml::mat4x4_t &projection);
 		// Rasterize the scene. Assumes that the shadowmap, if used, is bound to texture unit 1
 		void rasterize(const gml::mat4x4_t &worldView, const gml::mat4x4_t &projection, const bool useShadows);
-		RayTracing::Object_Kernel_t* CreateObjInKernel();
+		
 		// -----------------------------------------
 		// Ray tracing
 		// -----------------------------------------
@@ -76,7 +76,8 @@ namespace Scene
 
 		virtual RayTracing::HitInfo_t* rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1,const int w, const int h, void* objHit) const;
 		virtual float* hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const;
-		virtual gml::vec3_t* Scene::shadeRaysInParallel(const RayTracing::Ray_t *rays, RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h);
+		virtual gml::vec3_t* Scene::shadeRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h);
+		virtual RayTracing::Object_Kernel_t* createObjForKernel() const;
 	};
 
 }
