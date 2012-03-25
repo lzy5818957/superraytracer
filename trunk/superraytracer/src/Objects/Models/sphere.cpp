@@ -345,10 +345,10 @@ namespace Object
 			}
 		}
 
-		RayTracing::HitInfo_t* Sphere::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h, void* objHit) const
+		RayTracing::HitInfo_t* Sphere::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h, int objHitIndex) const
 		{
 
-			return raysIntersectsWithCudaSphere((float*)rays, t0, t1, w, h, objHit);
+			return raysIntersectsWithCudaSphere((float*)rays, t0, t1, w, h, objHitIndex);
 		}
 
 		float* Sphere::hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const

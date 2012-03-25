@@ -7,7 +7,7 @@
 #define BLOCK_SIZE 8
 
 
-__global__ void raysIntersectsMeshKernel(GLuint i0, GLuint i1, GLuint i2,float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *devHitInfos, float3 * dev_vertPositions,void *objHit)
+__global__ void raysIntersectsMeshKernel(GLuint i0, GLuint i1, GLuint i2,float *devRays, const float t0, const float t1, const int w, const int h, RayTracing::HitInfo_t *devHitInfos, float3 * dev_vertPositions,int objHitIndex)
 {
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
@@ -60,11 +60,11 @@ __global__ void raysIntersectsMeshKernel(GLuint i0, GLuint i1, GLuint i2,float *
 	devHitInfos[arrayPos1].mesh.i0 = i0;
 	devHitInfos[arrayPos1].mesh.i1 = i1;
 	devHitInfos[arrayPos1].mesh.i2 = i2;
-	devHitInfos[arrayPos1].objHit = (Object::Object*)objHit;
+	devHitInfos[arrayPos1].objHitIndex = objHitIndex;
 
 }
 
-extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaMesh(GLuint i0, GLuint i1, GLuint i2,float *devRays, const float t0, const float t1, const int w, const int h,float3 *m_vertPositions,GLuint numVerts, GLuint numIndices,void *objHit)
+extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaMesh(GLuint i0, GLuint i1, GLuint i2,float *devRays, const float t0, const float t1, const int w, const int h,float3 *m_vertPositions,GLuint numVerts, GLuint numIndices,int objHitIndex)
 {
 	float* dev_vertPositions;
 	RayTracing::HitInfo_t *devHitInfos = 0;
@@ -108,7 +108,7 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaMesh(GLuint i0, GLuint i
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);  
 
-	raysIntersectsMeshKernel <<<numBlocks, threadsPerBlock>>> (i0 , i1, i2, devRays, t0, t1, w, h, devHitInfos, (float3 *) dev_vertPositions,objHit);
+	raysIntersectsMeshKernel <<<numBlocks, threadsPerBlock>>> (i0 , i1, i2, devRays, t0, t1, w, h, devHitInfos, (float3 *) dev_vertPositions,objHitIndex);
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
 	// any errors encountered during the launch.

@@ -317,7 +317,7 @@ namespace Scene
 		return shade;
 	}
 
-	RayTracing::HitInfo_t* Scene::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1,const int w, const int h, void* objHit) const
+	RayTracing::HitInfo_t* Scene::rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1,const int w, const int h, int objHitIndex) const
 	{
 		// TODO
 		//   Find the closest intersection of the ray in the distance range [t0,t1].
@@ -329,7 +329,7 @@ namespace Scene
 		for(GLuint i = 0; i < m_nObjects; i++)
 		{
 
-			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(rays,t0,t1, w, h, (void*)i);
+			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(rays,t0,t1, w, h, i);
 
 		}
 
@@ -366,11 +366,19 @@ namespace Scene
 		{
 
 			container[i].m_geometry_type = m_scene[i] -> getGeometryType();
+
 			// copy material vaules to kernel 
-			container[i].m_material.m_surfRefl = m_scene[i]->getMaterial().getSurfRefl();
+			container[i].m_material.m_surfRefl[0] = m_scene[i]->getMaterial().getSurfRefl().x;
+			container[i].m_material.m_surfRefl[1] = m_scene[i]->getMaterial().getSurfRefl().y;
+			container[i].m_material.m_surfRefl[2] = m_scene[i]->getMaterial().getSurfRefl().z;
+
 			container[i].m_material.m_hasSpecular = m_scene[i]->getMaterial().hasSpecular();
+
 			container[i].m_material.m_specExp = m_scene[i]->getMaterial().getSpecExp();
-			container[i].m_material.m_specRefl = m_scene[i]->getMaterial().getSpecRefl();
+
+			container[i].m_material.m_specRefl[0] = m_scene[i]->getMaterial().getSpecRefl().x;
+			container[i].m_material.m_specRefl[1] = m_scene[i]->getMaterial().getSpecRefl().y;
+			container[i].m_material.m_specRefl[2] = m_scene[i]->getMaterial().getSpecRefl().z;
 
 			if(m_scene[i]->getMaterial().getShaderType() == Material::ShaderType::SIMPLE)
 			{
@@ -388,11 +396,72 @@ namespace Scene
 			{
 				container[i].m_material.m_shadeType = RayTracing::MIRROR;
 			}
+			
+			// copy oject <-> world space transformation to kernel 
+			container[i].m_objectToWorld[0] = m_scene[i]->getObjectToWorld().m[0].x;
+			container[i].m_objectToWorld[1] = m_scene[i]->getObjectToWorld().m[0].y;
+			container[i].m_objectToWorld[2] = m_scene[i]->getObjectToWorld().m[0].z;
+			container[i].m_objectToWorld[3] = m_scene[i]->getObjectToWorld().m[0].w;
+
+			container[i].m_objectToWorld[4] = m_scene[i]->getObjectToWorld().m[1].x;
+			container[i].m_objectToWorld[5] = m_scene[i]->getObjectToWorld().m[1].y;
+			container[i].m_objectToWorld[6] = m_scene[i]->getObjectToWorld().m[1].w;
+			container[i].m_objectToWorld[7] = m_scene[i]->getObjectToWorld().m[1].z;
+
+			container[i].m_objectToWorld[8] = m_scene[i]->getObjectToWorld().m[2].x;
+			container[i].m_objectToWorld[9] = m_scene[i]->getObjectToWorld().m[2].y;
+			container[i].m_objectToWorld[10] = m_scene[i]->getObjectToWorld().m[2].z;
+			container[i].m_objectToWorld[11] = m_scene[i]->getObjectToWorld().m[2].w;
+
+			container[i].m_objectToWorld[12] = m_scene[i]->getObjectToWorld().m[3].x;
+			container[i].m_objectToWorld[13] = m_scene[i]->getObjectToWorld().m[3].y;
+			container[i].m_objectToWorld[14] = m_scene[i]->getObjectToWorld().m[3].z;
+			container[i].m_objectToWorld[15] = m_scene[i]->getObjectToWorld().m[3].w;
+
 
 			// copy oject <-> world space transformation to kernel 
-			container[i].m_objectToWorld = m_scene[i]->getObjectToWorld();
-			container[i].m_objectToWorld_Normals = m_scene[i]->getObjectToWorld_Normals();
-			container[i].m_worldToObject = m_scene[i]->getWorldToObject();
+			container[i].m_objectToWorld_Normals[0] = m_scene[i]->getObjectToWorld_Normals().m[0].x;
+			container[i].m_objectToWorld_Normals[1] = m_scene[i]->getObjectToWorld_Normals().m[0].y;
+			container[i].m_objectToWorld_Normals[2] = m_scene[i]->getObjectToWorld_Normals().m[0].z;
+			container[i].m_objectToWorld_Normals[3] = m_scene[i]->getObjectToWorld_Normals().m[0].w;
+
+			container[i].m_objectToWorld_Normals[4] = m_scene[i]->getObjectToWorld_Normals().m[1].x;
+			container[i].m_objectToWorld_Normals[5] = m_scene[i]->getObjectToWorld_Normals().m[1].y;
+			container[i].m_objectToWorld_Normals[6] = m_scene[i]->getObjectToWorld_Normals().m[1].w;
+			container[i].m_objectToWorld_Normals[7] = m_scene[i]->getObjectToWorld_Normals().m[1].z;
+
+			container[i].m_objectToWorld_Normals[8] = m_scene[i]->getObjectToWorld_Normals().m[2].x;
+			container[i].m_objectToWorld_Normals[9] = m_scene[i]->getObjectToWorld_Normals().m[2].y;
+			container[i].m_objectToWorld_Normals[10] = m_scene[i]->getObjectToWorld_Normals().m[2].z;
+			container[i].m_objectToWorld_Normals[11] = m_scene[i]->getObjectToWorld_Normals().m[2].w;
+
+			container[i].m_objectToWorld_Normals[12] = m_scene[i]->getObjectToWorld_Normals().m[3].x;
+			container[i].m_objectToWorld_Normals[13] = m_scene[i]->getObjectToWorld_Normals().m[3].y;
+			container[i].m_objectToWorld_Normals[14] = m_scene[i]->getObjectToWorld_Normals().m[3].z;
+			container[i].m_objectToWorld_Normals[15] = m_scene[i]->getObjectToWorld_Normals().m[3].w;
+
+			
+			// copy oject <-> world space transformation to kernel 
+			container[i].m_worldToObject[0] = m_scene[i]->getWorldToObject().m[0].x;
+			container[i].m_worldToObject[1] = m_scene[i]->getWorldToObject().m[0].y;
+			container[i].m_worldToObject[2] = m_scene[i]->getWorldToObject().m[0].z;
+			container[i].m_worldToObject[3] = m_scene[i]->getWorldToObject().m[0].w;
+
+			container[i].m_worldToObject[4] = m_scene[i]->getWorldToObject().m[1].x;
+			container[i].m_worldToObject[5] = m_scene[i]->getWorldToObject().m[1].y;
+			container[i].m_worldToObject[6] = m_scene[i]->getWorldToObject().m[1].w;
+			container[i].m_worldToObject[7] = m_scene[i]->getWorldToObject().m[1].z;
+
+			container[i].m_worldToObject[8] = m_scene[i]->getWorldToObject().m[2].x;
+			container[i].m_worldToObject[9] = m_scene[i]->getWorldToObject().m[2].y;
+			container[i].m_worldToObject[10] = m_scene[i]->getWorldToObject().m[2].z;
+			container[i].m_worldToObject[11] = m_scene[i]->getWorldToObject().m[2].w;
+
+			container[i].m_worldToObject[12] = m_scene[i]->getWorldToObject().m[3].x;
+			container[i].m_worldToObject[13] = m_scene[i]->getWorldToObject().m[3].y;
+			container[i].m_worldToObject[14] = m_scene[i]->getWorldToObject().m[3].z;
+			container[i].m_worldToObject[15] = m_scene[i]->getWorldToObject().m[3].w;
+			
 
 		}
 

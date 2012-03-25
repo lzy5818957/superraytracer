@@ -42,12 +42,12 @@ namespace RayTracing
 
 	typedef struct {
 
-		gml::vec3_t m_surfRefl; // default: pure white
+		float m_surfRefl[3]; // default: pure white
 
 		bool m_hasSpecular; // default: false
 		float m_specExp; // specular exponent
 		// specular reflectance
-		gml::vec3_t m_specRefl; // default: pure white
+		float m_specRefl[3]; // default: pure white
 
 		ShaderType_Kernel m_shadeType; // default: GOURAUD
 
@@ -63,11 +63,12 @@ namespace RayTracing
 		Material_Kernel_t m_material;
 
 		// object <-> world space transformations
-		gml::mat4x4_t m_objectToWorld;
-		gml::mat4x4_t m_objectToWorld_Normals; // Transforming normals
-		gml::mat4x4_t m_worldToObject;
+		float m_objectToWorld[16];
+		float m_objectToWorld_Normals[16]; // Transforming normals
+		float m_worldToObject[16];
 
 	} Object_Kernel_t;
+
 	// Basic ray type: r(t) = o + td
 	typedef struct _Ray_t{
 		gml::vec3_t o; // Ray origin.
@@ -101,6 +102,7 @@ namespace RayTracing
 	} MeshHitInfo_t;
 
 	typedef struct _HitInfo_t {
+		int objHitIndex;
 		// Object intersected
 		const Object::Object *objHit;
 		// Distance along ray to the intersection point
