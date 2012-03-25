@@ -322,28 +322,28 @@ namespace Scene
 		// TODO
 		//   Find the closest intersection of the ray in the distance range [t0,t1].
 		// Return true if an intersection was found, false otherwise
-		
+
 		const RayTracing::HitInfo_t **hitInfos_array = (const RayTracing::HitInfo_t**)malloc(m_nObjects * sizeof(RayTracing::HitInfo_t*));
 
-		
+
 		for(GLuint i = 0; i < m_nObjects; i++)
 		{
-			
+
 			hitInfos_array[i] = m_scene[i]->rayIntersectsInParallel(rays,t0,t1, w, h, NULL);
 
 		}
-		
+
 		RayTracing::HitInfo_t *closestHits = findClosestHitsWithCuda(hitInfos_array, w, h, m_nObjects);
 
 		return closestHits;
-		
+
 	}
 
 	gml::vec3_t* Scene::shadeRaysInParallel(const RayTracing::Ray_t *rays, RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h)
 	{
 		float* devImage = shadeRaysWithCuda(rays ,hitinfos,remainingRecursionDepth,w, h);
 		return (gml::vec3_t*)rgbDTH(devImage,w,h);
-		
+
 	}
 
 	float* Scene::hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const
@@ -351,6 +351,49 @@ namespace Scene
 		return 0;
 	}
 
+	RayTracing::Object_Kernel_t* Scene::CreateObjInKernel()
+	{
+		RayTracing::Object_Kernel_t* container;
+
+		container = new RayTracing::Object_Kernel_t [m_nObjects];
+
+		for(GLuint i = 0; i < m_nObjects; i++)
+		{
+
+			//copy geometry type to kernel
+			
+
+			// copy material vaules to kernel 
+			container[i].m_material.m_surfRefl = m_scene[i]->getMaterial().getSurfRefl();
+			container[i].m_material.m_hasSpecular = m_scene[i]->getMaterial().hasSpecular();
+			container[i].m_material.m_specExp = m_scene[i]->getMaterial().getSpecExp();
+			container[i].m_material.m_specRefl = m_scene[i]->getMaterial().getSpecRefl();
+			if(m_scene[i]->getMaterial().getShaderType() == Material::ShaderType::SIMPLE)
+			{
+				container[i].m_material.m_shadeType = RayTracing::SIMPLE;
+			}
+			if(m_scene[i]->getMaterial().getShaderType() == Material::ShaderType::GOURAUD)
+			{
+				container[i].m_material.m_shadeType = RayTracing::GOURAUD;
+			}
+			if(m_scene[i]->getMaterial().getShaderType() == Material::ShaderType::PHONG)
+			{
+				container[i].m_material.m_shadeType = RayTracing::PHONG;
+			}
+			if(m_scene[i]->getMaterial().getShaderType() == Material::ShaderType::MIRROR)
+			{
+				container[i].m_material.m_shadeType = RayTracing::MIRROR;
+			}
+
+			// copy oject <-> world space transformation to kernel 
+			container[i].m_objectToWorld = m_scene[i]->getObjectToWorld();
+			container[i].m_objectToWorld_Normals = m_scene[i]->getObjectToWorld_Normals();
+			container[i].m_worldToObject = m_scene[i]->getWorldToObject();
+
+		}
+
+		return container;
+	}
 
 }
 

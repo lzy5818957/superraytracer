@@ -58,6 +58,8 @@ public:
 
 	void setTransform(const gml::mat4x4_t transform);
 	gml::mat4x4_t getObjectToWorld() const { return m_objectToWorld; }
+	gml::mat4x4_t getObjectToWorld_Normals() const { return m_objectToWorld_Normals; }
+	gml::mat4x4_t getWorldToObject() const { return m_worldToObject; }
 	Material::Material getMaterial() const { return m_material; }
 
 	void setMaterial(const Material::Material &mat) { m_material = mat; }
