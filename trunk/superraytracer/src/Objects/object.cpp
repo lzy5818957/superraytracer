@@ -80,8 +80,8 @@ namespace Object
 		return hitPropertiesWithCudaObject(normTex, (float*)&m_objectToWorld_Normals, hitinfos, w, h);
 	}
 
-	int Object::getGeometryType()
+	RayTracing::GeometryType_Kernel Object::getGeometryType() const
 	{
-		return 0;
+		return m_geometry->getGeometryType();
 	}
 }
