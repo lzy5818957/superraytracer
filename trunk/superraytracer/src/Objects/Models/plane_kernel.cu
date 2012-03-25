@@ -69,7 +69,7 @@ __global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const 
 	}
 
 	hitInfos[arrayPos1].hitDist =  t;
-	hitInfos[arrayPos1].objHitIndex = objHitIndex;
+	hitInfos[arrayPos1].objHit = (Object::Object*)objHitIndex;
 	hitInfos[arrayPos1].plane.u = u;
 	hitInfos[arrayPos1].plane.v = v;
 	

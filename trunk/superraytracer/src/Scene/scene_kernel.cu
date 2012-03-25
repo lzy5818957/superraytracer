@@ -40,22 +40,15 @@ __global__ void shadeRaysKernel(
 
 	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
 
-	int hitIndex = hitInfo.objHitIndex;
-
-	RayTracing::Object_Kernel_t object = objects[hitIndex];
-
-	float3 color = *((float3*)&object.m_material.m_surfRefl);
-	
-	/*
-	if(hitinfos[arrayPos1].hitDist > 1.0f)
+	float3 color;
+	if(hitInfo.hitDist == FLT_MAX)
 	{
-		shades[arrayPos1] = make_float3(1.0f,1.0f,0.0f);
+		color = make_float3(0.0f,0.0f,0.0f);
 	}
 	else
 	{
-		shades[arrayPos1] = make_float3(1.0f,0.0f,0.0f);
+		color = *(float3*)&(objects[(int)hitInfo.objHit].m_material.m_surfRefl);
 	}
-	*/
 
 	shades[arrayPos1] = make_float3(color.x, color.y, color.z);
 }
@@ -183,12 +176,30 @@ extern "C" float* shadeRaysWithCuda(
 		goto Error;
 	}
 
+	// cudaDeviceSynchronize waits for the kernel to finish, and returns
+	// any errors encountered during the launch.
+	cudaStatus = cudaDeviceSynchronize();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaDeviceSynchronize returned error code %d before launching shadeRaysKernel!\n", cudaStatus);
+		goto Error;
+	}
+
+
 	dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);  // 64 threads 
 
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);
 	
 	shadeRaysKernel <<<numBlocks, threadsPerBlock>>>( rays,hitinfos, objects,devLightPos, remainingRecursionDepth,w,h,devShades);
+
+
+	// cudaDeviceSynchronize waits for the kernel to finish, and returns
+	// any errors encountered during the launch.
+	cudaStatus = cudaDeviceSynchronize();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaDeviceSynchronize returned error code %d after launching shadeRaysKernel!\n", cudaStatus);
+		goto Error;
+	}
 
 	cudaFree((void*)rays);
 	rays = 0;

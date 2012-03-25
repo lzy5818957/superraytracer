@@ -60,7 +60,7 @@ __global__ void raysIntersectsMeshKernel(GLuint i0, GLuint i1, GLuint i2,float *
 	devHitInfos[arrayPos1].mesh.i0 = i0;
 	devHitInfos[arrayPos1].mesh.i1 = i1;
 	devHitInfos[arrayPos1].mesh.i2 = i2;
-	devHitInfos[arrayPos1].objHitIndex = objHitIndex;
+	devHitInfos[arrayPos1].objHit = (Object::Object*)objHitIndex;
 
 }
 
