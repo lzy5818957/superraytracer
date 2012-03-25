@@ -356,9 +356,9 @@ namespace Object
 			return NULL;
 		}
 		
-		int Sphere::getGeometryType()
+		RayTracing::GeometryType_Kernel Sphere::getGeometryType() const
 		{
-			return 2;
+			return RayTracing::GeometryType_Kernel::SPHERE;
 		}
 
 	}

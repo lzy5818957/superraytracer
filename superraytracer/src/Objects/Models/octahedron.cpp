@@ -173,5 +173,9 @@ namespace Object
 			return NULL;
 		}
 
+		RayTracing::GeometryType_Kernel Octahedron::getGeometryType() const
+		{
+			return RayTracing::GeometryType_Kernel::OCTAHEDRON;
+		}
 	}
 }

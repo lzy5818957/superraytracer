@@ -158,9 +158,9 @@ namespace Object
 			return hitPropertiesWithCudaPlane(hitinfos, w, h);
 		}
 
-		int Plane::getGeometryType()
+		RayTracing::GeometryType_Kernel Plane::getGeometryType() const
 		{
-			return 1;
+			return RayTracing::GeometryType_Kernel::PLANE;
 		}
 
 	}

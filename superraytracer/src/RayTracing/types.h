@@ -28,6 +28,7 @@ namespace RayTracing
 	typedef enum
 	{
 		PLANE,
+		OCTAHEDRON,
 		SPHERE
 	} GeometryType_Kernel;
 
