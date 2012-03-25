@@ -15,6 +15,7 @@ extern "C" float* shadeRaysWithCuda
 	const RayTracing::HitInfo_t *hitinfos,
 	const RayTracing::Object_Kernel_t* objects,
 	const float* lightPos,
+	const float* lightRad,
 	const int remainingRecursionDepth,
 	const int w, const int h
 	);
