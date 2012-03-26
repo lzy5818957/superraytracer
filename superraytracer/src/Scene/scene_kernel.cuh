@@ -11,6 +11,7 @@ extern "C" float* rgbDTH(const float *devImg, const int w, const int h);
 extern "C" RayTracing::Object_Kernel_t* objHTD(const RayTracing::Object_Kernel_t *hostObj, const int m_nObjects);
 extern "C" RayTracing::HitInfo_t* findClosestHitsWithCuda(const RayTracing::HitInfo_t** hitInfos_array, const int w, const int h, const int m_nObjects);
 extern "C" bool* mergeShadowWithCuda(RayTracing::Ray_t *shadowRays, const bool** hitInfos_array, const int w, const int h, const int m_nObjects);
+extern "C" RayTracing::Ray_t* raysDTH(const RayTracing::Ray_t *rays, const int w, const int h);
 extern "C" float* shadeRaysDirectLightWithCuda
 	(
 	const RayTracing::Ray_t *rays,
