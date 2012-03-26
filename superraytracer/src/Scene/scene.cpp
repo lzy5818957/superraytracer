@@ -335,20 +335,51 @@ namespace Scene
 
 		RayTracing::HitInfo_t *closestHits = findClosestHitsWithCuda(hitInfos_array, w, h, m_nObjects);
 
+		delete[] hitInfos_array;
 		return closestHits;
 
 	}
 
 	gml::vec3_t* Scene::shadeRaysInParallel(const RayTracing::Ray_t *rays,const RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h)
 	{
-		
+
 		RayTracing::Object_Kernel_t* hostObjKernel = this -> createObjForKernel();
 		const RayTracing::Object_Kernel_t* devObjKernel = objHTD(hostObjKernel,m_nObjects);
 		delete[] hostObjKernel;
+		float* lightProp = lightPropHTD((float*)&m_lightPos, (float*)&m_lightRad, w, h);
 
-		float* devImage = shadeRaysWithCuda(rays ,hitinfos,devObjKernel, (float*)&m_lightPos, (float*)&m_lightRad, remainingRecursionDepth,w, h);
-		return (gml::vec3_t*)rgbDTH(devImage,w,h);
+		float* devImage = shadeRaysDirectLightWithCuda(rays ,hitinfos,devObjKernel, lightProp, remainingRecursionDepth,w, h);
 
+		bool* isInShaodow = shadowRaysInParallel(rays, hitinfos, lightProp, w, h);
+
+		float* devImageShadow = shadeRaysShadowLightWithCuda(isInShaodow,w,h,devImage);
+
+		void* toBeCleaned[4] = {(void*)rays, (void*)hitinfos, (void*)devObjKernel, (void*)lightProp};
+
+		cleanUp(toBeCleaned,4);
+
+		return (gml::vec3_t*)rgbDTH(devImageShadow,w,h);
+
+	}
+
+	bool* Scene::shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, const int w, const int h) const
+	{
+		
+		RayTracing::Ray_t *shadowRays = genShadowRaysWithCuda(rays,hitinfos,lightProp,w,h);
+		
+		const bool **isInshadow_array = (const bool**)malloc(m_nObjects * sizeof(bool*));
+
+		for(GLuint i = 0; i < m_nObjects; i++)
+		{
+
+			isInshadow_array[i] = m_scene[i]->shadowRaysInParallel(shadowRays,hitinfos,lightProp,w,h);
+
+		}
+		
+		bool *shadow = mergeShadowWithCuda(shadowRays, isInshadow_array, w, h, m_nObjects);
+
+		delete[] isInshadow_array;
+		return shadow;
 	}
 
 	float* Scene::hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const
@@ -364,12 +395,12 @@ namespace Scene
 		{
 
 			container[i].m_geometry_type = m_scene[i] -> getGeometryType();
-			
+
 			// copy material vaules to kernel 
 			container[i].m_material.m_surfRefl[0] = m_scene[i]->getMaterial().getSurfRefl().x;
 			container[i].m_material.m_surfRefl[1] = m_scene[i]->getMaterial().getSurfRefl().y;
 			container[i].m_material.m_surfRefl[2] = m_scene[i]->getMaterial().getSurfRefl().z;
-			
+
 			container[i].m_material.m_hasSpecular = m_scene[i]->getMaterial().hasSpecular();
 
 			container[i].m_material.m_specExp = m_scene[i]->getMaterial().getSpecExp();
@@ -394,7 +425,7 @@ namespace Scene
 			{
 				container[i].m_material.m_shadeType = RayTracing::MIRROR;
 			}
-			
+
 			// copy oject <-> world space transformation to kernel 
 
 			float* m_objectToWorldFloat = (float*)&(m_scene[i]->getObjectToWorld());
@@ -408,7 +439,7 @@ namespace Scene
 				container[i].m_worldToObject[j] =m_worldToObjectFloat[j];
 			}
 
-			
+
 		}
 
 		return container;

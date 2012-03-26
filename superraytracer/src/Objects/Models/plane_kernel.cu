@@ -76,6 +76,64 @@ __global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const 
 
 }
 
+
+__global__ void shadowRaysPlaneKernel(const float *devRays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, float* vert0, const int w, const int h, bool* isInShadow)
+{
+
+	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
+	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
+	int arrayPos1 = c + w * r;
+	int arrayPos6 = 6 * (c + w * r);
+
+
+	float3 E1 = {0.0f, 0.0f, 2.0f};
+	float3 E2 = {2.0f, 0.0f, 0.0f};
+	float3 lightPos = make_float3(lightProp[0], lightProp[1], lightProp[2]);
+	float3 rayDir = {devRays[arrayPos6 + 3], devRays[arrayPos6 + 4], devRays[arrayPos6 + 5]};
+	float3 rayOri = {devRays[arrayPos6], devRays[arrayPos6 + 1], devRays[arrayPos6 + 2]};
+	float3 P = cross(rayDir, E2);
+
+	float t0 = 0.0001;
+	float t1 = length(lightPos - rayOri);
+
+	float detM = dot(P, E1);
+
+	if (fabs(detM) < 1e-4)
+	{
+		isInShadow[arrayPos1] = false;
+		return;
+	}
+
+	float3 T = rayOri - (*vert0);
+
+	float u = dot( P, T ) / detM;
+	
+	if ( u < 0.0f || 1.0f < u )
+	{
+		isInShadow[arrayPos1] = false;
+		return;
+	}
+
+	float3 TxE1 = cross(T, E1);
+	float v = dot( TxE1, rayDir ) / detM;
+	if ( v < 0.0f || 1.0f < v)
+	{
+		isInShadow[arrayPos1] = false;
+		return;
+	}
+
+	float t = dot( TxE1, E2 ) / detM;
+	if (t < t0 || t1 < t)
+	{
+		isInShadow[arrayPos1] = false;
+		return;
+	}
+
+	isInShadow[arrayPos1] = true;
+	
+
+}
+
 extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, const float t0, const float t1, const int w, const int h, float* hostVerts,int objHitIndex)
 {
 	float *devVert0 = 0;
@@ -194,4 +252,74 @@ Error:
 
 	cudaFree(devNormTex);
 	return NULL;
+}
+
+extern "C" bool* shadowRaysWithCudaPlane(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, float* hostVerts, const int w, const int h)
+{
+
+	float *devVert0 = 0;
+	bool *devIsInShadow = 0;
+	cudaError_t cudaStatus;
+	
+	cudaStatus = cudaMalloc (( void **)& devVert0 , 3 * sizeof ( float ));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
+	cudaStatus = cudaMemcpy(devVert0, hostVerts, 3 * sizeof(float), cudaMemcpyHostToDevice);
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMemcpy failed!");
+		goto Error;
+	}
+	
+	cudaStatus = cudaMalloc (( void **)& devIsInShadow , w * h * sizeof ( bool ));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
+	// cudaDeviceSynchronize waits for the kernel to finish, and returns
+	// any errors encountered during the launch.
+	cudaStatus = cudaDeviceSynchronize();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaDeviceSynchronize returned error code %d before launching setup_rand_kernel!\n", cudaStatus);
+		goto Error;
+	}
+
+
+	dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);  // 64 threads 
+
+	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
+		h/threadsPerBlock.y);  
+
+	shadowRaysPlaneKernel <<<numBlocks, threadsPerBlock>>>((float*)rays, hitinfos, lightProp, devVert0, w, h, devIsInShadow);
+
+
+	// cudaDeviceSynchronize waits for the kernel to finish, and returns
+	// any errors encountered during the launch.
+	cudaStatus = cudaDeviceSynchronize();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaDeviceSynchronize returned error code %d before launching setup_rand_kernel!\n", cudaStatus);
+		goto Error;
+	}
+
+	cudaFree((void*)rays);
+	rays = 0;
+
+	cudaFree(devVert0);
+	devVert0 = 0;
+
+	return devIsInShadow;
+
+Error:
+	cudaFree((void*)rays);
+	rays = 0;
+	cudaFree(devIsInShadow);
+	devIsInShadow = 0;
+	cudaFree(devVert0);
+	devVert0 = 0;
+	return NULL;
+
+
 }
