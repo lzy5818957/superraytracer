@@ -89,7 +89,7 @@ __global__ void shadowRaysSphereKernel(const float *devRays, const RayTracing::H
 	float det = B*B - A*C;
 
 	float t0 = 0.0001f;
-	float t1 = length(lightPos - ray_o);
+	float t1 = 5.0f;
 
 	if(det < 0.0)
 	{
