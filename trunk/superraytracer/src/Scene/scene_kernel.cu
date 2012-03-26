@@ -60,7 +60,7 @@ __global__ void mergeShadowKernel(bool** isInShadow_array, const int w, const in
 		if(isInShadow_array[i][arrayPos1])
 		{
 			shadow[arrayPos1] = true;
-			return;
+			
 		}
 
 	}
@@ -76,17 +76,13 @@ __global__ void shadeRaysShadowLightKernel(
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	int arrayPos1 = c + w * r;
 
-	float3 color;
 	if(isInShadow[arrayPos1])
 	{
-		color = make_float3(0.0f,0.0f,0.0f);
-	}
-	else
-	{
 
+		shades[arrayPos1] = make_float3(0.0f,0.0f,0.0f);
 	}
 
-	shades[arrayPos1] = color;
+	
 }
 
 __global__ void genShadowRaysKernel(
@@ -100,8 +96,9 @@ __global__ void genShadowRaysKernel(
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	int arrayPos1 = c + w * r;
 
+
 	
-	RayTracing::HitInfo_t hitInfo = hitinfos[0];
+	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
 	float3 shadePoint = (*(float3*)&rays[arrayPos1].o) + hitInfo.hitDist * (*(float3*)&rays[arrayPos1].d);
 	float3 m_lightPos3 = make_float3(lightProp[0],lightProp[1],lightProp[2] );
 	float3 shadowRayDir = m_lightPos3 - shadePoint;
@@ -265,6 +262,12 @@ extern "C" bool* mergeShadowWithCuda(RayTracing::Ray_t *shadowRays, const bool**
 	}
 
 	cudaStatus = cudaMalloc (( void **)& shadow , w * h * sizeof ( bool ));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+
+	cudaStatus = cudaMemset (shadow ,0x00, w * h * sizeof ( bool ));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
 		goto Error;
@@ -492,7 +495,7 @@ extern "C" RayTracing::Ray_t* genShadowRaysWithCuda
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);
 
-	genShadowRaysKernel <<<numBlocks, threadsPerBlock>>>(rays, hitinfos,lightProp,w,h,shadowRays);
+	genShadowRaysKernel <<<numBlocks, threadsPerBlock>>>(rays, hitinfos, lightProp, w, h, shadowRays);
 
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns

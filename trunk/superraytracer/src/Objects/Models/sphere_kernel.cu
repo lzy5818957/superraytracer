@@ -1,7 +1,8 @@
+#include <cutil_math.h>
 #include "sphere_kernel.cuh"
 #include <cstdio>
 #include <cfloat>
-#include <cutil_math.h>
+
 
 #define BLOCK_SIZE 8
 
@@ -67,6 +68,7 @@ __global__ void shadowRaysSphereKernel(const float *devRays, const RayTracing::H
 	int arrayPos1 = c + w * r;
 	int arrayPos6 = 6 * (c + w * r);
 
+
 	float3 lightPos = make_float3(lightProp[0], lightProp[1], lightProp[2]);
 
 	float3 ray_o;
@@ -86,7 +88,7 @@ __global__ void shadowRaysSphereKernel(const float *devRays, const RayTracing::H
 
 	float det = B*B - A*C;
 
-	float t0 = 0.0001;
+	float t0 = 0.0001f;
 	float t1 = length(lightPos - ray_o);
 
 	if(det < 0.0)
