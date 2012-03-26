@@ -162,6 +162,9 @@ namespace Object
 		{
 			return RayTracing::GeometryType_Kernel::PLANE;
 		}
-
+		bool* Plane::shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, const int w, const int h) const
+		{
+			return shadowRaysWithCudaPlane(rays, hitinfos, lightProp, (float*)_verts, w, h );
+		}
 	}
 }
