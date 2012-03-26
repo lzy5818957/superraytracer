@@ -367,6 +367,7 @@ namespace Scene
 		
 		RayTracing::Ray_t *shadowRays = genShadowRaysWithCuda(rays,hitinfos,lightProp,w,h);
 		
+		RayTracing::Ray_t* tempHostRay = raysDTH(shadowRays, w, h);
 		const bool **isInshadow_array = (const bool**)malloc(m_nObjects * sizeof(bool*));
 
 		for(GLuint i = 0; i < m_nObjects; i++)

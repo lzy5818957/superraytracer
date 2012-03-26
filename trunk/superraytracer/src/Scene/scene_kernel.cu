@@ -95,7 +95,7 @@ __global__ void genShadowRaysKernel(
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	int arrayPos1 = c + w * r;
-
+	int arrayPos6 = 6*(c + w * r);
 
 	
 	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
@@ -106,13 +106,13 @@ __global__ void genShadowRaysKernel(
 	float3 shadowRayDir = normalize(m_lightPos3 - shadePoint);
 	
 	
-	shadowRays[arrayPos1] = shadePoint.x;
-	shadowRays[arrayPos1 + 1] = shadePoint.y;
-	shadowRays[arrayPos1 + 2] = shadePoint.z;
-	
-	shadowRays[arrayPos1 + 3] = shadowRayDir.x;
-	shadowRays[arrayPos1 + 4] = shadowRayDir.y;
-	shadowRays[arrayPos1 + 5] = shadowRayDir.z;
+	shadowRays[arrayPos6] = shadePoint.x;
+	shadowRays[arrayPos6 + 1] = shadePoint.y;
+	shadowRays[arrayPos6 + 2] = shadePoint.z;
+
+	shadowRays[arrayPos6 + 3] = shadowRayDir.x;
+	shadowRays[arrayPos6 + 4] = shadowRayDir.y;
+	shadowRays[arrayPos6 + 5] = shadowRayDir.z;
 	
 }
 
@@ -514,6 +514,34 @@ Error:
 	printf("CUDA ERROR OCCURED\n");
 	return NULL;
 
+}
+
+
+extern "C" RayTracing::Ray_t* raysDTH(const RayTracing::Ray_t *rays, const int w, const int h)
+{
+	cudaError_t cudaStatus;
+
+	RayTracing::Ray_t* hostRays = 0;
+	hostRays = (RayTracing::Ray_t*)malloc( w * h * sizeof( RayTracing::Ray_t));
+
+
+	cudaStatus = cudaMemcpy(hostRays, rays, w * h * sizeof( RayTracing::Ray_t), cudaMemcpyDeviceToHost);
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMemcpy failed!");
+		goto Error;
+	}
+	/*
+	for(int i = 0; i < w * h; i++)
+	{
+		printf("Num = %d  %f &f %f %f %f %f\n",i, hostRays[i].o.x, hostRays[i].o.y, hostRays[i].o.z, hostRays[i].d.x, hostRays[i].d.y, hostRays[i].d.z);
+
+	}
+	*/
+	return hostRays;
+
+Error:
+	printf("CUDA ERROR OCCURED\n");
+	return NULL;
 }
 
 extern "C" RayTracing::Object_Kernel_t* objHTD(const RayTracing::Object_Kernel_t *hostObj, const int m_nObjects)
