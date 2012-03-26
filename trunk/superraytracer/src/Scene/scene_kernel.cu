@@ -60,7 +60,7 @@ __global__ void mergeShadowKernel(bool** isInShadow_array, const int w, const in
 		if(isInShadow_array[i][arrayPos1])
 		{
 			shadow[arrayPos1] = true;
-			
+			return;
 		}
 
 	}
@@ -99,9 +99,11 @@ __global__ void genShadowRaysKernel(
 
 	
 	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
-	float3 shadePoint = (*(float3*)&rays[arrayPos1].o) + hitInfo.hitDist * (*(float3*)&rays[arrayPos1].d);
+	float3 rayOri = make_float3(rays[arrayPos1].o.x, rays[arrayPos1].o.y, rays[arrayPos1].o.z);
+	float3 rayDir = make_float3(rays[arrayPos1].d.x, rays[arrayPos1].d.y, rays[arrayPos1].d.z);
+	float3 shadePoint = rayOri + (hitInfo.hitDist * rayDir);
 	float3 m_lightPos3 = make_float3(lightProp[0],lightProp[1],lightProp[2] );
-	float3 shadowRayDir = m_lightPos3 - shadePoint;
+	float3 shadowRayDir = normalize(m_lightPos3 - shadePoint);
 	
 	
 	shadowRays[arrayPos1] = shadePoint.x;
