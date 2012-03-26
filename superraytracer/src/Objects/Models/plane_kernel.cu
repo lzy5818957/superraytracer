@@ -1,7 +1,7 @@
-#include "plane_kernel.cuh"
-
-#include <cstdio>
 #include <cutil_math.h>
+
+#include "plane_kernel.cuh"
+#include <cstdio>
 #include <cfloat>
 
 #define BLOCK_SIZE 8
@@ -85,6 +85,8 @@ __global__ void shadowRaysPlaneKernel(const float *devRays, const RayTracing::Hi
 	int arrayPos1 = c + w * r;
 	int arrayPos6 = 6 * (c + w * r);
 
+	isInShadow[arrayPos1] = false;
+	return; 
 
 	float3 E1 = {0.0f, 0.0f, 2.0f};
 	float3 E2 = {2.0f, 0.0f, 0.0f};
