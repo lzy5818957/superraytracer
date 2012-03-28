@@ -6,6 +6,14 @@
 
 #define BLOCK_SIZE 8
 
+__device__ void Mat4x4_Mul_Vec4_Plane(const float *A, float *B, float *C)
+{
+	C[0] = A[0]*B[0]+A[4]*B[1]+A[8]*B[2]+A[12]*B[3]; 
+	C[1] = A[1]*B[0]+A[5]*B[1]+A[9]*B[2]+A[13]*B[3];
+	C[2] = A[2]*B[0]+A[6]*B[1]+A[10]*B[2]+A[14]*B[3];
+	C[3] = A[3]*B[0]+A[7]*B[1]+A[11]*B[2]+A[15]*B[3];
+}
+
 __global__ void hitPropertiesPlaneKernel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h , float *normTex)
 {
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
@@ -85,18 +93,33 @@ __global__ void shadowRaysPlaneKernel(const float *devRays, const RayTracing::Hi
 	int arrayPos1 = c + w * r;
 	int arrayPos6 = 6 * (c + w * r);
 
-	isInShadow[arrayPos1] = false;
-	return; 
+	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
+	
+	if(hitInfo.hitDist == FLT_MAX)
+	{
+		isInShadow[arrayPos1] = true;
+		return;
+	}
+
+	int index = (int)hitInfo.objHit;
+
+	float lightPos[3] = {lightProp[0], lightProp[1], lightProp[2]};
+	float lightPosObj[3];
+	RayTracing::Object_Kernel_t object = objects[index];
+	Mat4x4_Mul_Vec4_Plane(object.m_worldToObject,lightPos,lightPosObj);
+	float3 lightPosObjFloat3 = make_float3(lightPosObj[0],lightPosObj[1],lightPosObj[2]);
+	float3 rayOri = {devRays[arrayPos6], devRays[arrayPos6 + 1], devRays[arrayPos6 + 2]};
+
+	float t0 = 0.0001;
+	float t1 = 5.0f;//length(lightPosObjFloat3 - rayOri);
 
 	float3 E1 = {0.0f, 0.0f, 2.0f};
 	float3 E2 = {2.0f, 0.0f, 0.0f};
-	float3 lightPos = make_float3(lightProp[0], lightProp[1], lightProp[2]);
 	float3 rayDir = {devRays[arrayPos6 + 3], devRays[arrayPos6 + 4], devRays[arrayPos6 + 5]};
-	float3 rayOri = {devRays[arrayPos6], devRays[arrayPos6 + 1], devRays[arrayPos6 + 2]};
+	
 	float3 P = cross(rayDir, E2);
 
-	float t0 = 0.0001;
-	float t1 = length(lightPos - rayOri);
+
 
 	float detM = dot(P, E1);
 
@@ -157,7 +180,7 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaPlane(float *devRays, co
 
 	cudaStatus = cudaMemcpy(devVert0, hostVerts, 3 * sizeof(float), cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!18348");
 		goto Error;
 	}
 	
@@ -271,7 +294,7 @@ extern "C" bool* shadowRaysWithCudaPlane(const RayTracing::Ray_t *rays, const Ra
 
 	cudaStatus = cudaMemcpy(devVert0, hostVerts, 3 * sizeof(float), cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!29747");
 		goto Error;
 	}
 	

@@ -86,7 +86,7 @@ extern "C" RayTracing::HitInfo_t* raysIntersectsWithCudaMesh(GLuint i0, GLuint i
 
 	cudaStatus = cudaMemcpy(dev_vertPositions, m_vertPositions, (2*sizeof(float3)+sizeof(float2))*numVerts+sizeof(GLuint)*numIndices,cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!8946");
 		goto Error;
 	}
 
