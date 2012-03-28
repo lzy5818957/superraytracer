@@ -1,7 +1,9 @@
+#include <cutil_math.h>
+
 #include "object_kernel.cuh"
 #include "curand_kernel.h"
 #include "cublas_v2.h"
-#include <cutil_math.h>
+
 
 #include <cstdio>
 
@@ -76,13 +78,13 @@ extern "C"  float* transformRayToObjSpaceWithCuda(float *rays, const int w, cons
 
 	cudaStatus = cudaMalloc (( void **)& dev_wdToObj , 4 * sizeof ( float4 ));
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMalloc failed!");
+		fprintf(stderr, "cudaMalloc failed!8144");
 		goto Error;
 	}
 
 	cudaStatus = cudaMemcpy(dev_wdToObj, m_worldToObject, 4 * sizeof(float4), cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!8744");
 		goto Error;
 	}
 
@@ -123,7 +125,7 @@ extern "C" float* hitPropertiesWithCudaObject(float* normTexObjSpc, float *m_obj
 
 	cudaStatus = cudaMemcpy(devM_objectToWorld_Normals, m_objectToWorld_Normals, 16 * sizeof(float), cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!12849");
 		goto Error;
 	}
 	

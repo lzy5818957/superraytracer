@@ -21,7 +21,7 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	int arrayPos1 = c + w * r;
 	int arrayPos6 = 6 * (c + w * r);
-
+	
 	float3 ray_o;
 	ray_o.x = devRays[arrayPos6];
 	ray_o.y = devRays[arrayPos6 +1];
@@ -76,9 +76,23 @@ __global__ void shadowRaysSphereKernel(const float *devRays, const RayTracing::H
 	int arrayPos1 = c + w * r;
 	int arrayPos6 = 6 * (c + w * r);
 
+	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
+	
+	if(hitInfo.hitDist == FLT_MAX)
+	{
+		isInShadow[arrayPos1] = true;
+		return;
+	}
+
+	int index = (int)hitInfo.objHit;
 
 	float lightPos[3] = {lightProp[0], lightProp[1], lightProp[2]};
+	float lightPosObj[3];
+	RayTracing::Object_Kernel_t object = objects[index];
+	Mat4x4_Mul_Vec4_Sphere(object.m_worldToObject,lightPos,lightPosObj);
+	float3 lightPosObjFloat3 = make_float3(lightPosObj[0],lightPosObj[1],lightPosObj[2]);
 
+	
 	float3 ray_o;
 	ray_o.x = devRays[arrayPos6];
 	ray_o.y = devRays[arrayPos6 +1];
@@ -89,6 +103,10 @@ __global__ void shadowRaysSphereKernel(const float *devRays, const RayTracing::H
 	ray_d.y = devRays[arrayPos6 +4];
 	ray_d.z = devRays[arrayPos6 +5];
 
+	float t0 = 0.0001f;
+	float t1 = length(lightPosObjFloat3 - ray_o);
+	
+
 	float A,B,C;
 	A = dot(ray_d,ray_d);
 	B = dot(ray_d,ray_o);
@@ -96,16 +114,7 @@ __global__ void shadowRaysSphereKernel(const float *devRays, const RayTracing::H
 
 	float det = B*B - A*C;
 
-	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
-	int index = (int)hitInfo.objHit;
 
-	float lightPosObj[3];
-	RayTracing::Object_Kernel_t object = objects[index];
-	Mat4x4_Mul_Vec4_Sphere(object.m_worldToObject,lightPos,lightPosObj);
-	float3 lightPosObjFloat3 = make_float3(lightPosObj[0],lightPosObj[1],lightPosObj[2]);
-
-	float t0 = 0.0001f;
-	float t1 = length(lightPosObjFloat3 - make_float3(hitInfo.sphere.shadePoint_x, hitInfo.sphere.shadePoint_y, hitInfo.sphere.shadePoint_z));
 
 	if(det < 0.0)
 	{
@@ -296,7 +305,7 @@ extern "C" bool* shadowRaysWithCudaSphere(const RayTracing::Ray_t *rays, const R
 	cudaFree((void*)rays);
 	rays = 0;
 
-
+	
 	return devIsInShadow;
 
 Error:

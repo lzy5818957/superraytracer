@@ -69,11 +69,11 @@ __global__ void genRaysKernel(float *rays, float *camPos, float* rand_result, in
 
 extern "C" float* genViewRayWithCuda( const int w, const int h,  float *hostCamPos, float *hostWindowToWorld)
 {
-	/*
+	
 	size_t free,total;
 	cudaMemGetInfo(&free,&total);
 	printf("before: avaliable mem = %lu, total mem = %lu \n",free, total);
-	*/
+	
 
 	float *devRays = 0;
 	float *devWindowToWorld = 0;
@@ -99,7 +99,7 @@ extern "C" float* genViewRayWithCuda( const int w, const int h,  float *hostCamP
 
 	cudaStatus = cudaMemcpy(devWindowToWorld, hostWindowToWorld, 16 * sizeof(float), cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!10248");
 		goto Error;
 	}
 

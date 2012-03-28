@@ -149,7 +149,7 @@ bool Assignment3::init()
 	const float pi2 = (90.0f * M_PI) / 180.0f;
 
 	m_scene.setAmbient(gml::vec3_t(0.0, 0.0, 0.0));
-	m_scene.setLightPos(gml::vec4_t(0.0, 4.5, 0.0 , 1.0));
+	m_scene.setLightPos(gml::vec4_t(4.5f, 4.5, 0.0 , 1.0));
 	m_scene.setLightRad(gml::vec3_t(1.0, 1.0, 1.0));
 
 	m_camera.lookAt(gml::vec3_t(0.0,2.0,3.0), gml::vec3_t(0.0,0.0,0.0) );
@@ -172,10 +172,13 @@ bool Assignment3::init()
 		gml::mul(gml::translate(gml::vec3_t(0.0,0.0,0.0)), gml::scaleh(5.0, 1.0, 5.0)) ) );
 	
 	// Box "top"
+
+	/*
 	mat.setTexture(0);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(0.5,5.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(5.0, 1.0, 5.0))) ) );
-		
+		*/
+
 	// "Box" walls
 	mat.setSurfReflectance(green);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
@@ -524,7 +527,7 @@ void Assignment3::idle()
 
 	double currTime = UI::getTime(); // current time
 
-	if (m_isRayTracing)
+	if (m_isRayTracing )
 	{
 		RayTracing::Ray_t *rays;
 		RayTracing::HitInfo_t *hitinfos;
@@ -546,41 +549,8 @@ void Assignment3::idle()
 
 			delete[] tempClrs;
 
-			/*
-			double time = currTime;
-			GLuint m_rtRow = 0;
-			do
-			{
-				
-				
-				for (GLuint c=0; c<m_windowWidth; c++)
-				{
-					gml::vec3_t clr(0.0, 0.0, 0.0);
-
-
-					
-					if(hitinfo.hitDist != FLT_MAX)
-					{
-						clr = m_scene.shadeRay(ray, hitinfo, MAX_RAY_DEPTH);
-					}
-
-					// Use 'clr' to update the image
-					if (pass == 0)
-					{
-						*imgPos = clr;
-					}
-					else
-					{
-						*imgPos = gml::scale(1.0f/(pass+1),	gml::add( gml::scale(pass,*imgPos), clr ) );
-					}
-					
-				}
-
-				m_rtRow += 1;
-				time = UI::getTime();
-			} while (m_rtRow < m_windowHeight);
-
-			*/
+			gml::mat3x3_t rotateMat = gml::rotateAxis(0.01f, gml::vec3_t(0.0,1.0,0.0));
+			m_scene.setLightPos(gml::mul(rotateMat,gml::extract3(m_scene.getLightPos())));
 
 			// Copy the new image data to the texture for blitting to the screen.
 			glBindTexture(GL_TEXTURE_2D, m_rtTex);
@@ -588,7 +558,7 @@ void Assignment3::idle()
 			if (isGLError()) return;
 
 			m_cameraChanged = false;
-			fprintf(stdout, "Pass %d Complete\n", pass);
+			//fprintf(stdout, "Pass %d Complete\n", pass);
 
 		}
 		m_isProcessingRayTracing = false;

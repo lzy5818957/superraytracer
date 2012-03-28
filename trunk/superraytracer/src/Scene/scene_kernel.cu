@@ -55,6 +55,7 @@ __global__ void mergeShadowKernel(bool** isInShadow_array, const int w, const in
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	int arrayPos1 = c + w * r;
 
+
 	for(int i = 1 ; i < m_nObjects; i++ )
 	{
 		if(isInShadow_array[i][arrayPos1])
@@ -98,8 +99,12 @@ __global__ void genShadowRaysKernel(
 	int arrayPos1 = c + w * r;
 	int arrayPos6 = 6*(c + w * r);
 
-	
 	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
+	if(hitInfo.hitDist == FLT_MAX)
+	{
+		return;
+	}
+
 	float3 rayOri = make_float3(rays[arrayPos1].o.x, rays[arrayPos1].o.y, rays[arrayPos1].o.z);
 	float3 rayDir = make_float3(rays[arrayPos1].d.x, rays[arrayPos1].d.y, rays[arrayPos1].d.z);
 	float3 shadePoint = rayOri + (hitInfo.hitDist * rayDir);
@@ -279,7 +284,7 @@ extern "C" float* rgbDTH(const float *devImg, const int w, const int h)
 
 	cudaStatus = cudaMemcpy(hostImg, devImg, w * h * sizeof(float3), cudaMemcpyDeviceToHost);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!28747");
 		goto Error;
 	}
 
@@ -308,7 +313,7 @@ extern "C" bool* mergeShadowWithCuda(RayTracing::Ray_t *shadowRays, const bool**
 
 	cudaStatus = cudaMemcpy(devIsInShadow_array, isInShadow_array, m_nObjects * sizeof(bool*), cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!31647");
 		goto Error;
 	}
 
@@ -383,7 +388,7 @@ extern "C" RayTracing::HitInfo_t* findClosestHitsWithCuda(const RayTracing::HitI
 
 	cudaStatus = cudaMemcpy(devHitInfos_array, hitInfos_array, m_nObjects * sizeof(RayTracing::HitInfo_t*), cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!39147");
 		goto Error;
 	}
 
@@ -620,7 +625,7 @@ extern "C" RayTracing::Ray_t* raysDTH(const RayTracing::Ray_t *rays, const int w
 
 	cudaStatus = cudaMemcpy(hostRays, rays, w * h * sizeof( RayTracing::Ray_t), cudaMemcpyDeviceToHost);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!62848");
 		goto Error;
 	}
 	/*
@@ -650,7 +655,7 @@ extern "C" RayTracing::Object_Kernel_t* objHTD(const RayTracing::Object_Kernel_t
 
 	cudaStatus = cudaMemcpy(devObjs, hostObj, m_nObjects * sizeof(RayTracing::Object_Kernel_t), cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!65847");
 		goto Error;
 	}
 
@@ -682,7 +687,7 @@ extern "C" float* lightPropHTD(	const float* lightPos,const float* lightRad, con
 	
 	cudaStatus = cudaMemcpy(devLightPos, lightPos, sizeof(float3), cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!69046");
 		goto Error;
 	}
 
@@ -694,7 +699,7 @@ extern "C" float* lightPropHTD(	const float* lightPos,const float* lightRad, con
 
 	cudaStatus = cudaMemcpy(devLightRad, lightRad, sizeof(float3), cudaMemcpyHostToDevice);
 	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaMemcpy failed!");
+		fprintf(stderr, "cudaMemcpy failed!70248");
 		goto Error;
 	}
 
