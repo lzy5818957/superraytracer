@@ -88,6 +88,7 @@ __global__ void shadeRaysShadowLightKernel(
 __global__ void genShadowRaysKernel(
 	const RayTracing::Ray_t *rays,
 	const RayTracing::HitInfo_t *hitinfos,
+	const RayTracing::Object_Kernel_t *objects,
 	const float* lightProp,
 	const int w, const int h,
 	float *shadowRays)
@@ -115,6 +116,54 @@ __global__ void genShadowRaysKernel(
 	shadowRays[arrayPos6 + 5] = shadowRayDir.z;
 	
 }
+
+__global__ void genMirrorRaysKernel(
+	const RayTracing::Ray_t *rays,
+	const RayTracing::HitInfo_t *hitinfos,
+	const RayTracing::Object_Kernel_t *objects,
+	const int w, const int h,
+	float *shadowRays)
+{
+	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
+	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
+	int arrayPos1 = c + w * r;
+	int arrayPos6 = 6*(c + w * r);
+
+	
+	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
+	float3 rayOri = make_float3(rays[arrayPos1].o.x, rays[arrayPos1].o.y, rays[arrayPos1].o.z);
+	float3 rayDir = make_float3(rays[arrayPos1].d.x, rays[arrayPos1].d.y, rays[arrayPos1].d.z);
+	float3 shadePoint = rayOri + (hitInfo.hitDist * rayDir);
+	float3 normal;
+
+	RayTracing::Object_Kernel_t object = objects[(int)hitInfo.objHit];
+	switch(object.m_geometry_type)
+	{
+		case RayTracing::GeometryType_Kernel::PLANE:
+			normal = make_float3(0.0f,1.0f,0.0f);
+			break;
+		case RayTracing::GeometryType_Kernel::SPHERE:
+			float3 shadePointObj = make_float3(hitInfo.sphere.shadePoint_x, hitInfo.sphere.shadePoint_y, hitInfo.sphere.shadePoint_z);
+			normal = (1/hitInfo.hitDist) * shadePointObj;
+			break;
+		case RayTracing::GeometryType_Kernel::OCTAHEDRON:
+			break;
+		default:
+			break;
+	}
+
+	float3 mirrorRayDir = rayDir - 2 * dot(rayDir, normal) * normal;
+	
+	shadowRays[arrayPos6] = shadePoint.x;
+	shadowRays[arrayPos6 + 1] = shadePoint.y;
+	shadowRays[arrayPos6 + 2] = shadePoint.z;
+
+	shadowRays[arrayPos6 + 3] = mirrorRayDir.x;
+	shadowRays[arrayPos6 + 4] = mirrorRayDir.y;
+	shadowRays[arrayPos6 + 5] = mirrorRayDir.z;
+	
+}
+
 
 __device__ float3 shadeLambPhone(	
 	float3 lightRad, // Light radiance
@@ -478,6 +527,7 @@ extern "C" RayTracing::Ray_t* genShadowRaysWithCuda
 	(
 	const RayTracing::Ray_t *rays,
 	const RayTracing::HitInfo_t *hitinfos,
+	const RayTracing::Object_Kernel_t *objects,
 	const float *lightProp,
 	const int w, const int h
 	)
@@ -497,7 +547,7 @@ extern "C" RayTracing::Ray_t* genShadowRaysWithCuda
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);
 
-	genShadowRaysKernel <<<numBlocks, threadsPerBlock>>>(rays, hitinfos, lightProp, w, h, shadowRays);
+	genShadowRaysKernel <<<numBlocks, threadsPerBlock>>>(rays, hitinfos,objects, lightProp, w, h, shadowRays);
 
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
@@ -516,6 +566,49 @@ Error:
 
 }
 
+
+extern "C" RayTracing::Ray_t* genMirrorRaysWithCuda
+	(
+	const RayTracing::Ray_t *rays,
+	const RayTracing::HitInfo_t *hitinfos,
+	const RayTracing::Object_Kernel_t *objects,
+	const int w, const int h
+	)
+{
+		cudaError_t cudaStatus;
+
+	float* shadowRays = 0;
+
+	cudaStatus = cudaMalloc (( void **)& shadowRays , 2 * w * h * sizeof (float3));
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaMalloc failed!");
+		goto Error;
+	}
+	
+	dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);  // 64 threads 
+
+	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
+		h/threadsPerBlock.y);
+
+	genMirrorRaysKernel <<<numBlocks, threadsPerBlock>>>(rays, hitinfos, objects, w, h, shadowRays);
+
+
+	// cudaDeviceSynchronize waits for the kernel to finish, and returns
+	// any errors encountered during the launch.
+	cudaStatus = cudaDeviceSynchronize();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaDeviceSynchronize returned error code %d after launching genShadowRaysKernel!\n", cudaStatus);
+		goto Error;
+	}
+	return ( RayTracing::Ray_t*)shadowRays;
+
+Error:
+
+	printf("CUDA ERROR OCCURED\n");
+	return NULL;
+
+
+}
 
 extern "C" RayTracing::Ray_t* raysDTH(const RayTracing::Ray_t *rays, const int w, const int h)
 {

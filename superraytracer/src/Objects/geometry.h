@@ -48,7 +48,7 @@ namespace Object
 		virtual RayTracing::HitInfo_t* rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1, const int w, const int h, int objHitIndex) const = 0;
 		virtual float* hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const = 0;
 		virtual RayTracing::GeometryType_Kernel getGeometryType() const = 0;
-		virtual bool* shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, const int w, const int h) const = 0;
+		virtual bool* shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t *objects, const float* lightProp, const int w, const int h) const = 0;
 
 	};
 

@@ -178,7 +178,7 @@ namespace Object
 			return RayTracing::GeometryType_Kernel::OCTAHEDRON;
 		}
 
-		bool* Octahedron::shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, const int w, const int h) const
+		bool* Octahedron::shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t *objects, const float* lightProp, const int w, const int h) const
 		{
 			return NULL;
 		}

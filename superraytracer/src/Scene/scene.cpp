@@ -350,7 +350,7 @@ namespace Scene
 
 		float* devImage = shadeRaysDirectLightWithCuda(rays ,hitinfos,devObjKernel, lightProp, remainingRecursionDepth,w, h);
 
-		bool* isInShaodow = shadowRaysInParallel(rays, hitinfos, lightProp, w, h);
+		bool* isInShaodow = shadowRaysInParallel(rays, hitinfos,devObjKernel, lightProp, w, h);
 
 		float* devImageShadow = shadeRaysShadowLightWithCuda(isInShaodow,w,h,devImage);
 
@@ -362,10 +362,10 @@ namespace Scene
 
 	}
 
-	bool* Scene::shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, const int w, const int h) const
+	bool* Scene::shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const RayTracing::Object_Kernel_t *objects, const float* lightProp, const int w, const int h) const
 	{
 		
-		RayTracing::Ray_t *shadowRays = genShadowRaysWithCuda(rays,hitinfos,lightProp,w,h);
+		RayTracing::Ray_t *shadowRays = genShadowRaysWithCuda(rays,hitinfos,objects,lightProp,w,h);
 		
 		RayTracing::Ray_t* tempHostRay = raysDTH(shadowRays, w, h);
 		const bool **isInshadow_array = (const bool**)malloc(m_nObjects * sizeof(bool*));
@@ -373,7 +373,7 @@ namespace Scene
 		for(GLuint i = 0; i < m_nObjects; i++)
 		{
 
-			isInshadow_array[i] = m_scene[i]->shadowRaysInParallel(shadowRays,hitinfos,lightProp,w,h);
+			isInshadow_array[i] = m_scene[i]->shadowRaysInParallel(shadowRays,hitinfos,objects,lightProp,w,h);
 
 		}
 		
