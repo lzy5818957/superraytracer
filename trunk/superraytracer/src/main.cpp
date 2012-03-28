@@ -32,6 +32,7 @@
 
 int main(int argc, char *argv[])
 {
+
 	if ( !UI::init(640,480) || isGLError() )
 	{
 		fprintf(stderr, "ERROR: Could not initialize UI.\n");

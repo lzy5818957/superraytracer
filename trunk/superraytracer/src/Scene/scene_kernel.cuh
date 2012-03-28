@@ -33,7 +33,16 @@ extern "C" RayTracing::Ray_t* genShadowRaysWithCuda
 	(
 	const RayTracing::Ray_t *rays,
 	const RayTracing::HitInfo_t *hitinfos,
+	const RayTracing::Object_Kernel_t *objects,
 	const float *lightProp,
+	const int w, const int h
+	);
+
+extern "C" RayTracing::Ray_t* genMirrorRaysWithCuda
+	(
+	const RayTracing::Ray_t *rays,
+	const RayTracing::HitInfo_t *hitinfos,
+	const RayTracing::Object_Kernel_t *objects,
 	const int w, const int h
 	);
 

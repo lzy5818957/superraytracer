@@ -524,7 +524,7 @@ void Assignment3::idle()
 
 	double currTime = UI::getTime(); // current time
 
-	if (m_isRayTracing && m_cameraChanged)
+	if (m_isRayTracing)
 	{
 		RayTracing::Ray_t *rays;
 		RayTracing::HitInfo_t *hitinfos;

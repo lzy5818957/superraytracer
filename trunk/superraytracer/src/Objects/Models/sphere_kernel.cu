@@ -6,6 +6,14 @@
 
 #define BLOCK_SIZE 8
 
+__device__ void Mat4x4_Mul_Vec4_Sphere(const float *A, float *B, float *C)
+{
+	C[0] = A[0]*B[0]+A[4]*B[1]+A[8]*B[2]+A[12]*B[3]; 
+	C[1] = A[1]*B[0]+A[5]*B[1]+A[9]*B[2]+A[13]*B[3];
+	C[2] = A[2]*B[0]+A[6]*B[1]+A[10]*B[2]+A[14]*B[3];
+	C[3] = A[3]*B[0]+A[7]*B[1]+A[11]*B[2]+A[15]*B[3];
+}
+
 __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const float t1,const int w, const int h,RayTracing::HitInfo_t *hitInfos, int objHitIndex)
 {
 	float A,B,C;
@@ -60,7 +68,7 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 	}
 }
 
-__global__ void shadowRaysSphereKernel(const float *devRays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, const int w, const int h, bool* isInShadow)
+__global__ void shadowRaysSphereKernel(const float *devRays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t *objects, const float* lightProp, const int w, const int h, bool* isInShadow)
 {
 
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
@@ -69,7 +77,7 @@ __global__ void shadowRaysSphereKernel(const float *devRays, const RayTracing::H
 	int arrayPos6 = 6 * (c + w * r);
 
 
-	float3 lightPos = make_float3(lightProp[0], lightProp[1], lightProp[2]);
+	float lightPos[3] = {lightProp[0], lightProp[1], lightProp[2]};
 
 	float3 ray_o;
 	ray_o.x = devRays[arrayPos6];
@@ -88,8 +96,16 @@ __global__ void shadowRaysSphereKernel(const float *devRays, const RayTracing::H
 
 	float det = B*B - A*C;
 
+	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
+	int index = (int)hitInfo.objHit;
+
+	float lightPosObj[3];
+	RayTracing::Object_Kernel_t object = objects[index];
+	Mat4x4_Mul_Vec4_Sphere(object.m_worldToObject,lightPos,lightPosObj);
+	float3 lightPosObjFloat3 = make_float3(lightPosObj[0],lightPosObj[1],lightPosObj[2]);
+
 	float t0 = 0.0001f;
-	float t1 = 5.0f;
+	float t1 = length(lightPosObjFloat3 - make_float3(hitInfo.sphere.shadePoint_x, hitInfo.sphere.shadePoint_y, hitInfo.sphere.shadePoint_z));
 
 	if(det < 0.0)
 	{
@@ -239,7 +255,7 @@ Error:
 
 }
 
-extern "C" bool* shadowRaysWithCudaSphere(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, const int w, const int h)
+extern "C" bool* shadowRaysWithCudaSphere(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t *objects, const float* lightProp, const int w, const int h)
 {
 
 	float *devVert0 = 0;
@@ -266,7 +282,7 @@ extern "C" bool* shadowRaysWithCudaSphere(const RayTracing::Ray_t *rays, const R
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);  
 
-	shadowRaysSphereKernel <<<numBlocks, threadsPerBlock>>>((float*)rays, hitinfos, lightProp, w, h, devIsInShadow);
+	shadowRaysSphereKernel <<<numBlocks, threadsPerBlock>>>((float*)rays, hitinfos, objects, lightProp, w, h, devIsInShadow);
 
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns

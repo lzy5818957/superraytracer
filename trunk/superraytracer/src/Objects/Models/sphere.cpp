@@ -361,9 +361,9 @@ namespace Object
 			return RayTracing::GeometryType_Kernel::SPHERE;
 		}
 
-		bool* Sphere::shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, const int w, const int h) const
+		bool* Sphere::shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t *objects, const float* lightProp, const int w, const int h) const
 		{
-			return shadowRaysWithCudaSphere(rays, hitinfos, lightProp, w, h );
+			return shadowRaysWithCudaSphere(rays, hitinfos,objects, lightProp, w, h );
 		}
 
 	}

@@ -77,7 +77,7 @@ __global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const 
 }
 
 
-__global__ void shadowRaysPlaneKernel(const float *devRays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, float* vert0, const int w, const int h, bool* isInShadow)
+__global__ void shadowRaysPlaneKernel(const float *devRays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t *objects, const float* lightProp, float* vert0, const int w, const int h, bool* isInShadow)
 {
 
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
@@ -256,7 +256,7 @@ Error:
 	return NULL;
 }
 
-extern "C" bool* shadowRaysWithCudaPlane(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, float* hostVerts, const int w, const int h)
+extern "C" bool* shadowRaysWithCudaPlane(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t *objects, const float* lightProp, float* hostVerts, const int w, const int h)
 {
 
 	float *devVert0 = 0;
@@ -295,7 +295,7 @@ extern "C" bool* shadowRaysWithCudaPlane(const RayTracing::Ray_t *rays, const Ra
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);  
 
-	shadowRaysPlaneKernel <<<numBlocks, threadsPerBlock>>>((float*)rays, hitinfos, lightProp, devVert0, w, h, devIsInShadow);
+	shadowRaysPlaneKernel <<<numBlocks, threadsPerBlock>>>((float*)rays, hitinfos,objects, lightProp, devVert0, w, h, devIsInShadow);
 
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns

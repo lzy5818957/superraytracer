@@ -85,10 +85,10 @@ namespace Object
 		return m_geometry->getGeometryType();
 	}
 
-	bool* Object::shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, const int w, const int h) const
+	bool* Object::shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t *objects, const float* lightProp, const int w, const int h) const
 	{
 		RayTracing::Ray_t* raysInObj = (RayTracing::Ray_t*)transformRayToObjSpaceWithCuda((float*)rays, w, h, (float*)&m_worldToObject);
 
-		return m_geometry->shadowRaysInParallel(raysInObj, hitinfos, lightProp,w,h);
+		return m_geometry->shadowRaysInParallel(raysInObj, hitinfos,objects, lightProp,w,h);
 	}
 }

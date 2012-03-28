@@ -78,7 +78,7 @@ namespace Scene
 		virtual float* hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const;
 		virtual gml::vec3_t* Scene::shadeRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h);
 		virtual RayTracing::Object_Kernel_t* createObjForKernel() const;
-		virtual bool* shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const float* lightProp, const int w, const int h) const;
+		virtual bool* shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t *objects, const float* lightProp, const int w, const int h) const;
 	};
 
 }
