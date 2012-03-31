@@ -340,6 +340,7 @@ namespace Scene
 
 	}
 
+
 	gml::vec3_t* Scene::shadeRaysInParallel(const RayTracing::Ray_t *rays,const RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h)
 	{
 
@@ -348,18 +349,32 @@ namespace Scene
 		delete[] hostObjKernel;
 		float* lightProp = lightPropHTD((float*)&m_lightPos, (float*)&m_lightRad, w, h);
 
-		float* devImage = shadeRaysDirectLightWithCuda(rays ,hitinfos,devObjKernel, lightProp, remainingRecursionDepth,w, h);
+		float* directLightImage = shadeDirectLightInParallel(rays, hitinfos,devObjKernel,lightProp, remainingRecursionDepth,w,h);
 
-		bool* isInShaodow = shadowRaysInParallel(rays, hitinfos,devObjKernel, lightProp, w, h);
+		RayTracing::Ray_t *mirrorRays = genMirrorRaysWithCuda(rays,hitinfos,devObjKernel,w,h);
+		RayTracing::HitInfo_t *mirrorHitInfos = rayIntersectsInParallel(mirrorRays,0.0001, FLT_MAX,w, h, 0);
+		float* mirrorLightImage = shadeDirectLightInParallel(mirrorRays, mirrorHitInfos,devObjKernel,lightProp, remainingRecursionDepth,w,h);
+		float* directAndMirrorImage = shadeMirrorLightWithCuda(mirrorLightImage, hitinfos, devObjKernel, w, h, directLightImage);
+
+		void* toBeCleaned[6] = {(void*)rays, (void*)hitinfos, (void*)devObjKernel, (void*)lightProp, (void*)mirrorHitInfos, (void*)mirrorRays};
+
+		cleanUp(toBeCleaned,6);
+
+		return (gml::vec3_t*)rgbDTH(directAndMirrorImage,w,h);
+
+	}
+
+	float* Scene::shadeDirectLightInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t* objects, const float* lightProp, const int remainingRecursionDepth, const int w, const int h)
+	{
+
+
+		float* devImage = shadeRaysDirectLightWithCuda(rays ,hitinfos,objects, lightProp, remainingRecursionDepth,w, h);
+
+		bool* isInShaodow = shadowRaysInParallel(rays, hitinfos,objects, lightProp, w, h);
 
 		float* devImageShadow = shadeRaysShadowLightWithCuda(isInShaodow,w,h,devImage);
 
-		void* toBeCleaned[4] = {(void*)rays, (void*)hitinfos, (void*)devObjKernel, (void*)lightProp};
-
-		cleanUp(toBeCleaned,4);
-
-		return (gml::vec3_t*)rgbDTH(devImageShadow,w,h);
-
+		return devImageShadow;
 	}
 
 	bool* Scene::shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const RayTracing::Object_Kernel_t *objects, const float* lightProp, const int w, const int h) const
