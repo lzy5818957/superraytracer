@@ -136,12 +136,29 @@ __global__ void genMirrorRaysKernel(
 
 	
 	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
+
+	if(hitInfo.hitDist == FLT_MAX)
+	{
+		shadowRays[arrayPos6] = FLT_MAX;
+		return;
+	}
+
+	RayTracing::Object_Kernel_t object = objects[(int)hitInfo.objHit];
+
+	RayTracing::Material_Kernel_t mat = object.m_material;
+	RayTracing::ShaderType_Kernel shadeType = mat.m_shadeType;
+
+	if(shadeType != RayTracing::ShaderType_Kernel::MIRROR)
+	{
+		shadowRays[arrayPos6] = FLT_MAX;
+		return;
+	}
+
 	float3 rayOri = make_float3(rays[arrayPos1].o.x, rays[arrayPos1].o.y, rays[arrayPos1].o.z);
 	float3 rayDir = make_float3(rays[arrayPos1].d.x, rays[arrayPos1].d.y, rays[arrayPos1].d.z);
 	float3 shadePoint = rayOri + (hitInfo.hitDist * rayDir);
 	float3 normal;
 
-	RayTracing::Object_Kernel_t object = objects[(int)hitInfo.objHit];
 	switch(object.m_geometry_type)
 	{
 		case RayTracing::GeometryType_Kernel::PLANE:
@@ -157,7 +174,11 @@ __global__ void genMirrorRaysKernel(
 			break;
 	}
 
-	float3 mirrorRayDir = rayDir - 2 * dot(rayDir, normal) * normal;
+	float4 normalWorld;
+	Mat4x4_Mul_Vec4_Scene(object.m_objectToWorld_Normals, (float*)&make_float4(normal,1.0f), (float*)&normalWorld);
+	normal = normalize( make_float3( normalWorld ) );
+
+	float3 mirrorRayDir = rayDir - (2 * dot(rayDir, normal)) * normal;
 	
 	shadowRays[arrayPos6] = shadePoint.x;
 	shadowRays[arrayPos6 + 1] = shadePoint.y;
@@ -202,11 +223,6 @@ __global__ void shadeRaysDirectLightKernel(
 	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
 	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
 	int arrayPos1 = c + w * r;
-
-	if(c == 350 && r == 340)
-	{
-		int arrayPos1 = c + w * r;
-	}
 
 	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
 
@@ -272,7 +288,33 @@ __global__ void shadeRaysDirectLightKernel(
 
 	shades[arrayPos1] = color;
 }
+__global__ void shadeRaysMirrorLightKernel(	
+	float3* mirrorShades,
+	const RayTracing::HitInfo_t *hitinfos,
+	const RayTracing::Object_Kernel_t* objects,
+	const int w, const int h,
+	float3* shades)
+{
+	int c = (blockIdx.x * blockDim.x) + threadIdx.x;
+	int r = (blockIdx.y * blockDim.y) + threadIdx.y;
+	int arrayPos1 = c + w * r;
 
+	RayTracing::HitInfo_t hitInfo = hitinfos[arrayPos1];
+	if(hitInfo.hitDist == FLT_MAX)
+	{
+		return;
+	}
+	RayTracing::Object_Kernel_t object = objects[(int)hitInfo.objHit];
+
+	RayTracing::Material_Kernel_t mat = object.m_material;
+	RayTracing::ShaderType_Kernel shadeType = mat.m_shadeType;
+
+	if(shadeType == RayTracing::ShaderType_Kernel::MIRROR)
+	{
+		shades[arrayPos1] = mirrorShades[arrayPos1];
+	}
+
+}
 
 extern "C" float* rgbDTH(const float *devImg, const int w, const int h)
 {
@@ -528,6 +570,44 @@ Error:
 
 }
 
+extern "C" float* shadeMirrorLightWithCuda
+	(
+	float* mirrorColors,
+	const RayTracing::HitInfo_t *hitinfos,
+	const RayTracing::Object_Kernel_t* objects,
+	const int w, const int h,
+	float* colors
+	)
+{
+	cudaError_t cudaStatus;
+
+	
+	dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);  // 64 threads 
+
+	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
+		h/threadsPerBlock.y);
+
+	shadeRaysMirrorLightKernel <<<numBlocks, threadsPerBlock>>>( (float3*)mirrorColors,hitinfos, objects,w,h,(float3*)colors);
+
+
+	// cudaDeviceSynchronize waits for the kernel to finish, and returns
+	// any errors encountered during the launch.
+	cudaStatus = cudaDeviceSynchronize();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaDeviceSynchronize returned error code %d after launching shadeRaysKernel!\n", cudaStatus);
+		goto Error;
+	}
+	cudaFree((void*)mirrorColors);
+	mirrorColors = 0;
+
+	return colors;
+Error:
+
+	printf("CUDA ERROR OCCURED\n");
+	return NULL;
+
+}
+
 extern "C" RayTracing::Ray_t* genShadowRaysWithCuda
 	(
 	const RayTracing::Ray_t *rays,
@@ -582,9 +662,9 @@ extern "C" RayTracing::Ray_t* genMirrorRaysWithCuda
 {
 		cudaError_t cudaStatus;
 
-	float* shadowRays = 0;
+	float* mirrorRays = 0;
 
-	cudaStatus = cudaMalloc (( void **)& shadowRays , 2 * w * h * sizeof (float3));
+	cudaStatus = cudaMalloc (( void **)& mirrorRays , 2 * w * h * sizeof (float3));
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "cudaMalloc failed!");
 		goto Error;
@@ -595,7 +675,7 @@ extern "C" RayTracing::Ray_t* genMirrorRaysWithCuda
 	dim3 numBlocks(w/threadsPerBlock.x,  /* for instance 512/8 = 64*/ 
 		h/threadsPerBlock.y);
 
-	genMirrorRaysKernel <<<numBlocks, threadsPerBlock>>>(rays, hitinfos, objects, w, h, shadowRays);
+	genMirrorRaysKernel <<<numBlocks, threadsPerBlock>>>(rays, hitinfos, objects, w, h, mirrorRays);
 
 
 	// cudaDeviceSynchronize waits for the kernel to finish, and returns
@@ -605,7 +685,7 @@ extern "C" RayTracing::Ray_t* genMirrorRaysWithCuda
 		fprintf(stderr, "cudaDeviceSynchronize returned error code %d after launching genShadowRaysKernel!\n", cudaStatus);
 		goto Error;
 	}
-	return ( RayTracing::Ray_t*)shadowRays;
+	return ( RayTracing::Ray_t*)mirrorRays;
 
 Error:
 

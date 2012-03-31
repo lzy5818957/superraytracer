@@ -46,6 +46,15 @@ extern "C" RayTracing::Ray_t* genMirrorRaysWithCuda
 	const int w, const int h
 	);
 
+extern "C" float* shadeMirrorLightWithCuda
+	(
+	float* mirrorColors,
+	const RayTracing::HitInfo_t *hitinfos,
+	const RayTracing::Object_Kernel_t* objects,
+	const int w, const int h,
+	float* colors
+	);
+
 extern "C" void cleanUp(void** handles, int nHandles);
 
 #endif

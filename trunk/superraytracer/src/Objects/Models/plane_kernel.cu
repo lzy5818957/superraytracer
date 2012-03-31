@@ -37,6 +37,12 @@ __global__ void raysIntersectsPlaneKernel(float *devRays, const float t0, const 
 	int arrayPos1 = c + w * r;
 	int arrayPos6 = 6 * (c + w * r);
 
+	if(devRays[arrayPos6] == FLT_MAX)
+	{
+		hitInfos[arrayPos1].hitDist = FLT_MAX;
+		return;
+	}
+
 	float3 E1 = {0.0f, 0.0f, 2.0f};
 	float3 E2 = {2.0f, 0.0f, 0.0f};
 	float3 rayDir = {devRays[arrayPos6 + 3], devRays[arrayPos6 + 4], devRays[arrayPos6 + 5]};

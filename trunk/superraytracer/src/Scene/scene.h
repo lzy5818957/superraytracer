@@ -75,8 +75,10 @@ namespace Scene
 		gml::vec3_t shadeRay(const RayTracing::Ray_t &ray, RayTracing::HitInfo_t &hitinfo, const int remainingRecursionDepth) const;
 
 		virtual RayTracing::HitInfo_t* rayIntersectsInParallel(const RayTracing::Ray_t *rays, const float t0, const float t1,const int w, const int h, int objHitIndex) const;
+
 		virtual float* hitPropertiesInParallel(const RayTracing::HitInfo_t *hitinfos,  const int w, const int h) const;
-		virtual gml::vec3_t* Scene::shadeRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h);
+		virtual gml::vec3_t* shadeRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos, const int remainingRecursionDepth, const int w, const int h);
+		virtual float* shadeDirectLightInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t* objects, const float* lightProp, const int remainingRecursionDepth, const int w, const int h);
 		virtual RayTracing::Object_Kernel_t* createObjForKernel() const;
 		virtual bool* shadowRaysInParallel(const RayTracing::Ray_t *rays, const RayTracing::HitInfo_t *hitinfos,const RayTracing::Object_Kernel_t *objects, const float* lightProp, const int w, const int h) const;
 	};

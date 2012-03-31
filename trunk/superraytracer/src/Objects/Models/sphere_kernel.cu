@@ -22,6 +22,13 @@ __global__ void raysIntersectsSphereKernel(float *devRays, const float t0, const
 	int arrayPos1 = c + w * r;
 	int arrayPos6 = 6 * (c + w * r);
 	
+	
+	if(devRays[arrayPos6] == FLT_MAX)
+	{
+		hitInfos[arrayPos1].hitDist = FLT_MAX;
+		return;
+	}
+
 	float3 ray_o;
 	ray_o.x = devRays[arrayPos6];
 	ray_o.y = devRays[arrayPos6 +1];
