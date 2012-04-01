@@ -34,6 +34,13 @@ namespace Object
 	{
 	}
 
+	void Object::setTransform(const gml::mat4x4_t transform)
+	{
+		m_objectToWorld = transform;
+		m_worldToObject = gml::inverse(transform);
+		m_objectToWorld_Normals = gml::transpose(m_worldToObject);
+	}
+
 	bool Object::rayIntersects(const RayTracing::Ray_t &ray, const float t0, const float t1, RayTracing::HitInfo_t &hitinfo) const
 	{
 		// 1) Transform the ray into object space
