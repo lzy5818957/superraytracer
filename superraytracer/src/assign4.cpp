@@ -199,7 +199,24 @@ bool Assignment4::init()
 	//	gml::mul(gml::translate(gml::vec3_t(0.0,2.0,0.0)), gml::scaleh(1.5, 0.15, 2.5)) ) );
 
 
-	gml::mat4x4_t rotScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(0.5,0.5,0.5) );
+	gml::mat4x4_t rotScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(0.1,0.1,0.1) );
+	float mercury_r = 0.098;
+	float venus_r = 0.242;
+	float earth_r = 0.255;
+	float mars_r = 0.136;
+	float jupiter_r = 2.858;
+	float saturn_r = 2.410;
+	float uranus_r = 1.022;
+	float neptune_r = 0.99;
+
+	gml::mat4x4_t mercuryScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(mercury_r,mercury_r,mercury_r) );
+	gml::mat4x4_t venusScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(venus_r,venus_r,venus_r) );
+	gml::mat4x4_t earthScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(earth_r,earth_r,earth_r) );
+	gml::mat4x4_t marsScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(mars_r,mars_r,mars_r) );
+	gml::mat4x4_t jupiterScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(jupiter_r,jupiter_r,jupiter_r) );
+	gml::mat4x4_t saturnScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(saturn_r,saturn_r,saturn_r) );
+	gml::mat4x4_t uranusScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(uranus_r,uranus_r,uranus_r) );
+	gml::mat4x4_t neptuneScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(neptune_r,neptune_r,neptune_r) );
 	// Some other objects
 	mat.setSurfReflectance(green);
 
@@ -207,14 +224,36 @@ bool Assignment4::init()
 	/*m_scene.addObject(new Object::Object(m_geometry[OCTAHEDRON_LOC], mat,
 	gml::mul(gml::translate(gml::vec3_t(0.0,0.75,0.0)), rotScale)) );
 */
+	//Murcury
 	mat.setSpecExp(10.5f);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(1.0, 0, 0)), rotScale)) );
+		gml::mul(gml::translate(gml::vec3_t(1.0, 0, 0)), mercuryScale)) );
 
 	/*mat.setSpecExp(10.5f);*/
 	/*mat.setShaderType(Material::MIRROR);*/
+
+	//Venus
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(2.0,0.75,-2.0)), rotScale)) );
+		gml::mul(gml::translate(gml::vec3_t(2.0,0,0)), venusScale)) );
+	// Earth
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(3.0,0,0)), earthScale)) );
+	//Mars
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(4.0,0,0)), marsScale)) );
+
+	//Jupiter
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(5.0,0,0)), jupiterScale)) );
+	//Saturn
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(6.0,0,0)), saturnScale)) );
+	//Uranus
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(2.0,0,0)), uranusScale)) );
+	//Neptune
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(2.0,0,0)), neptuneScale)) );
 
 	// =============================================================================================
 
