@@ -23,6 +23,9 @@
 #include "assign1.h"
 #include "assign2.h"
 #include "assign3.h"
+#include "assign4.h"
+#include "assign5.h"
+
 
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
@@ -63,9 +66,11 @@ int main(int argc, char *argv[])
 				"1) Assignment 1\n"
 				"2) Assignment 2\n"
 				"3) Assignment 3\n"
+				"4) Assignment 4\n"
+				"5) Assignment 5\n"
 				"Which program do you want to run? ");
-		//scanf("%d", &choice);
-	} while (choice < 0 || choice > 3);
+		scanf("%d", &choice);
+	} while (choice < 0 || choice > 5);
 #endif
 	UI::Callbacks *program;
 
@@ -98,6 +103,8 @@ int main(int argc, char *argv[])
 	CASE_ASSIGNMENT_OBJ(1);
 	CASE_ASSIGNMENT_OBJ(2);
 	CASE_ASSIGNMENT_OBJ(3);
+	CASE_ASSIGNMENT_OBJ(4);
+	CASE_ASSIGNMENT_OBJ(5);
 	}
 	UI::setCallbacks(program);
 

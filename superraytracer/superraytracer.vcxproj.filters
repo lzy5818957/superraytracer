@@ -7,6 +7,7 @@
     <CudaCompile Include="src\Objects\Models\plane_kernel.cu" />
     <CudaCompile Include="src\Objects\Models\sphere_kernel.cu" />
     <CudaCompile Include="src\Scene\scene_kernel.cu" />
+    <CudaCompile Include="src\Objects\mesh_kernel.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera\camera.cpp" />
@@ -45,6 +46,8 @@
     <ClCompile Include="src\demo.cpp" />
     <ClCompile Include="src\glUtils.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\assign4.cpp" />
+    <ClCompile Include="src\assign5.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera\camera.h" />
@@ -89,6 +92,8 @@
     <ClInclude Include="src\assign3.h" />
     <ClInclude Include="src\demo.h" />
     <ClInclude Include="src\glUtils.h" />
+    <ClInclude Include="src\assign4.h" />
+    <ClInclude Include="src\assign5.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\gray_wall.png" />
@@ -98,5 +103,6 @@
     <None Include="src\Objects\Models\plane_kernel.cuh" />
     <None Include="src\Objects\Models\sphere_kernel.cuh" />
     <None Include="src\Scene\scene_kernel.cuh" />
+    <None Include="src\Objects\mesh_kernel.cuh" />
   </ItemGroup>
 </Project>
