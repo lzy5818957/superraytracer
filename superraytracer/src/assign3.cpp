@@ -164,20 +164,20 @@ bool Assignment3::init()
 	gml::vec3_t green(0.15, 0.48, 0.09);
 
 	mat.setSpecExp(-1.0f); // turn off specular
-	
+
 	mat.setSurfReflectance(beige);
 	// Ground plane
 	mat.setTexture(0);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(0.0,0.0,0.0)), gml::scaleh(5.0, 1.0, 5.0)) ) );
-	
+
 	// Box "top"
 
 	/*
 	mat.setTexture(0);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(0.5,5.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(5.0, 1.0, 5.0))) ) );
-		*/
+	gml::mul(gml::translate(gml::vec3_t(0.5,5.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(5.0, 1.0, 5.0))) ) );
+	*/
 
 	// "Box" walls
 	mat.setSurfReflectance(green);
@@ -202,15 +202,18 @@ bool Assignment3::init()
 	// Some other objects
 	mat.setSurfReflectance(beige);
 
-	Material::Material mirrorMat = mat;
-	mirrorMat.setShaderType(Material::MIRROR);
+	
 	/*
 	m_scene.addObject(new Object::Object(m_geometry[OCTAHEDRON_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(0.0,0.75,0.0)), rotScale)) );
-		*/
+	gml::mul(gml::translate(gml::vec3_t(0.0,0.75,0.0)), rotScale)) );
+	*/
+	mat.setSpecExp(10.5f);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(2.0,0.75,-2.0)), rotScale)) );
-	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mirrorMat,
+
+	mat.setSpecExp(0.0f);
+	mat.setShaderType(Material::MIRROR);
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(-2.0,0.75,-2.0)), rotScale)) );
 
 	// =============================================================================================
@@ -535,22 +538,19 @@ void Assignment3::idle()
 		m_isProcessingRayTracing = true;
 
 
-		
-		
+
+
 		for(int pass = 0; pass < MAX_RT_PASSES; pass++)
 		{
 
 			rays = m_camera.genViewRayInParallel(m_windowWidth,m_windowHeight);
 			hitinfos = m_scene.rayIntersectsInParallel(rays, 0.0001, 300.0, m_windowWidth, m_windowHeight, NULL);
-			
+
 			gml::vec3_t *tempClrs = m_scene.shadeRaysInParallel(rays,hitinfos,MAX_RAY_DEPTH,m_windowWidth,m_windowHeight);
-			
+
 			memcpy(m_rtImage, tempClrs, m_windowWidth * m_windowHeight * sizeof(gml::vec3_t));
 
 			delete[] tempClrs;
-
-			gml::mat3x3_t rotateMat = gml::rotateAxis(0.01f, gml::vec3_t(0.0,1.0,0.0));
-			m_scene.setLightPos(gml::mul(rotateMat,gml::extract3(m_scene.getLightPos())));
 
 			// Copy the new image data to the texture for blitting to the screen.
 			glBindTexture(GL_TEXTURE_2D, m_rtTex);
@@ -563,51 +563,55 @@ void Assignment3::idle()
 		}
 		m_isProcessingRayTracing = false;
 
-		if (m_cameraMovement) // Is a camera movement key pressed?
-		{
-			// time since the last time we updated the camera
-			double deltaT = currTime - m_lastCamMoveTime;
-			if (deltaT > 0)
-			{
-				// Time has elapsed since the last time idle() was called
-				// so, move the camera according to which key(s) are pressed.
-				if (m_cameraMovement & CAMERA_FORWARD)
-					m_camera.moveForward( m_movementSpeed * deltaT );
-				if (m_cameraMovement & CAMERA_BACKWARD)
-					m_camera.moveForward( -m_movementSpeed * deltaT );
 
-				if (m_cameraMovement & CAMERA_STRAFE_RIGHT)
-					m_camera.strafeRight( m_movementSpeed * deltaT );
-				if (m_cameraMovement & CAMERA_STRAFE_LEFT)
-					m_camera.strafeRight( -m_movementSpeed * deltaT );
-
-				if (m_cameraMovement & CAMERA_UP)
-					m_camera.moveUp( m_movementSpeed * deltaT);
-				if (m_cameraMovement & CAMERA_DOWN)
-					m_camera.moveUp( -m_movementSpeed * deltaT);
-
-				if (m_cameraMovement & CAMERA_ROTATE_UP)
-					m_camera.rotateUp( m_rotationSpeed * deltaT );
-				if (m_cameraMovement & CAMERA_ROTATE_DOWN)
-					m_camera.rotateUp( -m_rotationSpeed * deltaT );
-
-				if (m_cameraMovement & CAMERA_ROTATE_LEFT)
-					m_camera.rotateRight( m_rotationSpeed * deltaT );
-				if (m_cameraMovement & CAMERA_ROTATE_RIGHT)
-					m_camera.rotateRight( -m_rotationSpeed * deltaT );
-
-				if (m_cameraMovement & CAMERA_SPIN_LEFT)
-					m_camera.spinCamera( m_rotationSpeed * deltaT );
-				if (m_cameraMovement & CAMERA_SPIN_RIGHT)
-					m_camera.spinCamera( -m_rotationSpeed * deltaT );
-
-				m_cameraChanged = true;
-				m_lastCamMoveTime = currTime;
-			}
-
-
-		}
 	}
+
+	if (m_cameraMovement) // Is a camera movement key pressed?
+	{
+		// time since the last time we updated the camera
+		double deltaT = currTime - m_lastCamMoveTime;
+		if (deltaT > 0)
+		{
+			// Time has elapsed since the last time idle() was called
+			// so, move the camera according to which key(s) are pressed.
+			if (m_cameraMovement & CAMERA_FORWARD)
+				m_camera.moveForward( m_movementSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_BACKWARD)
+				m_camera.moveForward( -m_movementSpeed * deltaT );
+
+			if (m_cameraMovement & CAMERA_STRAFE_RIGHT)
+				m_camera.strafeRight( m_movementSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_STRAFE_LEFT)
+				m_camera.strafeRight( -m_movementSpeed * deltaT );
+
+			if (m_cameraMovement & CAMERA_UP)
+				m_camera.moveUp( m_movementSpeed * deltaT);
+			if (m_cameraMovement & CAMERA_DOWN)
+				m_camera.moveUp( -m_movementSpeed * deltaT);
+
+			if (m_cameraMovement & CAMERA_ROTATE_UP)
+				m_camera.rotateUp( m_rotationSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_ROTATE_DOWN)
+				m_camera.rotateUp( -m_rotationSpeed * deltaT );
+
+			if (m_cameraMovement & CAMERA_ROTATE_LEFT)
+				m_camera.rotateRight( m_rotationSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_ROTATE_RIGHT)
+				m_camera.rotateRight( -m_rotationSpeed * deltaT );
+
+			if (m_cameraMovement & CAMERA_SPIN_LEFT)
+				m_camera.spinCamera( m_rotationSpeed * deltaT );
+			if (m_cameraMovement & CAMERA_SPIN_RIGHT)
+				m_camera.spinCamera( -m_rotationSpeed * deltaT );
+
+			m_cameraChanged = true;
+			m_lastCamMoveTime = currTime;
+		}
+
+
+	}
+	gml::mat3x3_t rotateMat = gml::rotateAxis(0.01f, gml::vec3_t(0.0,1.0,0.0));
+	m_scene.setLightPos(gml::mul(rotateMat,gml::extract3(m_scene.getLightPos())));
 
 	m_lastIdleTime = currTime;
 }
