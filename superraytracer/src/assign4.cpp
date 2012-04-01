@@ -166,11 +166,11 @@ bool Assignment4::init()
 
 	mat.setSpecExp(-1.0f); // turn off specular
 
-	mat.setSurfReflectance(beige);
+	/*mat.setSurfReflectance(beige);*/
 	// Ground plane
-	mat.setTexture(0);
+	/*mat.setTexture(0);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(0.0,0.0,0.0)), gml::scaleh(5.0, 1.0, 5.0)) ) );
+		gml::mul(gml::translate(gml::vec3_t(0.0,0.0,0.0)), gml::scaleh(5.0, 1.0, 5.0)) ) );*/
 
 	// Box "top"
 
@@ -181,41 +181,40 @@ bool Assignment4::init()
 	*/
 
 	// "Box" walls
-	mat.setSurfReflectance(green);
-	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(5.0,2.5,0.0)), gml::mul(gml::rotateZh(pi2),gml::scaleh(2.5, 1.0, 5.0))) ) );
-	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(-5.0,2.5,0.0)), gml::mul(gml::rotateZh(-pi2),gml::scaleh(2.5, 1.0, 5.0))) ));
-	mat.setSurfReflectance(red);
-	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(0.0,2.5,5.0)), gml::mul(gml::rotateXh(-pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
-	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(0.0,2.5,-5.0)), gml::mul(gml::rotateXh(pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
+	//mat.setSurfReflectance(green);
+	//m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+	//	gml::mul(gml::translate(gml::vec3_t(5.0,2.5,0.0)), gml::mul(gml::rotateZh(pi2),gml::scaleh(2.5, 1.0, 5.0))) ) );
+	//m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+	//	gml::mul(gml::translate(gml::vec3_t(-5.0,2.5,0.0)), gml::mul(gml::rotateZh(-pi2),gml::scaleh(2.5, 1.0, 5.0))) ));
+	//mat.setSurfReflectance(red);
+	//m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+	//	gml::mul(gml::translate(gml::vec3_t(0.0,2.5,5.0)), gml::mul(gml::rotateXh(-pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
+	//m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+	//	gml::mul(gml::translate(gml::vec3_t(0.0,2.5,-5.0)), gml::mul(gml::rotateXh(pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
 
 
 	// Light blocker
-	mat.setSurfReflectance(beige);
-	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(0.0,2.0,0.0)), gml::scaleh(1.5, 0.15, 2.5)) ) );
+	//mat.setSurfReflectance(green);
+	//m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+	//	gml::mul(gml::translate(gml::vec3_t(0.0,2.0,0.0)), gml::scaleh(1.5, 0.15, 2.5)) ) );
 
 
 	gml::mat4x4_t rotScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(0.5,0.5,0.5) );
 	// Some other objects
-	mat.setSurfReflectance(beige);
+	mat.setSurfReflectance(green);
 
 	
-	/*
-	m_scene.addObject(new Object::Object(m_geometry[OCTAHEDRON_LOC], mat,
+	/*m_scene.addObject(new Object::Object(m_geometry[OCTAHEDRON_LOC], mat,
 	gml::mul(gml::translate(gml::vec3_t(0.0,0.75,0.0)), rotScale)) );
-	*/
+*/
 	mat.setSpecExp(10.5f);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(2.0,0.75,-2.0)), rotScale)) );
+		gml::mul(gml::translate(gml::vec3_t(1.0, 0, 0)), rotScale)) );
 
-	mat.setSpecExp(0.0f);
-	mat.setShaderType(Material::MIRROR);
+	/*mat.setSpecExp(10.5f);*/
+	/*mat.setShaderType(Material::MIRROR);*/
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(-2.0,0.75,-2.0)), rotScale)) );
+		gml::mul(gml::translate(gml::vec3_t(2.0,0.75,-2.0)), rotScale)) );
 
 	// =============================================================================================
 
