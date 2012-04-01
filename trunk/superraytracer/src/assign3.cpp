@@ -18,6 +18,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <cfloat>
+#include <ctime>
 
 #include "Objects/Models/sphere.h"
 #include "Objects/Models/octahedron.h"
@@ -538,7 +539,9 @@ void Assignment3::idle()
 		m_isProcessingRayTracing = true;
 
 
-
+		clock_t start, finish;
+		start = clock();
+ 
 
 		for(int pass = 0; pass < MAX_RT_PASSES; pass++)
 		{
@@ -561,6 +564,12 @@ void Assignment3::idle()
 			//fprintf(stdout, "Pass %d Complete\n", pass);
 
 		}
+
+		finish = clock();
+ 
+		double exeTime = ( (finish - start)/1000.0 );
+		printf("Took %lf to render a frame\n", exeTime);
+
 		m_isProcessingRayTracing = false;
 
 
