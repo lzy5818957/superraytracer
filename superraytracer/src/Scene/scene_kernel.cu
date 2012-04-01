@@ -287,11 +287,11 @@ __global__ void shadeRaysDirectLightKernel(
 		switch(object.m_geometry_type)
 		{
 		case RayTracing::GeometryType_Kernel::PLANE:
-			normal = make_float3(0.0f,1.0f,0.0f);
+			normal = normalize(make_float3(0.0f,1.0f,0.0f));
 			break;
 		case RayTracing::GeometryType_Kernel::SPHERE:
 			float3 shadePointObj = make_float3(hitInfo.sphere.shadePoint_x, hitInfo.sphere.shadePoint_y, hitInfo.sphere.shadePoint_z);
-			normal = (1/hitInfo.hitDist) * shadePointObj;
+			normal = normalize((1/hitInfo.hitDist) * shadePointObj);
 			break;
 		case RayTracing::GeometryType_Kernel::OCTAHEDRON:
 			break;
