@@ -211,6 +211,39 @@ __device__ float3 shadeLambPhone(
 
 }
 
+__device__ float3 shadeSpecPhone(	
+	float3 lightRad, // Light radiance
+	float3 lightDir, // Direction from point to light
+	float3 e, // View direction
+	float3 p, // Point being shaded (world-space)
+	float3 n,
+	float3 surfRefl,
+	float specExp,
+	float3 specRefl) // Normal of p (world-space)
+{
+	float3 lamb; // Lambertian term
+	float3 spec; // Specular term
+
+	float diff = dot(lightDir, n);
+	if (diff <= 0.0)
+	{
+		return make_float3(0.0f,0.0f,0.0f);
+	}
+
+	lamb = diff * (lightRad * surfRefl);
+
+	float3 r = normalize( (2.0f * dot(-lightDir,n)) * n + lightDir );
+	diff = dot(e, r);
+	if (diff > 0.0)
+	{
+		diff = powf(diff, specExp);
+		spec = diff * ( lightRad * specRefl );
+	}
+
+	return lamb + spec;
+
+}
+
 __global__ void shadeRaysDirectLightKernel(
 	const RayTracing::Ray_t *rays,
 	const RayTracing::HitInfo_t *hitinfos,
@@ -246,7 +279,7 @@ __global__ void shadeRaysDirectLightKernel(
 		float3 m_lightPos3 = make_float3(lightProp[0],lightProp[1],lightProp[2] );
 		float3 lightRad = make_float3(lightProp[3],lightProp[4],lightProp[5] );
 		float3 lightDir = normalize(m_lightPos3-shadePoint); 
-		float3 viewDir = (*(float3*)&rays[arrayPos1].d);
+		float3 viewDir = normalize((*(float3*)&rays[arrayPos1].d));
 		//shader data;
 		float3 normal;
 
@@ -273,12 +306,11 @@ __global__ void shadeRaysDirectLightKernel(
 		if(hasSpecular)
 		{
 			//get surface normal 
-			color = make_float3(1.0f,1.0f,1.0f);
+			color = shadeSpecPhone(lightRad,lightDir,viewDir,shadePoint,normal, *((float3*)&mat.m_surfRefl),mat.m_specExp, *((float3*)&mat.m_specRefl));
 		}
 		else
 		{
 			//shade use lamb phone
-			
 			color = shadeLambPhone(lightRad,lightDir,viewDir,shadePoint,normal, *((float3*)&mat.m_surfRefl));
 			
 		}
