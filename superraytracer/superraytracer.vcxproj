@@ -171,6 +171,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClCompile Include="src\assign3.cpp" />
     <ClCompile Include="src\assign4.cpp" />
     <ClCompile Include="src\assign5.cpp" />
+    <ClCompile Include="src\assign6.cpp" />
     <ClCompile Include="src\Camera\camera.cpp" />
     <ClCompile Include="src\demo.cpp" />
     <ClCompile Include="src\GL3\gl3w.c" />
@@ -211,6 +212,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="src\assign3.h" />
     <ClInclude Include="src\assign4.h" />
     <ClInclude Include="src\assign5.h" />
+    <ClInclude Include="src\assign6.h" />
     <ClInclude Include="src\Camera\camera.h" />
     <ClInclude Include="src\demo.h" />
     <ClInclude Include="src\GL3\gl3.h" />

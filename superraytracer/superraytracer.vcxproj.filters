@@ -48,6 +48,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\assign4.cpp" />
     <ClCompile Include="src\assign5.cpp" />
+    <ClCompile Include="src\assign6.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera\camera.h" />
@@ -94,6 +95,7 @@
     <ClInclude Include="src\glUtils.h" />
     <ClInclude Include="src\assign4.h" />
     <ClInclude Include="src\assign5.h" />
+    <ClInclude Include="src\assign6.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\gray_wall.png" />
