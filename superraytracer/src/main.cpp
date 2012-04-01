@@ -25,6 +25,7 @@
 #include "assign3.h"
 #include "assign4.h"
 #include "assign5.h"
+#include "assign6.h"
 
 
 #include "cuda_runtime.h"
@@ -106,6 +107,7 @@ int main(int argc, char *argv[])
 	CASE_ASSIGNMENT_OBJ(3);
 	CASE_ASSIGNMENT_OBJ(4);
 	CASE_ASSIGNMENT_OBJ(5);
+	CASE_ASSIGNMENT_OBJ(6);
 	}
 	UI::setCallbacks(program);
 
