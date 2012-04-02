@@ -86,6 +86,7 @@ public:
 	virtual void specialKeyboard(UI::KeySpecial_t key, UI::ButtonState_t state);
 	virtual void repaint();
 	virtual void idle();
+	virtual void updatePlanetPos();
 };
 
 
