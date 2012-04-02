@@ -41,6 +41,16 @@ inline mat4x4_t identity4()
 	return dst;
 }
 
+inline mat4x4_t makeHomo(mat3x3_t mat)
+{
+	mat4x4_t dst;
+	dst[0] = vec4_t(mat[0].x, mat[0].y, mat[0].z, 0.0f);
+	dst[1] = vec4_t(mat[1].x, mat[1].y, mat[1].z, 0.0f);
+	dst[2] = vec4_t(mat[2].x ,mat[2].y, mat[2].z, 0.0f);
+	dst[3] = vec4_t(0.0f     ,0.0f    , 0.0f    , 1.0f);
+	return dst; 
+}
+
 // 2d rotation
 inline mat2x2_t rotate(const float angle)
 {
