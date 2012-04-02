@@ -190,7 +190,7 @@ bool Assignment4::init()
 
 
 	gml::mat4x4_t rotScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(0.1,0.1,0.1) );
-	float scale = 0.5;
+	float scale = 0.3;
 
 	float mercury_r = 0.098 * scale;
 	float venus_r = 0.242 * scale;
