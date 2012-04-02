@@ -46,6 +46,7 @@ static const int CAMERA_SPIN_RIGHT = 0x800;
 
 static const int MAX_RT_PASSES = 1;
 static const int MAX_RAY_DEPTH = 2;
+static const float speedScale = 5;
 static const float speeds[8] = {0.01, 0.005, 0.003571, 0.002381, 0.000694, 0.000379, 0.000188, 0.000120};
 
 Assignment4::Assignment4()
@@ -154,8 +155,8 @@ bool Assignment4::init()
 	m_scene.setLightPos(gml::vec4_t(0.0, 0.0, 0.0 , 1.0));
 	m_scene.setLightRad(gml::vec3_t(1.0, 1.0, 1.0));
 
-	m_camera.lookAt(gml::vec3_t(0.0,2.0,3.0), gml::vec3_t(0.0,0.0,0.0) );
-	m_camera.setDepthClip(0.5f, 30.0f);
+	m_camera.lookAt(gml::vec3_t(0.0, 3.0, 0.0), gml::vec3_t(0.0,0.0,0.0) );
+	m_camera.setDepthClip(0.5f, 100.0f);
 
 	Material::Material mat;
 
@@ -176,24 +177,11 @@ bool Assignment4::init()
 	// Box "top"
 
 	/*
-	mat.setTexture(0);
-	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-	gml::mul(gml::translate(gml::vec3_t(0.5,5.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(5.0, 1.0, 5.0))) ) );
+	mat.settexture(0);
+	m_scene.addobject(new object::object(m_geometry[plane_loc], mat,
+	gml::mul(gml::translate(gml::vec3_t(0.5,5.0,0.0)), gml::mul(gml::rotatezh(2*pi2),gml::scaleh(5.0, 1.0, 5.0))) ) );
 	*/
-
-	// "Box" walls
-	//mat.setSurfReflectance(green);
-	//m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-	//	gml::mul(gml::translate(gml::vec3_t(5.0,2.5,0.0)), gml::mul(gml::rotateZh(pi2),gml::scaleh(2.5, 1.0, 5.0))) ) );
-	//m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-	//	gml::mul(gml::translate(gml::vec3_t(-5.0,2.5,0.0)), gml::mul(gml::rotateZh(-pi2),gml::scaleh(2.5, 1.0, 5.0))) ));
-	//mat.setSurfReflectance(red);
-	//m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-	//	gml::mul(gml::translate(gml::vec3_t(0.0,2.5,5.0)), gml::mul(gml::rotateXh(-pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
-	//m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-	//	gml::mul(gml::translate(gml::vec3_t(0.0,2.5,-5.0)), gml::mul(gml::rotateXh(pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
-
-
+		
 	// Light blocker
 	//mat.setSurfReflectance(green);
 	//m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
@@ -285,6 +273,29 @@ bool Assignment4::init()
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(2.0,0,0)), neptuneScale)) );
 
+
+	// Ground plane
+	mat.setTexture(0);
+	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(0.0,-8.0,0.0)), gml::scaleh(16.0, 1.0, 16.0)) ) );
+
+	// Box "top"
+	mat.setTexture(0);
+	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+	gml::mul(gml::translate(gml::vec3_t(0.0,8.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(16.0, 1.0, 16.0))) ) );
+	
+	// "Box" walls
+	mat.setSurfReflectance(green);
+	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(16.0, 0.0, 0.0)), gml::mul(gml::rotateZh(pi2),gml::scaleh(16.0, 1.0, 16.0))) ) );
+	
+	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(-16.0, 0.0, 0.0)), gml::mul(gml::rotateZh(-pi2),gml::scaleh(16.0, 1.0, 16.0))) ));
+	mat.setSurfReflectance(red);
+	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(0.0, 0.0, 16.0)), gml::mul(gml::rotateXh(-pi2),gml::scaleh(16.0, 1.0, 16.0))) ));
+	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(0.0, 0.0, -16.0)), gml::mul(gml::rotateXh(pi2),gml::scaleh(16.0, 1.0, 16.0))) ));
 	// =============================================================================================
 
 	if ( !m_shadowmap.init(m_shadowmapSize) )
@@ -701,7 +712,7 @@ void Assignment4::updatePlanetPos()
 	Object::Object **objects = m_scene.getObjects();
 	for ( int i = 0; i < 8; i++ )
 	{
-		objects[i]->setTransform( gml::mul( gml::makeHomo(gml::rotateY(speeds[i])), objects[i] -> getObjectToWorld()) );
+		objects[i]->setTransform( gml::mul( gml::makeHomo(gml::rotateY(speeds[i]*speedScale)), objects[i] -> getObjectToWorld()) );
 	}
 }
 
