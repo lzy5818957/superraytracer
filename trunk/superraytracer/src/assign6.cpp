@@ -73,6 +73,7 @@ Assignment6::Assignment6()
 	m_rtTex = 0;
 
 	m_cameraChanged = true;
+	flag = true;
 }
 
 Assignment6::~Assignment6()
@@ -181,7 +182,7 @@ bool Assignment6::init()
 	*/
 
 	// "Box" walls
-	mat.setSurfReflectance(green);
+/*	mat.setSurfReflectance(green);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(5.0,2.5,0.0)), gml::mul(gml::rotateZh(pi2),gml::scaleh(2.5, 1.0, 5.0))) ) );
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
@@ -198,25 +199,25 @@ bool Assignment6::init()
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(0.0,2.0,0.0)), gml::scaleh(1.5, 0.15, 2.5)) ) );
 
-
+*/
 	gml::mat4x4_t rotScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(0.5,0.5,0.5) );
 	// Some other objects
 	mat.setSurfReflectance(beige);
 
-	
-	/*
+/*
 	m_scene.addObject(new Object::Object(m_geometry[OCTAHEDRON_LOC], mat,
 	gml::mul(gml::translate(gml::vec3_t(0.0,0.75,0.0)), rotScale)) );
-	*/
+*/
 	mat.setSpecExp(10.5f);
+	mat.setSurfReflectance(red);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(2.0,0.75,-2.0)), rotScale)) );
 
-	mat.setSpecExp(0.0f);
+/*	mat.setSpecExp(0.0f);
 	mat.setShaderType(Material::MIRROR);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(-2.0,0.75,-2.0)), rotScale)) );
-
+*/
 	// =============================================================================================
 
 	if ( !m_shadowmap.init(m_shadowmapSize) )
@@ -621,7 +622,33 @@ void Assignment6::idle()
 	}
 	gml::mat3x3_t rotateMat = gml::rotateAxis(0.01f, gml::vec3_t(0.0,1.0,0.0));
 	m_scene.setLightPos(gml::mul(rotateMat,gml::extract3(m_scene.getLightPos())));
+	Object::Object **o = m_scene.getObjects();
+	gml::mat4x4_t b;
+	
+	gml::vec4_t t = gml::mul(o[1]->getObjectToWorld(),gml::vec4_t(0.0,0.0,0.0,1.0));
+	if(flag)
+	{
+		b = gml::mul(gml::translate(gml::vec3_t(0.0,0.01,0.0)),o[1]->getObjectToWorld());
+		if(t.y > 2.0)
+			flag = false;
+	}else
+	{
+		b = gml::mul(gml::translate(gml::vec3_t(0.0,-0.01,0.0)),o[1]->getObjectToWorld());
+		if(t.y < 0.5)
+			flag = true;
+	}
+
+	o[1]->setTransform(b);
 
 	m_lastIdleTime = currTime;
 }
 
+gml::mat4x4_t getObjectPosition(Object::Object *obj)
+{
+	gml::mat4x4_t dir;
+	gml::vec4_t pos;
+
+	pos= gml::mul(obj->getObjectToWorld(),gml::vec4_t(0.0,0.0,0.0,1.0));
+
+
+}

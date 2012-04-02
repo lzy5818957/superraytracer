@@ -53,7 +53,7 @@ namespace Scene
 		void setLightRad(const gml::vec3_t lr) { m_lightRad = lr; }
 		void setAmbient(const gml::vec3_t am) { m_ambientRad = am; }
 		gml::vec4_t& getLightPos() { return m_lightPos; }
-
+		Object::Object** getObjects() { return m_scene;}
 		// -----------------------------------------
 		// Rasterization
 		// -----------------------------------------
