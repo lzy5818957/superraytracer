@@ -29,6 +29,7 @@ namespace Object
 		m_objectToWorld = objectToWorld;
 		m_worldToObject = gml::inverse(objectToWorld);
 		m_objectToWorld_Normals = gml::transpose(m_worldToObject);
+		bounceStatus = true;
 	}
 	Object::~Object()
 	{

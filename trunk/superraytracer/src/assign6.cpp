@@ -74,8 +74,6 @@ Assignment6::Assignment6()
 
 	m_cameraChanged = true;
 
-	flag = true;
-
 	srand(time(NULL));
 }
 
@@ -116,20 +114,13 @@ bool Assignment6::init()
 		fprintf(stderr, "Could not initialize scene object\n");
 		return false;
 	}
-	/*
-	m_texture = new Texture::Texture("gray_wall.png");
-	if ( !m_texture->getIsReady() )
-	{
-	fprintf(stderr, "ERROR! Texture not ready\n");
-	return false;
-	}
-	*/
+
 	// Create the geometry.
 	const int SPHERE_LOC = 0;
 	const int OCTAHEDRON_LOC = 1;
 	const int PLANE_LOC = 2;
 
-	m_nGeometry = 3;
+	m_nGeometry = 11;
 	m_geometry = new Object::Geometry*[m_nGeometry];
 	memset(m_geometry, 0x00, sizeof(Object::Geometry*)*m_nGeometry);
 
@@ -176,33 +167,7 @@ bool Assignment6::init()
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(0.0,0.0,0.0)), gml::scaleh(5.0, 1.0, 5.0)) ) );
 
-	// Box "top"
 
-	/*
-	mat.setTexture(0);
-	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-	gml::mul(gml::translate(gml::vec3_t(0.5,5.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(5.0, 1.0, 5.0))) ) );
-	*/
-
-	// "Box" walls
-/*	mat.setSurfReflectance(green);
-	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(5.0,2.5,0.0)), gml::mul(gml::rotateZh(pi2),gml::scaleh(2.5, 1.0, 5.0))) ) );
-	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(-5.0,2.5,0.0)), gml::mul(gml::rotateZh(-pi2),gml::scaleh(2.5, 1.0, 5.0))) ));
-	mat.setSurfReflectance(red);
-	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(0.0,2.5,5.0)), gml::mul(gml::rotateXh(-pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
-	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(0.0,2.5,-5.0)), gml::mul(gml::rotateXh(pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
-
-
-	// Light blocker
-	mat.setSurfReflectance(beige);
-	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(0.0,2.0,0.0)), gml::scaleh(1.5, 0.15, 2.5)) ) );
-
-*/
 	gml::mat4x4_t rotScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(0.5,0.5,0.5) );
 	// Some other objects
 	mat.setSurfReflectance(beige);
@@ -211,12 +176,60 @@ bool Assignment6::init()
 	m_scene.addObject(new Object::Object(m_geometry[OCTAHEDRON_LOC], mat,
 	gml::mul(gml::translate(gml::vec3_t(0.0,0.75,0.0)), rotScale)) );
 */
-	mat.setSpecExp(10.5f);
+	// "Box" walls
+	mat.setSurfReflectance(green);
+	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(5.0,2.5,0.0)), gml::mul(gml::rotateZh(pi2),gml::scaleh(2.5, 1.0, 5.0))) ) );
+	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(-5.0,2.5,0.0)), gml::mul(gml::rotateZh(-pi2),gml::scaleh(2.5, 1.0, 5.0))) ));
 	mat.setSurfReflectance(red);
+//	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+//		gml::mul(gml::translate(gml::vec3_t(0.0,2.5,5.0)), gml::mul(gml::rotateXh(-pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
+	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(0.0,2.5,-5.0)), gml::mul(gml::rotateXh(pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
+	
+
+	mat.setSpecExp(10.5f);
+	mat.setSurfReflectance(gml::vec3_t(0.2,1.0,0.0));
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(0.0,0.75,-2.0)), rotScale)) );
+
+	mat.setSpecExp(10.5f);
+	mat.setSurfReflectance(gml::vec3_t(0.8,1.0,0.0));
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(2.0,0.75,-2.0)), rotScale)) );
+	mat.setSpecExp(10.5f);
 
-/*	mat.setSpecExp(0.0f);
+	mat.setSurfReflectance(gml::vec3_t(1.0,0.0,1.0));
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(3.0,0.75,-2.0)), rotScale)) );
+	mat.setSpecExp(10.5f);
+
+	mat.setSurfReflectance(gml::vec3_t(1.0,0.0,0.2));
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(-1.0,0.75,-2.0)), rotScale)) );
+	mat.setSpecExp(10.5f);
+
+	mat.setSurfReflectance(gml::vec3_t(0.4,1.0,1.0));
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(4.0,0.75,-2.0)), rotScale)) );
+
+	mat.setSpecExp(10.5f);
+	mat.setSurfReflectance(gml::vec3_t(1.0,0.0,0.0));
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(-2.0,0.75,-2.0)), rotScale)) );
+
+	mat.setSpecExp(0.0f);
+	mat.setShaderType(Material::MIRROR);
+	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(1.0,0.75,-2.0)), rotScale)) );
+
+	mat.setSurfReflectance(beige);
+/*	// Ground plane
+	mat.setTexture(0);
+	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
+		gml::mul(gml::translate(gml::vec3_t(0.0,0.0,0.0)), gml::scaleh(5.0, 1.0, 5.0)) ) );
+	mat.setSpecExp(0.0f);
 	mat.setShaderType(Material::MIRROR);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(-2.0,0.75,-2.0)), rotScale)) );
@@ -641,7 +654,12 @@ void Assignment6::idle()
 	}
 	o[1]->setTransform(b);
 */
-	o[1]->setTransform(getObjectPosition(o[1]));
+
+	for(int i=4; i<m_nGeometry;i++)
+	{
+		o[i]->setTransform(getObjectPosition(o[i]));
+	}
+	
 	m_lastIdleTime = currTime;
 }
 
@@ -650,21 +668,21 @@ gml::mat4x4_t Assignment6::getObjectPosition(Object::Object *obj)
 	gml::mat4x4_t dir;
 	gml::vec4_t pos;
 
-	float speed = rand()%10;
+	float speed = rand()%20;
 	speed = speed * 0.001;
-	//float max = rand()%3;
+
 
 	pos= gml::mul(obj->getObjectToWorld(),gml::vec4_t(0.0,0.0,0.0,1.0));
-	if(flag)
+	if(obj->getBounceStatus())
 	{
 		dir = gml::mul(gml::translate(gml::vec3_t(0.0,speed,0.0)),obj->getObjectToWorld());
 		if(pos.y > 2.0)
-			flag = false;
+			obj->setBounceStatus(false);
 	}else
 	{
 		dir = gml::mul(gml::translate(gml::vec3_t(0.0,-speed,0.0)),obj->getObjectToWorld());
 		if(pos.y < 0.4)
-			flag = true;
+			obj->setBounceStatus(true);
 	}
 	return dir;
 }

@@ -71,7 +71,6 @@ protected:
 	GLuint m_rtFBO; // Framebuffer object for ray tracing
 	GLuint m_rtTex; // Texturebuffer object to copy ray traced image data to for display.
 	bool m_cameraChanged;
-	bool flag;
 	void toggleCameraMoveDirection(bool enable, int direction);
 
 	// Rasterize the scene with full color shaders
