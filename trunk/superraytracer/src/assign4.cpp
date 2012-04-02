@@ -46,6 +46,7 @@ static const int CAMERA_SPIN_RIGHT = 0x800;
 
 static const int MAX_RT_PASSES = 1;
 static const int MAX_RAY_DEPTH = 2;
+static const float speeds[8] = {0.01, 0.005, 0.003571, 0.002381, 0.000694, 0.000379, 0.000188, 0.000120};
 
 Assignment4::Assignment4()
 {
@@ -200,7 +201,7 @@ bool Assignment4::init()
 
 
 	gml::mat4x4_t rotScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(0.1,0.1,0.1) );
-	float scale = 0.3;
+	float scale = 0.5;
 
 	float mercury_r = 0.098 * scale;
 	float venus_r = 0.242 * scale;
@@ -690,6 +691,7 @@ void Assignment4::idle()
 
 	/*gml::mat3x3_t rotateMat = gml::rotateAxis(0.01f, gml::vec3_t(0.0,1.0,0.0));
 	m_scene.setLightPos(gml::mul(rotateMat,gml::extract3(m_scene.getLightPos())));*/
+	updatePlanetPos();
 
 	m_lastIdleTime = currTime;
 }
@@ -697,6 +699,9 @@ void Assignment4::idle()
 void Assignment4::updatePlanetPos()
 {
 	Object::Object **objects = m_scene.getObjects();
-	objects[0]->setTransform( gml::mul( gml::rotateY(0.5), objects[0] -> getObjectToWorld()) );
+	for ( int i = 0; i < 8; i++ )
+	{
+		objects[i]->setTransform( gml::mul( gml::makeHomo(gml::rotateY(speeds[i])), objects[i] -> getObjectToWorld()) );
+	}
 }
 
