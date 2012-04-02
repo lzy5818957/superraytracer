@@ -155,7 +155,8 @@ bool Assignment4::init()
 	m_scene.setLightPos(gml::vec4_t(0.0, 0.0, 0.0 , 1.0));
 	m_scene.setLightRad(gml::vec3_t(1.0, 1.0, 1.0));
 
-	m_camera.lookAt(gml::vec3_t(0.0, 3.0, 0.0), gml::vec3_t(0.0,0.0,0.0) );
+	/*m_camera.lookat(gml::vec3_t(0.0, 3.0, 0.0), gml::vec3_t(0.0,0.0,0.0) );*/
+	m_camera.lookAt(gml::vec3_t(0.0, 16.0, 0.1), gml::vec3_t(0.0,0.0,0.0) );
 	m_camera.setDepthClip(0.5f, 100.0f);
 
 	Material::Material mat;
@@ -279,10 +280,12 @@ bool Assignment4::init()
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(0.0,-8.0,0.0)), gml::scaleh(16.0, 1.0, 16.0)) ) );
 
+	mat.setSpecReflectance(gml::vec3_t(0.3, 0.3, 0.3));
+	mat.setSpecExp(80.0f);
 	// Box "top"
-	mat.setTexture(0);
+	/*mat.setTexture(0);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
-	gml::mul(gml::translate(gml::vec3_t(0.0,8.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(16.0, 1.0, 16.0))) ) );
+	gml::mul(gml::translate(gml::vec3_t(0.0,8.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(16.0, 1.0, 16.0))) ) );*/
 	
 	// "Box" walls
 	mat.setSurfReflectance(green);
