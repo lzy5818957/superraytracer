@@ -150,7 +150,7 @@ bool Assignment5::init()
 	const float pi2 = (90.0f * M_PI) / 180.0f;
 
 	m_scene.setAmbient(gml::vec3_t(0.0, 0.0, 0.0));
-	m_scene.setLightPos(gml::vec4_t(4.5f, 4.5, 0.0 , 1.0));
+	m_scene.setLightPos(gml::vec4_t(4.5f, 1.5, 0.0 , 1.0));
 	m_scene.setLightRad(gml::vec3_t(1.0, 1.0, 1.0));
 
 	m_camera.lookAt(gml::vec3_t(0.0,2.0,3.0), gml::vec3_t(0.0,0.0,0.0) );
@@ -179,11 +179,13 @@ bool Assignment5::init()
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 	gml::mul(gml::translate(gml::vec3_t(0.5,5.0,0.0)), gml::mul(gml::rotateZh(2*pi2),gml::scaleh(5.0, 1.0, 5.0))) ) );
 	*/
-
+	
 	// "Box" walls
+	/*
 	mat.setSurfReflectance(green);
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(5.0,2.5,0.0)), gml::mul(gml::rotateZh(pi2),gml::scaleh(2.5, 1.0, 5.0))) ) );
+	
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(-5.0,2.5,0.0)), gml::mul(gml::rotateZh(-pi2),gml::scaleh(2.5, 1.0, 5.0))) ));
 	mat.setSurfReflectance(red);
@@ -191,12 +193,10 @@ bool Assignment5::init()
 		gml::mul(gml::translate(gml::vec3_t(0.0,2.5,5.0)), gml::mul(gml::rotateXh(-pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
 	m_scene.addObject(new Object::Object(m_geometry[PLANE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(0.0,2.5,-5.0)), gml::mul(gml::rotateXh(pi2),gml::scaleh(5.0, 1.0, 2.5))) ));
-
+		*/
 
 	// Light blocker
 	mat.setSurfReflectance(beige);
-	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
-		gml::mul(gml::translate(gml::vec3_t(0.0,2.0,0.0)), gml::scaleh(1.5, 0.15, 2.5)) ) );
 
 
 	gml::mat4x4_t rotScale = gml::mul( gml::rotateYh((25.0f * M_PI)/180.0), gml::scaleh(0.5,0.5,0.5) );
@@ -208,6 +208,7 @@ bool Assignment5::init()
 	m_scene.addObject(new Object::Object(m_geometry[OCTAHEDRON_LOC], mat,
 	gml::mul(gml::translate(gml::vec3_t(0.0,0.75,0.0)), rotScale)) );
 	*/
+	/*
 	mat.setSpecExp(10.5f);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(2.0,0.75,-2.0)), rotScale)) );
@@ -216,7 +217,7 @@ bool Assignment5::init()
 	mat.setShaderType(Material::MIRROR);
 	m_scene.addObject(new Object::Object(m_geometry[SPHERE_LOC], mat,
 		gml::mul(gml::translate(gml::vec3_t(-2.0,0.75,-2.0)), rotScale)) );
-
+		*/
 	// =============================================================================================
 
 	if ( !m_shadowmap.init(m_shadowmapSize) )
@@ -619,8 +620,7 @@ void Assignment5::idle()
 
 
 	}
-	gml::mat3x3_t rotateMat = gml::rotateAxis(0.01f, gml::vec3_t(0.0,1.0,0.0));
-	m_scene.setLightPos(gml::mul(rotateMat,gml::extract3(m_scene.getLightPos())));
+
 
 	m_lastIdleTime = currTime;
 }
