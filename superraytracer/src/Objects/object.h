@@ -51,6 +51,7 @@ namespace Object
 		gml::mat4x4_t m_objectToWorld;
 		gml::mat4x4_t m_objectToWorld_Normals; // Transforming normals
 		gml::mat4x4_t m_worldToObject;
+		bool bounceStatus;
 	public:
 		Object(const Geometry *geom, const Material::Material &mat,
 			const gml::mat4x4_t &objectToWorld);
@@ -61,6 +62,8 @@ namespace Object
 		gml::mat4x4_t getObjectToWorld_Normals() const { return m_objectToWorld_Normals; }
 		gml::mat4x4_t getWorldToObject() const { return m_worldToObject; }
 		Material::Material getMaterial() const { return m_material; }
+		bool getBounceStatus() const { return bounceStatus;}
+		void setBounceStatus(bool b)  { bounceStatus = b;}
 
 		void setMaterial(const Material::Material &mat) { m_material = mat; }
 
