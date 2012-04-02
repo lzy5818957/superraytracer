@@ -73,7 +73,10 @@ Assignment6::Assignment6()
 	m_rtTex = 0;
 
 	m_cameraChanged = true;
+
 	flag = true;
+
+	srand(time(NULL));
 }
 
 Assignment6::~Assignment6()
@@ -623,8 +626,7 @@ void Assignment6::idle()
 	gml::mat3x3_t rotateMat = gml::rotateAxis(0.01f, gml::vec3_t(0.0,1.0,0.0));
 	m_scene.setLightPos(gml::mul(rotateMat,gml::extract3(m_scene.getLightPos())));
 	Object::Object **o = m_scene.getObjects();
-	gml::mat4x4_t b;
-	
+/*	gml::mat4x4_t b;	
 	gml::vec4_t t = gml::mul(o[1]->getObjectToWorld(),gml::vec4_t(0.0,0.0,0.0,1.0));
 	if(flag)
 	{
@@ -637,18 +639,32 @@ void Assignment6::idle()
 		if(t.y < 0.5)
 			flag = true;
 	}
-
 	o[1]->setTransform(b);
-
+*/
+	o[1]->setTransform(getObjectPosition(o[1]));
 	m_lastIdleTime = currTime;
 }
 
-gml::mat4x4_t getObjectPosition(Object::Object *obj)
+gml::mat4x4_t Assignment6::getObjectPosition(Object::Object *obj)
 {
 	gml::mat4x4_t dir;
 	gml::vec4_t pos;
 
+	float speed = rand()%10;
+	speed = speed * 0.001;
+	//float max = rand()%3;
+
 	pos= gml::mul(obj->getObjectToWorld(),gml::vec4_t(0.0,0.0,0.0,1.0));
-
-
+	if(flag)
+	{
+		dir = gml::mul(gml::translate(gml::vec3_t(0.0,speed,0.0)),obj->getObjectToWorld());
+		if(pos.y > 2.0)
+			flag = false;
+	}else
+	{
+		dir = gml::mul(gml::translate(gml::vec3_t(0.0,-speed,0.0)),obj->getObjectToWorld());
+		if(pos.y < 0.4)
+			flag = true;
+	}
+	return dir;
 }
